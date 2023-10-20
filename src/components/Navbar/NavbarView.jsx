@@ -4,7 +4,7 @@ import NavbarOptionsList from "./NavbarOptionsList";
 
 const NavbarView = ({ isExpanded, setIsExpanded, options }) => {
   return (
-    <nav className="bg-white fixed w-full z-20 top-0 left-0 border-b">
+    <nav className="bg-white fixed w-full z-20 top-0 left-0 mb-10">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <button
           data-collapse-toggle="navbar-sticky"
