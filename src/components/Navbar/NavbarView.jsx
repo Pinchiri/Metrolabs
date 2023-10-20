@@ -4,12 +4,12 @@ import NavbarOptionsList from "./NavbarOptionsList";
 
 const NavbarView = ({ isExpanded, setIsExpanded, options }) => {
   return (
-    <nav className="bg-white fixed w-full z-20 top-0 left-0 mb-10">
+    <nav className="bg-white fixed w-full z-20 top-0 left-0">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <button
           data-collapse-toggle="navbar-sticky"
           type="button"
-          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-masala rounded-lg md:hidden hover:bg-manz-200 focus:outline-none focus:ring-2 focus:ring-manz-200"
+          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-masala rounded-lg lg:hidden hover:bg-manz-200 focus:outline-none focus:ring-2 focus:ring-manz-200"
           aria-controls="navbar-sticky"
           onClick={() => setIsExpanded(!isExpanded)}
         >
@@ -38,11 +38,11 @@ const NavbarView = ({ isExpanded, setIsExpanded, options }) => {
         >
           <img
             src={metrolabsLogo.src}
-            className="hover:bg-manz-200 rounded-full transition-all px-6 py-1"
+            className="hover:bg-manz-200 rounded-full transition-all px-6 py-1 lg:ml-20"
             alt="Metrolabs Logo"
           />
         </a>
-        <div className="flex md:order-2 h-1/3 w-10 cursor-pointer hover:scale-110 transition-all">
+        <div className="flex lg:order-2 h-1/3 w-10 cursor-pointer hover:scale-110 transition-all">
           <AccountCircleIcon
             size="full"
             color="#434040"
@@ -52,7 +52,7 @@ const NavbarView = ({ isExpanded, setIsExpanded, options }) => {
         <div
           className={` ${
             isExpanded ? "" : "hidden"
-          } w-full md:flex md:w-3/4 md:justify-center md:order-1 md:-ml-10`}
+          } w-full lg:flex lg:w-3/4 lg:justify-center lg:order-1 lg:-ml-10`}
           id="navbar-sticky"
         >
           <NavbarOptionsList options={options} />
