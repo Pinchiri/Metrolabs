@@ -1,6 +1,6 @@
 import React from "react";
-import guyAsset from "../assets/guy-asset.png";
-import LinkToPage from "./LinkToPage";
+import guyAsset from "../../assets/guy-asset.png";
+import LinkToPage from "../LinkToPage";
 
 const GeneralInfoLanding = () => {
   return (

@@ -1,6 +1,7 @@
-import AvailableSchedulesLanding from "./AvailableSchedulesLanding";
+import AvailableSchedulesLanding from "./LandingPage/AvailableSchedulesLanding";
 
-import GeneralInfoLanding from "./GeneralInfoLanding";
+import GeneralInfoLanding from "./LandingPage/GeneralInfoLanding";
+import QuoteInfoLanding from "./LandingPage/QuoteInfoLanding";
 
 export default function Home() {
   return (
@@ -12,11 +13,7 @@ export default function Home() {
         </p>
       </div>
       <GeneralInfoLanding />
-      <div className="w-full flex flex-col mt-10 mb-10">
-        <p className="text-stratos text-3xl font-b612 font-bold">
-          Te invitamos a seguir creciendo en nuestros laboratorios
-        </p>
-      </div>
+      <QuoteInfoLanding />
     </main>
   );
 }

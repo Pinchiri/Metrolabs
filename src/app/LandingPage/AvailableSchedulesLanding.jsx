@@ -1,7 +1,7 @@
 import React from "react";
-import girlAsset from "../assets/girl-asset.png";
-import calendarImage from "../assets/calendar-image.png";
-import LinkToPage from "./LinkToPage";
+import girlAsset from "../../assets/girl-asset.png";
+import calendarImage from "../../assets/calendar-image.png";
+import LinkToPage from "../LinkToPage";
 
 const AvailableSchedulesLanding = () => {
   return (
