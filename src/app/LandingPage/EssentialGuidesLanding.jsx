@@ -1,4 +1,5 @@
 import React from "react";
+import LinkToPage from "../LinkToPage";
 
 const EssentialGuidesLanding = () => {
   return (
