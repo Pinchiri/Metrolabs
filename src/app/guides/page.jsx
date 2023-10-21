@@ -2,48 +2,43 @@
 
 import GuideCard from "@/components/guideCard/guideCard";
 import { useState, useEffect } from 'react';
+import { db } from "../../../firebase";
+import { getDocs, collection } from "firebase/firestore";
 
 
-const Guides = () => {
-    const [files, setFiles] = useState([]);
+const Manuals = () => {
+    const [manuals, setManuals] = useState([]);
 
     useEffect(() => {
-      const fetchFiles = async () => {
+      const fetchCategories = async () => {
         try {
-          const response = await fetch('/api/page');
-          const data = await response.json();
-
-          console.log(data)
-
-          setFiles(data);
+          const manualsCollection = collection(db, "manuals");
+          const manualsSnapshot = await getDocs(manualsCollection);
+          const manualsData = manualsSnapshot.docs.map((doc) => doc.data());
+          setManuals(manualsData);
         } catch (error) {
-          console.error("Error fetching the files:", error);
+          console.log("Error fetching categories: ", error);
         }
       };
-  
-      fetchFiles();
-    }, []);  
+      fetchCategories();
+    }, []);
+
+    console.log(manuals);
 
     return(
         <>
         <div className="h-screen">
-           <GuideCard title = "Átomos y Elementos" subtitle={"Subhead"}/>
-           <GuideCard title = "Átomos y Elementos" subtitle={"Subhead"}/>
-
-           <GuideCard title = "Átomos y Elementos" subtitle={"Subhead"}/>
-
-           <GuideCard title = "Átomos y Elementos" subtitle={"Subhead"}/>
-
-           <GuideCard title = "Átomos y Elementos" subtitle={"Subhead"}/>
-
-           <GuideCard title = "Átomos y Elementos" subtitle={"Subhead"}/>
-
-           <GuideCard title = "Átomos y Elementos" subtitle={"Subhead"}/>
-
-
+            {manuals.map((manual, index) => (
+              <GuideCard 
+                  key={index} 
+                  title={manual.title || "Átomos y Elementos"} 
+                  subtitle={manual.subtitle || "Subhead"} 
+                  pdfUrl={manual.url} 
+              />
+           ))}
         </div>
         </>
     )
 }
 
-export default Guides;
+export default Manuals;
