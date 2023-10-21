@@ -28,34 +28,53 @@ const GuideCard = ({ title, subtitle, image, pdfUrl }) => {
         }
     };
 
+    const togglePDF = () => {
+        setShowPDF(prevState => !prevState);
+    };
+
+
     return (
         <>
         <div 
-            className="bg-manz-200 p-4 shadow-md w-9/12 rounded-xl grid  grid-cols-3 gap-4"
+            className="bg-manz-200 p-4 shadow-md w-11/12 rounded-xl grid  grid-cols-3 gap-4"
             style={{ gridTemplateColumns: '50px 1fr 60px' }}
         >
            <div className='flex items-center'>
-                <ScienceIcon />
+                <ScienceIcon            style={{height: "35px", width: "35px"}} />
            </div>
            
-            <div>
-                <p className="font-black"> 
+            <div className='text-lg'>
+                <p className="font-bold"> 
                     {title} 
                 </p>
-                <p className=""> 
+                <p className="font-normal"> 
                     {subtitle} 
                 </p>
             </div>
             
             <div className='flex gap-2 items-center'>
+                <RemoveRedEyeIcon 
+                    onClick={togglePDF} 
+                    sx={{ 
+                        cursor: 'pointer', 
+                        transition: 'transform 0.3s ease-in-out',
+                        '&:hover': { 
+                            transform: 'scale(1.3)' 
+                        } 
+                    }} />
                 {pdfUrl && (
                   <a href={pdfUrl} download target="_blank" rel="noopener noreferrer">
-                    <RemoveRedEyeIcon/>
+                     <DownloadIcon
+                     sx={{ 
+                        cursor: 'pointer', 
+                        transition: 'transform 0.3s ease-in-out',
+                        '&:hover': { 
+                            transform: 'scale(1.3)' 
+                        } 
+                    }}
+                     />
                   </a>
-                  
                 )}
-                <DownloadIcon onClick={fetchFile } style={{ cursor: 'pointer' }}/>
-                  {/* Aquí se muestra el PDF en un iframe si showPDF es verdadero */}
             
             </div>
         </div>
@@ -63,8 +82,8 @@ const GuideCard = ({ title, subtitle, image, pdfUrl }) => {
         {showPDF && (
                     <iframe
                         src={pdfUrl}
-                        width="500px" // Ajusta el tamaño como prefieras
-                        height="500px"
+                        width="90%" // Ajusta el tamaño como prefieras
+                        height="700px"
                         style={{ border: 'none', }}
                         title="PDF Viewer"
                     />

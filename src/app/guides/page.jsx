@@ -27,8 +27,8 @@ const Manuals = () => {
 
     return(
         <>
-        <div className="h-screen">
-            <h1 className="font-['B612']"> 
+        <div className="h-screen pl-10 pt-28 text-2xl font-bold	">
+            <h1 className="font-['B612'] pt-5 pb-10 text-3xl"> 
               Manuales de Laboratorio 
             </h1>
 

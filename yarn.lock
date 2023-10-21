@@ -840,7 +840,7 @@
 
 "@mui/icons-material@^5.14.14":
   version "5.14.14"
-  resolved "https://registry.npmjs.org/@mui/icons-material/-/icons-material-5.14.14.tgz"
+  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.14.14.tgz#02d33f51f0b9de238d5c47b0a31ff330144393c4"
   integrity sha512-vwuaMsKvI7AWTeYqR8wYbpXijuU8PzMAJWRAq2DDIuOZPxjKyHlr8WQ25+azZYkIXtJ7AqnVb1ZmHdEyB4/kug==
   dependencies:
     "@babel/runtime" "^7.23.1"
@@ -5332,6 +5332,11 @@ marked@^4.0.10, marked@^4.0.14:
   resolved "https://registry.yarnpkg.com/marked/-/marked-4.3.0.tgz#796362821b019f734054582038b116481b456cf3"
   integrity sha512-PRsaiG84bK+AMvxziE/lCFss8juXjNaWzVbN5tXAm4XjeaS9NAHhop+PjQxz2A9h8Q4M/xGmzP8vqNwy6JeK0A==
 
+mdi-react@^9.3.0:
+  version "9.3.0"
+  resolved "https://registry.yarnpkg.com/mdi-react/-/mdi-react-9.3.0.tgz#0ba0a35d16549b0a974306b6800562f43e322798"
+  integrity sha512-Lsqg42oIi/dBfQJ7RckKNH44vemRoKYkz3XaTPcTs3P9FxucuFePfqSqHyZ/ZRM+gSls13KPYxmMvYgysXFUcg==
+
 mdurl@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/mdurl/-/mdurl-1.0.1.tgz#fe85b2ec75a59037f2adfec100fd6c601761152e"
@@ -7213,6 +7218,11 @@ supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
+
+tailwindcss-animated@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/tailwindcss-animated/-/tailwindcss-animated-1.0.1.tgz#a2ab097848b5802dd824f65d65f2840fc5ec5c7e"
+  integrity sha512-u5wusj89ZwP8I+s8WZlaAd7aZTWBN/XEG6QgMKpkIKmAf3xP1A6WYf7oYIKmGaB10UAQaSqWopi/i1ozzZEs8Q==
 
 tailwindcss@^3:
   version "3.3.3"
