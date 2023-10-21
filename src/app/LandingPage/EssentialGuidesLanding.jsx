@@ -37,8 +37,9 @@ const EssentialGuidesLanding = () => {
       </p>
       <div className="xl:w-10/12 xl:ml-20 grid grid-cols-2 sm:grid-cols-3  lg:gap-6  lg:grid-cols-4 ml-2 lg:ml-20">
         {guidesList &&
-          guidesList.map((guide) => (
+          guidesList.map((guide, index) => (
             <GuideLandingCard
+              key={index}
               title={guide.title}
               subhead={guide.subhead}
               textBody={guide.description}
