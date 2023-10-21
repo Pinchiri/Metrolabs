@@ -28,6 +28,10 @@ const Manuals = () => {
     return(
         <>
         <div className="h-screen">
+            <h1 className="font-['B612']"> 
+              Manuales de Laboratorio 
+            </h1>
+
             {manuals.map((manual, index) => (
               <GuideCard 
                   key={index} 

@@ -29,8 +29,9 @@ const GuideCard = ({ title, subtitle, image, pdfUrl }) => {
     };
 
     return (
+        <>
         <div 
-            className="bg-manz-200 p-4 shadow-md w-9/12 rounded-xl grid  grid-cols-3 gap-4 m-5"
+            className="bg-manz-200 p-4 shadow-md w-9/12 rounded-xl grid  grid-cols-3 gap-4"
             style={{ gridTemplateColumns: '50px 1fr 60px' }}
         >
            <div className='flex items-center'>
@@ -55,17 +56,21 @@ const GuideCard = ({ title, subtitle, image, pdfUrl }) => {
                 )}
                 <DownloadIcon onClick={fetchFile } style={{ cursor: 'pointer' }}/>
                   {/* Aquí se muestra el PDF en un iframe si showPDF es verdadero */}
-                {showPDF && (
+            
+            </div>
+        </div>
+        <div className='flex justify-center w-9/12 p-4'>
+        {showPDF && (
                     <iframe
                         src={pdfUrl}
                         width="500px" // Ajusta el tamaño como prefieras
                         height="500px"
-                        style={{ border: 'none', margin: '20px auto', display: 'block' }}
+                        style={{ border: 'none', }}
                         title="PDF Viewer"
                     />
             )}
-            </div>
         </div>
+        </>
     )
 }
 
