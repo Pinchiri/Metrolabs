@@ -1,11 +1,11 @@
 import React from "react";
 import guyAsset from "../../assets/guy-asset.png";
-import LinkToPage from "../LinkToPage";
+import LinkToPage from "./LinkToPage";
 
 const GeneralInfoLanding = () => {
   return (
     <div className="w-full flex flex-col mt-10 mb-10">
-      <p className="text-stratos px-4 text-3xl sm:text-5xl lg:self-center xl:self-start xl:ml-10 lg:w-1/2 tracking-tighter font-b612 font-bold">
+      <p className="text-stratos px-4 text-3xl sm:text-5xl xl:ml-10 lg:w-1/2 tracking-tighter font-b612 font-bold">
         Información general y normativas del Laboratorio
       </p>
       <div className="w-full flex gap-3 lg:justify-center lg:mt-4">
