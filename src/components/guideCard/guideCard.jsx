@@ -2,16 +2,8 @@
 import DownloadIcon from '@mui/icons-material/Download';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import ScienceIcon from '@mui/icons-material/Science';
-import { saveAs } from 'file-saver';
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
 import { useState } from 'react';
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
-
-
-
 
 const GuideCard = ({ title, subtitle, image, pdfUrl }) => {
 
