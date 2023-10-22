@@ -6,11 +6,11 @@ const NavbarOptionsList = ({ options }) => {
       {options.map((option, index) => (
         <li key={index}>
           <a
-            href="#"
+            href={option.link}
             className="block py-2 pl-3 pr-4 text-masala rounded-md hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-manz-400 lg:p-0"
             aria-current="page"
           >
-            {option}
+            {option.name}
           </a>
         </li>
       ))}

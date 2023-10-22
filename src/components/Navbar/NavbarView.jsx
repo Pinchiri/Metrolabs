@@ -38,7 +38,7 @@ const NavbarView = ({ isExpanded, setIsExpanded, options }) => {
         >
           <img
             src={metrolabsLogo.src}
-            className="hover:bg-manz-200 rounded-full transition-all px-6 py-1 lg:ml-20"
+            className="hover:bg-manz-200 w-[220px] h-12 rounded-full transition-all px-6 py-1 md:ml-20 xl:ml-14 2xl:ml-0"
             alt="Metrolabs Logo"
           />
         </a>
