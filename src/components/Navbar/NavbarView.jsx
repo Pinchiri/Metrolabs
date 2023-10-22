@@ -1,6 +1,8 @@
 import metrolabsLogo from "../../assets/metrolabs-logo.png";
 import AccountCircleIcon from "mdi-react/AccountCircleIcon";
 import NavbarOptionsList from "./NavbarOptionsList";
+import Link from "next/link";
+import { homeURL } from "@/constants/urls";
 
 const NavbarView = ({ isExpanded, setIsExpanded, options }) => {
   return (
@@ -31,9 +33,9 @@ const NavbarView = ({ isExpanded, setIsExpanded, options }) => {
           </svg>
         </button>
 
-        <a
+        <Link
           //FIXME - Change link
-          href="/"
+          href={homeURL}
           className="flex items-center md:-ml-20"
         >
           <img
@@ -41,7 +43,7 @@ const NavbarView = ({ isExpanded, setIsExpanded, options }) => {
             className="hover:bg-manz-200 w-[220px] h-12 rounded-full transition-all px-6 py-1 md:ml-20 xl:ml-14 2xl:ml-0"
             alt="Metrolabs Logo"
           />
-        </a>
+        </Link>
         <div className="flex lg:order-2 h-1/3 w-10 cursor-pointer hover:scale-110 transition-all">
           <AccountCircleIcon
             size="full"

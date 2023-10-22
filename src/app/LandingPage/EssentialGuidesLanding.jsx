@@ -1,8 +1,9 @@
 import React from "react";
 import LinkToPage from "./LinkToPage";
 import GuideLandingCard from "./GuideLandingCard/GuideLandingCard";
+import { guidesURL } from "@/constants/urls";
 
-const EssentialGuidesLanding = () => {
+const EssentialGuidesLanding = ({ guides }) => {
   //FIXME - Divide this in View/Container
   const guidesList = [
     {
@@ -36,19 +37,23 @@ const EssentialGuidesLanding = () => {
         Guías Esenciales del Laboratorio
       </p>
       <div className="xl:w-10/12 xl:ml-20 grid grid-cols-2 sm:grid-cols-3  lg:gap-6  lg:grid-cols-4 ml-2 lg:ml-20">
-        {guidesList &&
-          guidesList.map((guide, index) => (
+        {guides &&
+          guides.map((guide, index) => (
             <GuideLandingCard
               key={index}
               title={guide.title}
-              subhead={guide.subhead}
+              subhead={guide.subtitle}
               textBody={guide.description}
+              downloadLink={guide.url}
             />
           ))}
       </div>
       <div className="flex flex-col justify-center w-full lg:w-auto">
         <div className="self-end mr-8 xl:mr-52 mt-4">
-          <LinkToPage text={"Ver más guías"} />
+          <LinkToPage
+            text={"Ver más guías"}
+            link={guidesURL}
+          />
         </div>
       </div>
     </div>
