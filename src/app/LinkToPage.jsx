@@ -4,7 +4,6 @@ import React from "react";
 const LinkToPage = ({ text, link = "/" }) => {
   return (
     <Link
-      //FIXME - Change href to schedules view
       href={link}
       className="sm:mt-4 self-end flex flex-row gap-4 items-center text-masala font-medium text-md sm:text-2xl lg:text-4xl  hover:scale-110 hover:font-bold transform transition-all"
     >
