@@ -10,8 +10,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <div className="font-sans">
-          <Navbar />
+        <div className="flex flex-col font-sans">
+          <div className="w-full max-w-screen mb-14">
+            <Navbar />
+          </div>
           {children}
         </div>
       </body>

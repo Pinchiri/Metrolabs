@@ -7,13 +7,12 @@ const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const navbarOptions = [
     {
-      name: "Prácticas",
+      name: "Manuales",
       link: "/guides",
     },
     {
-      name: "Laboratorios",
-      //FIXME - Change for the labs info link
-      link: "/guides",
+      name: "Laboratorio",
+      link: "/lab",
     },
   ];
 

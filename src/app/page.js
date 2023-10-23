@@ -13,7 +13,7 @@ const Home = async () => {
   const manuals = manualsSnapshot.docs.map((doc) => doc.data());
 
   return (
-    <main className="flex min-h-screen px-4 flex-col items-center justify-between mt-24 bg-white overflow-x-clip">
+    <main className="flex max-h-screen px-4 flex-col items-center justify-between bg-white">
       <AvailableSchedulesLanding />
       <EssentialGuidesLanding guides={manuals} />
       <GeneralInfoLanding />

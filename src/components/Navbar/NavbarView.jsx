@@ -11,7 +11,7 @@ const NavbarView = ({ isExpanded, setIsExpanded, options }) => {
         <button
           data-collapse-toggle="navbar-sticky"
           type="button"
-          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-masala rounded-lg lg:hidden hover:bg-manz-200 focus:outline-none focus:ring-2 focus:ring-manz-200"
+          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-masala rounded-lg lg:hidden hover:bg-[#F3F386] focus:outline-none focus:ring-2 focus:ring-manz-200"
           aria-controls="navbar-sticky"
           onClick={() => setIsExpanded(!isExpanded)}
         >
@@ -40,7 +40,7 @@ const NavbarView = ({ isExpanded, setIsExpanded, options }) => {
         >
           <img
             src={metrolabsLogo.src}
-            className="hover:bg-manz-200 w-[220px] h-12 rounded-full transition-all px-6 py-1 md:ml-20 xl:ml-14 2xl:ml-0"
+            className="hover:bg-[#F3F386] w-[220px] h-12 rounded-full transition-all px-6 py-1 md:ml-20 xl:ml-14 2xl:ml-0"
             alt="Metrolabs Logo"
           />
         </Link>
