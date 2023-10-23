@@ -1,6 +1,6 @@
 import React from "react";
 import Laboratorio from "../../assets/Laboratorio.PNG";
-import Map from "../../assets/mapa.png";
+import Map from "../../assets/Mapa.png";
 import ClockCheckIcon from "mdi-react/ClockCheckIcon";
 import MapMarkerIcon from "mdi-react/MapMarkerIcon";
 import MapSearchIcon from "mdi-react/MapSearchIcon";
