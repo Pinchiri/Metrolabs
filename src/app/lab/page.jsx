@@ -1,11 +1,12 @@
-import React from "react";
-import LabInformation from "./LabInformation";
-import LabEquipment from "./LabEquipment";
-import LabGuideRules from "./LabGuideRules";
+import LabInformation from './LabInformation';
+import LabEquipment from './LabEquipment';
+import LabGuideRules from './LabGuideRules';
+import LabGeneralIndex from './LabGeneralIndex';
 
 const LabInfo = () => {
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full flex flex-col ">
+      <LabGeneralIndex />
       <LabInformation />
       <LabEquipment />
       <LabGuideRules />

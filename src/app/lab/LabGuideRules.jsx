@@ -3,17 +3,17 @@ import Guiderule from "../../assets/Normativas.PNG";
 
 const LabGuideRules = () => {
   return (
-    <div className="w-full flex flex-col mt-10 mb-10">
-      <p className="pb-10 text-stratos px-4 text-3xl sm:text-5xl self-center tracking-tighter font-b612 font-bold">
+    <div className="w-full flex flex-col mt-2 mb-10" id="LabGuideRules">
+      <p className=" pl-10 pb-10 text-stratos px-4 text-3xl sm:text-3xl self-left tracking-tighter font-b612 font-bold">
         Normativas del Laboratorio
       </p>
       <img
         src={Guiderule.src}
         alt="Normativas"
-        className="drop-shadow-lg self-center lg-px-36 rounded-lg h-[132px] w-11/12 md:w-3/4 sm:h-[150px] sm:w-[max] lg:h-[300px] xl:h-[400px]"
+        className=" pl-10 drop-shadow-lg lg-px-36 rounded-lg h-[132px] w-11/12 md:w-3/4 sm:h-[150px] sm:w-[max] lg:h-[300px] xl:h-[400px]"
       />
-      <p className="w-[max] pl-16 pr-10 text-oxford text-sm sm:text-2xl lg:text-3xl pl-4 mt-10 animate-fade-right">
-        <ul className="list-disc">
+      <div className="w-[max] pt-5 pl-11 pr-10 animate-fade-right">
+        <ul className="list-disc pl-10">
           <li className="pb-4">
             Antes de ingresar, asegúrate de llevar puesto una bata adecuada y
             gafas de seguridad para proteger tus ojos y cuerpo.
@@ -48,7 +48,7 @@ const LabGuideRules = () => {
             completamente el protocolo o las instrucciones proporcionadas.
           </li>
         </ul>
-      </p>
+      </div>
     </div>
   );
 };
