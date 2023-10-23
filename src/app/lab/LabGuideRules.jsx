@@ -10,9 +10,9 @@ const LabGuideRules = () => {
       <img
         src={Guiderule.src}
         alt="Normativas"
-        className="shadow-xl lg-px-36 rounded-3xl h-[132px] w-[max] sm:h-[150px] sm:w-[max] lg:h-[300px] lg:w-[max]"
+        className="drop-shadow-lg self-center lg-px-36 rounded-lg h-[132px] w-11/12 md:w-3/4 sm:h-[150px] sm:w-[max] lg:h-[300px] xl:h-[400px]"
       />
-      <p className="pl-10 w-[max] text-oxford text-sm sm:text-2xl lg:text-3xl pl-4 mt-10 animate-fade-right">
+      <p className="w-[max] pl-16 pr-10 text-oxford text-sm sm:text-2xl lg:text-3xl pl-4 mt-10 animate-fade-right">
         <ul className="list-disc">
           <li className="pb-4">
             Antes de ingresar, asegúrate de llevar puesto una bata adecuada y
