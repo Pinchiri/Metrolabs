@@ -4,7 +4,7 @@ import GuideCard from "@/components/guideCard/guideCard";
 const GuidesView = ({ manuals }) => {
   return (
     <div className="h-screen pl-10 mt-14 text-2xl font-bold">
-      <p className="font-b612 tracking-tighter pt-5 pb-10 text-3xl">
+      <p className="font-b612 text-stratos tracking-tighter pt-5 pb-10 text-3xl">
         Manuales de Laboratorio
       </p>
 

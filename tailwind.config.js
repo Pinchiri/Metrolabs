@@ -7,11 +7,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
       fontFamily: {
         b612: ["B612", "sans-serif"],
         sans: ["DM Sans", "sans-serif"],
@@ -34,5 +29,25 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animated")],
+  plugins: [require("tailwindcss-animated"), require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+          primary: "#f1f574",
+          "primary-content": "#434040",
+          secondary: "#434040",
+          "secondary-content": "#fff",
+          accent: "#02073e",
+          neutral: "#000",
+          "base-100": "#fff",
+          info: "#3abff8",
+          success: "#36d399",
+          warning: "#fbbd23",
+          error: "#f87272",
+        },
+      },
+    ],
+    darkTheme: "light",
+  },
 };
