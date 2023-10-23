@@ -1,6 +1,7 @@
 import React from "react";
 import guyAsset from "../../assets/guy-asset.png";
 import LinkToPage from "./LinkToPage";
+import { labURL } from "@/constants/urls";
 
 const GeneralInfoLanding = () => {
   return (
@@ -23,7 +24,10 @@ const GeneralInfoLanding = () => {
         />
       </div>
       <div className="self-end mt-2 mr-6 sm:mr-20 lg:mr-52">
-        <LinkToPage text={"Conocer más"} />
+        <LinkToPage
+          text={"Conocer más"}
+          link={labURL}
+        />
       </div>
     </div>
   );
