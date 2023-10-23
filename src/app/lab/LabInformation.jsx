@@ -1,5 +1,5 @@
 import React from "react";
-import Laboratorio from "../../assets/laboratorio.png";
+import Laboratorio from "../../assets/Laboratorio.PNG";
 import Map from "../../assets/mapa.png";
 import ClockCheckIcon from "mdi-react/ClockCheckIcon";
 import MapMarkerIcon from "mdi-react/MapMarkerIcon";
