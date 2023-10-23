@@ -15,10 +15,10 @@ const LabGeneralIndex = () => {
 
     return (
         <>
-        <h1  className="font-b612 text-stratos tracking-tighter mt-20 pb-5 pl-10 text-3xl font-bold">
+        <h1  className="font-b612 text-stratos tracking-tighter mt-20 pb-5 pl-8 text-3xl font-bold">
                 Información del Laboratorio
             </h1>
-        <div className="flex-col align-start  pl-10 lg: flex lg:flex-row lg: justify-around">
+        <div className="flex-col align-start  pl-8 pr-3 lg: flex lg:flex-row lg: justify-around">
             <div className=" flex flex-row gap-8 mb-10" >
                 <div className="bg-manz-200 p-2.5 rounded-full inline-flex items-center justify-center align-center h-14">
                 <LocationOnIcon style={{ height: "35px", width: "35px" }} />

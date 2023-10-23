@@ -10,7 +10,7 @@ const LabGuideRules = () => {
       <img
         src={Guiderule.src}
         alt="Normativas"
-        className=" pl-10 drop-shadow-lg lg-px-36 rounded-lg h-[132px] w-11/12 md:w-3/4 sm:h-[150px] sm:w-[max] lg:h-[300px] xl:h-[400px]"
+        className="drop-shadow-lg pl-10 self-left lg-px-36 rounded-lg h-[150px] w-[auto] mr-10 lg:h-[350px] lg:mx-40"
       />
       <div className="w-[max] pt-5 pl-11 pr-10 animate-fade-right">
         <ul className="list-disc pl-10">
