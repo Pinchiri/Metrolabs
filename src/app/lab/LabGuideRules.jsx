@@ -1,5 +1,5 @@
 import React from "react";
-import Guiderule from "../../assets/Normativas.png";
+import Guiderule from "../../assets/normativas.png";
 
 const LabGuideRules = () => {
   return (

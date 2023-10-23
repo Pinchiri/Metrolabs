@@ -1,5 +1,5 @@
 import React from "react";
-import Equipment from "../../assets/Equipos.png";
+import Equipment from "../../assets/equipos.png";
 
 const LabEquipment = () => {
   return (
