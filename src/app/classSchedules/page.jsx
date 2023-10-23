@@ -8,10 +8,6 @@ import DateFormat from "../../components/Schedule/DateFormat";
 export default function ClassSchedules() {
   const [selectedDate, setSelectedDate] = useState("");
 
-  React.useEffect(() => {
-    console.log(selectedDate.$d);
-  }, [selectedDate]);
-
   const [list, setList] = useState([
     {
       title: "7:00am - 8:30am",

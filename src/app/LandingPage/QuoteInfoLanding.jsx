@@ -4,7 +4,7 @@ import scientistAsset from "../../assets/scientist-asset.png";
 const QuoteInfoLanding = () => {
   return (
     <div className="w-full flex flex-col mt-10 lg:mt-20 mb-10">
-      <p className="text-stratos px-4 xl:px-0 text-3xl sm:text-5xl lg:self-center lg:w-1/2 xl:self-start xl:ml-10 tracking-tighter font-b612 font-bold">
+      <p className="text-stratos px-4 xl:px-0 text-3xl sm:text-5xl lg:w-1/2 xl:self-start xl:ml-10 tracking-tighter font-b612 font-bold">
         Te invitamos a seguir creciendo en nuestros laboratorios
       </p>
       <div className="flex gap-4 lg:justify-center lg:mt-6">

@@ -5,7 +5,16 @@ import NavbarView from "./NavbarView";
 
 const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const navbarOptions = ["Home", "About", "Service", "Contact"];
+  const navbarOptions = [
+    {
+      name: "Manuales",
+      link: "/guides",
+    },
+    {
+      name: "Laboratorio",
+      link: "/lab",
+    },
+  ];
 
   return (
     <NavbarView

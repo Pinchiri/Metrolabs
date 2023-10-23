@@ -1,6 +1,8 @@
 import metrolabsLogo from "../../assets/metrolabs-logo.png";
 import AccountCircleIcon from "mdi-react/AccountCircleIcon";
 import NavbarOptionsList from "./NavbarOptionsList";
+import Link from "next/link";
+import { homeURL } from "@/constants/urls";
 
 const NavbarView = ({ isExpanded, setIsExpanded, options }) => {
   return (
@@ -9,7 +11,7 @@ const NavbarView = ({ isExpanded, setIsExpanded, options }) => {
         <button
           data-collapse-toggle="navbar-sticky"
           type="button"
-          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-masala rounded-lg lg:hidden hover:bg-manz-200 focus:outline-none focus:ring-2 focus:ring-manz-200"
+          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-masala rounded-lg lg:hidden hover:bg-[#F3F386] focus:outline-none focus:ring-2 focus:ring-manz-200"
           aria-controls="navbar-sticky"
           onClick={() => setIsExpanded(!isExpanded)}
         >
@@ -23,25 +25,25 @@ const NavbarView = ({ isExpanded, setIsExpanded, options }) => {
           >
             <path
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M1 1h15M1 7h15M1 13h15"
             />
           </svg>
         </button>
 
-        <a
+        <Link
           //FIXME - Change link
-          href="/"
+          href={homeURL}
           className="flex items-center md:-ml-20"
         >
           <img
             src={metrolabsLogo.src}
-            className="hover:bg-manz-200 rounded-full transition-all px-6 py-1 lg:ml-20"
+            className="hover:bg-[#F3F386] w-[220px] h-12 rounded-full transition-all px-6 py-1 md:ml-20 xl:ml-14 2xl:ml-0"
             alt="Metrolabs Logo"
           />
-        </a>
+        </Link>
         <div className="flex lg:order-2 h-1/3 w-10 cursor-pointer hover:scale-110 transition-all">
           <AccountCircleIcon
             size="full"
