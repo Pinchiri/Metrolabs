@@ -10,12 +10,12 @@ const LabEquipment = () => {
       <img
         src={Equipment.src}
         alt="Equipamiento"
-        className="shadow-xl lg-px-36 rounded-3xl h-[132px] w-[max] sm:h-[150px] sm:w-[max] lg:h-[300px] lg:w-[max]"
+        className="drop-shadow-lg self-center lg-px-36 rounded-lg h-[132px] w-11/12 md:w-3/4 sm:h-[150px] sm:w-[max] lg:h-[300px] xl:h-[400px]"
       />
-      <p className="pt-10 text-stratos px-4 text-3xl sm:text-5xl xl:self-start xl:ml-10 lg:w-1/2 tracking-tighter font-b612 font-bold">
+      <p className="pt-10 pl-10 text-stratos px-4 text-3xl sm:text-5xl xl:self-start xl:ml-10 lg:w-1/2 tracking-tighter font-b612 font-bold">
         Equipos
       </p>
-      <p className="pl-10 w-[max] text-oxford text-sm sm:text-2xl lg:text-3xl mt-10 animate-fade-right">
+      <p className="w-[max] pl-16 pr-10 text-oxford text-sm sm:text-2xl lg:text-3xl mt-10 animate-fade-right">
         <ul className="list-disc">
           <li className="pb-4">Centrífuga: Para separar mezclas.</li>
           <li className="pb-4">
@@ -37,10 +37,10 @@ const LabEquipment = () => {
           </li>
         </ol>
       </p>
-      <p className="pt-10 text-stratos px-4 text-3xl sm:text-5xl xl:self-start xl:ml-10 lg:w-1/2 tracking-tighter font-b612 font-bold">
+      <p className="pt-10 pl-10 text-stratos px-4 text-3xl sm:text-5xl xl:self-start xl:ml-10 lg:w-1/2 tracking-tighter font-b612 font-bold">
         Reactivos
       </p>
-      <p className="pl-10 w-[max] text-oxford text-sm sm:text-2xl lg:text-3xl mt-10 animate-fade-right">
+      <p className="w-[max] pl-16 pr-10 text-oxford text-sm sm:text-2xl lg:text-3xl mt-10 animate-fade-right">
         <ul className="list-disc">
           <li className="pb-4">
             Ácido sulfúrico (H₂SO₄): Utilizado en numerosas reacciones y como
