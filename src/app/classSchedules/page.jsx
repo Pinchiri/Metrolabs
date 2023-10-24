@@ -1,30 +1,33 @@
 "use client";
 
 import "../globals.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Schedule from "../../components/Schedule/Schedule";
 import DateFormat from "../../components/Schedule/DateFormat";
+import { handleCalendarFetch } from "./handleCalendarFetch";
 
 export default function ClassSchedules() {
   const [selectedDate, setSelectedDate] = useState("");
+  const [labDates, setLabDates] = useState({});
 
-  const [list, setList] = useState([
-    {
-      title: "7:00am - 8:30am",
-      subtitle: "3 cupos disponibles",
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.",
-    },
-    {
-      title: "8:30am - 10:00am",
-      subtitle: "Agotado",
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.",
-    },
-  ]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await handleCalendarFetch();
+        setLabDates(data);
+      } catch (error) {
+        console.error("Error getting documents:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // useEffect(() => {
+  //   console.log("labDates:", labDates);
+  // }, [labDates]);
 
   return (
-    <div className="flex min-h-screen px-10 pt-4 justify-center mt-28 overflow-x-clip">
+    <div className="flex min-h-screen px-10 pt-4 overflow-x-clip justify-around">
       <div className="flex-1 max-w-screen-sm p-3 mr-5 animate-fade-right">
         <div className="flex justify-center items-center mx-auto">
           <h2
@@ -42,11 +45,11 @@ export default function ClassSchedules() {
         </div>
       </div>
 
-      <div className="flex-2 p-5 max-w-[400px] animate-fade-right">
-        <div className="flex justify-center items-center">
+      <div className="flex-2 p-5 animate-fade-right">
+        <div className="flex justify-center items-center mx-auto">
           <DateFormat
             selectedDate={selectedDate}
-            list={list}
+            jsonDates={labDates}
           />
         </div>
       </div>

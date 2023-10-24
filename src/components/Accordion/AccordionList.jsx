@@ -1,18 +1,19 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Accordion from "./Accordion";
 
-const AccordionList = (props) => {
-  const list = props.list;
+const AccordionList = (prop) => {
+  const list = prop.data;
 
   return (
     <div className="max-h-max flex justify-center items-center">
       <div className="list">
-        {list.map((item, index) => (
+        {Object.keys(list).map((k, index) => (
           <Accordion
             key={index}
-            data={item}
+            data={list[k]}
+            title={k}
           />
         ))}
       </div>

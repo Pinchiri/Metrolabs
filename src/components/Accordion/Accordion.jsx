@@ -1,15 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import WatchLaterIcon from "@mui/icons-material/WatchLater";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
+import EventBusyIcon from "@mui/icons-material/EventBusy";
 
 const Accordion = (props) => {
   const [item, setItem] = useState(props.data);
+  const [subtitle, setSubtitle] = useState("");
 
   const handleToggleActive = () => {
     let newActive = item.active === 1 ? 0 : 1;
     setItem({ ...item, active: newActive });
   };
+
+  // Función que calcula los espacios disponibles
+  const calculateSpaces = (item) => {
+    const spaces =
+      parseInt(item["Espacio Total"]) - parseInt(item["Espacio Reservados"]);
+    if (spaces > 1) {
+      return `${spaces} cupos disponibles`;
+    } else if (spaces === 1) {
+      return `${spaces} cupo disponible`;
+    } else {
+      return "Agotado";
+    }
+  };
+
+  // Actualiza el subtítulo cuando props.title cambia
+  useEffect(() => {
+    setSubtitle(calculateSpaces(item));
+  }, [props.title]);
 
   return (
     <div
@@ -23,12 +43,16 @@ const Accordion = (props) => {
           </div>
           <div className="flex flex-col items-start">
             <div className={`w-full ${item.active === 1 ? "font-bold" : ""}`}>
-              {item.title}
+              {props.title}
             </div>
-            <div className="w-full">{item.subtitle}</div>
+            <div className="w-full">{subtitle}</div>
           </div>
           <div className="w-auto ml-auto mt-2">
-            <EventAvailableIcon className="text-3xl" />
+            {parseInt(item["Espacio Reservados"]) === 10 ? (
+              <EventBusyIcon className="text-3xl" />
+            ) : (
+              <EventAvailableIcon className="text-3xl" />
+            )}
           </div>
         </div>
         <div
@@ -45,7 +69,17 @@ const Accordion = (props) => {
           item.active === 1 ? "max-h-[100px]" : ""
         }`}
       >
-        {item.content}
+        <div className="text-sm mb-2">
+          <div className="flex">
+            <p className="font-bold mr-2">Cupos totales:</p>
+            <p>{parseInt(item["Espacio Total"])}</p>
+          </div>
+
+          <div className="flex">
+            <p className="font-bold mr-2"> Cupos reservados: </p>
+            <p>{parseInt(item["Espacio Reservados"])}</p>
+          </div>
+        </div>
       </div>
     </div>
   );
