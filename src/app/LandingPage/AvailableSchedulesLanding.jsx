@@ -2,6 +2,7 @@ import React from "react";
 import girlAsset from "../../assets/girl-asset.png";
 import calendarImage from "../../assets/calendar-image.png";
 import LinkToPage from "./LinkToPage";
+import { schedulesURL } from "@/constants/urls";
 
 const AvailableSchedulesLanding = () => {
   return (
@@ -25,7 +26,7 @@ const AvailableSchedulesLanding = () => {
         <div className="self-end mr-8 -mt-6 sm:mt-2">
           <LinkToPage
             text={"Ver horarios"}
-            link="/classSchedules"
+            link={schedulesURL}
           />
         </div>
       </div>
