@@ -23,7 +23,10 @@ const AvailableSchedulesLanding = () => {
           />
         </div>
         <div className="self-end mr-8 -mt-6 sm:mt-2">
-          <LinkToPage text={"Ver horarios"} />
+          <LinkToPage
+            text={"Ver horarios"}
+            link="/classSchedules"
+          />
         </div>
       </div>
     </div>
