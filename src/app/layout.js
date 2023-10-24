@@ -2,8 +2,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 
 export const metadata = {
-  title: "Metrolabs",
-  description: "Tu app para reservar labs",
+  manifest: "/manifest.json",
+  themeColor: "#F1F574",
 };
 
 export default function RootLayout({ children }) {

@@ -6,6 +6,11 @@ import EssentialGuidesLanding from "./LandingPage/EssentialGuidesLanding";
 import GeneralInfoLanding from "./LandingPage/GeneralInfoLanding";
 import QuoteInfoLanding from "./LandingPage/QuoteInfoLanding";
 
+export const metadata = {
+  title: "Metrolabs",
+  description: "Tu app para reservar labs",
+};
+
 const Home = async () => {
   const manualsCollection = collection(db, "manuals");
   const manualsQuery = query(manualsCollection, limit(4));
