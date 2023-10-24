@@ -51,12 +51,9 @@ const DateFormat = ({ selectedDate, jsonDates }) => {
         //Si dateinfo no es null
         dateInfo ? (
           <div className="flex flex-col items-center">
-            <h2
-              className="text-stratos tracking-tighter text-2xl sm:text-5xl lg:self-center font-b612 mb-3 font-bold "
-              style={{ fontSize: "45px" }}
-            >
+            <p className="text-stratos px-4 tracking-tighter text-3xl sm:text-5xl lg:self-center font-b612 font-bold mb-5">
               {capitalizeWords(dayjs(selectedDate).format("dddd DD MMMM YYYY"))}
-            </h2>
+            </p>
             <AccordionList data={dateInfo} />
           </div>
         ) : (

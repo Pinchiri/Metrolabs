@@ -7,8 +7,8 @@ const AccordionList = (prop) => {
   const list = prop.data;
 
   return (
-    <div className="max-h-max flex justify-center items-center">
-      <div className="list">
+    <div className="max-h-max flex justify-center items-center w-full h-full">
+      <div className="flex flex-col w-[70%] max-w-screen-sm">
         {Object.keys(list).map((k, index) => (
           <Accordion
             key={index}
