@@ -8,6 +8,10 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 const GuideCard = ({ title, subtitle, image, pdfUrl }) => {
   const [showPDF, setShowPDF] = useState(false);
 
+  const getPreviewUrl = (url) => {
+    return url.replace("/view", "/preview");
+  };
+
   const fetchFile = async () => {
     const storage = getStorage();
     const fileRef = ref(storage, pdfUrl);
@@ -71,13 +75,13 @@ const GuideCard = ({ title, subtitle, image, pdfUrl }) => {
       </div>
       <div className="flex justify-center w-9/12 p-4">
         {showPDF && (
-          <iframe
-            src={pdfUrl}
-            width="90%" // Ajusta el tamaño como prefieras
-            height="700px"
-            style={{ border: "none" }}
-            title="PDF Viewer"
-          />
+           <iframe
+           src={getPreviewUrl(pdfUrl)}
+           width="90%"
+           height="700px"
+           style={{ border: "none" }}
+           title="PDF Viewer"
+         />
         )}
       </div>
     </>
