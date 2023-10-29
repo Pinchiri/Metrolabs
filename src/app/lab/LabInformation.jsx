@@ -19,7 +19,7 @@ const LabInformation = () => {
       
       <div className="lg:flex lg:flex-row lg:justify-around ">
         <div className="pl-6 pt-5 w-full flex justify-left align-center  gap-2  ">
-          <div className="flex justify-center items-center bg-[#F3F386] rounded-full h-14 w-14 animate-fade-left mx-4">
+          <div className="flex justify-center items-center bg-[#FFB635] rounded-full h-14 w-14 animate-fade-left mx-4">
             <LocationOnIcon style={{ height: "35px", width: "35px" }} />
           </div>
           <p className="mt-3">
@@ -28,7 +28,7 @@ const LabInformation = () => {
         </div>
 
         <div className="pl-6 pt-3 w-full flex items-left gap-2 lg:mt-4">
-          <div className="flex justify-center items-center bg-[#F3F386] rounded-full h-14 w-14 animate-fade-left mx-4 ">
+          <div className="flex justify-center items-center bg-[#FFB635] rounded-full h-14 w-14 animate-fade-left mx-4 ">
             <WatchLaterIcon style={{ height: "35px", width: "35px" }} />
           </div>
           <div>

@@ -15,10 +15,10 @@ const LabGeneralIndex = () => {
 
     return (
         <>
-        <h1  className="font-b612 text-stratos tracking-tighter mt-20 pb-5 pl-8 text-3xl font-bold">
+        <h1  className=" pl-10 mt-10 mb-4 text-stratos px-4 text-3xl sm:text-3xl self-left tracking-tighter font-b612 font-bold">
                 Información del Laboratorio
             </h1>
-        <div className="flex-col align-start  pl-8 pr-3 lg: flex lg:flex-row lg: justify-around">
+        <div className="flex-col align-start pl-8 pr-3  md:grid md:grid-cols-2 lg:flex lg:flex-row lg:justify-around ">
             <div className=" flex flex-row gap-8 mb-10" >
                 <div className="bg-manz-200 p-2.5 rounded-full inline-flex items-center justify-center align-center h-14">
                 <LocationOnIcon style={{ height: "35px", width: "35px" }} />
@@ -38,6 +38,39 @@ const LabGeneralIndex = () => {
                     </p>
                     <div className="flex flex-row gap-2 align-center font-bold mt-2 hover:text-manz-200"
                         onClick={() => scrollToElement('LabInformation')}
+                    >
+                        <p>
+                            Ver más detalles
+                        </p>
+                        <ArrowForwardIosIcon style={{ height: "15px", width: "15px", marginTop:"5px" }} />
+                    </div>
+                </div>
+            </div>
+
+            <div className=" flex flex-row gap-8 mb-10" >
+                <div className="bg-manz-200 p-2.5 rounded-full inline-flex items-center justify-center align-center h-14">
+                <ScienceIcon style={{ height: "35px", width: "35px" }} />
+                </div >
+                <div>
+                    <h3 className="text-lg font-bold">
+                        Nuestros profesores
+                    </h3>
+                    <p>
+                       • Sergio David Rosales Anzola.
+                    </p>
+                    <p>
+                       • Juan Bernardo Tovar Salas.
+                    </p>
+                    <p>
+                       • Miguel Manuel Pérez Hernández.
+                    </p>
+                    <p>
+                       • Jose Barriola.
+                    </p>
+                    <div 
+                        className="flex flex-row gap-2 align-center font-bold mt-2 hover:text-manz-200"
+                        onClick={() => scrollToElement('LabTeachersInformation')}
+
                     >
                         <p>
                             Ver más detalles

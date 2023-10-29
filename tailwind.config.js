@@ -14,7 +14,7 @@ module.exports = {
       colors: {
         manz: {
           100: "#f6fac7",
-          200: "#FBBC05",
+          200: "#FFB635",
           300: "#f2f152",
           400: "#ece223",
           500: "#ddca15",
