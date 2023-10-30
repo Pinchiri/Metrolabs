@@ -23,7 +23,7 @@ const sheets = google.sheets({ version: 'v4', auth });
 
 async function getSheetData() {
   try {
-    const range = 'Reactivos!A2:E';  // Ajusta según tu rango necesario
+    const range = 'Reactivos!A4:K';  // Ajusta según tu rango necesario
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: '1_-0ao8kLOr21E8BmrkSjEBMM3sKJvMp92yK8DYZWkO0',
       range: range,
@@ -39,8 +39,16 @@ async function getSheetData() {
       return {
         // Ajusta de acuerdo a tus columnas
         columna1: row[0],
-        columna2: row[1],
-        // ...
+        reactive: row[1],
+        formule: row[2],
+        cas: row[3],
+        brand: row[4],
+        concentration: row[5],
+        quantity: row[6],
+        units: row[7],
+        risk: row[8],
+        ubication: row[9],
+        observations: row[10],
       };
     });
   } catch (error) {
