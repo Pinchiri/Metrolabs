@@ -20,22 +20,28 @@ const LabEquipment = () => {
           <div className="w-[max] pl-16 pr-10 animate-fade-right">
             <ul className="list-disc pt-5 ml-5 lg:ml-10">
               <li className="pb-2">
-                Centrífuga: Para separar mezclas.
+                Refractómetro
               </li>
               <li className="pb-2">
-                Columnas de cromatografía: Usada en la separación de mezclas basadas
-                en afinidades.
+                Equipo de Destilación Continua.
               </li>
               <li className="pb-2">
-                Destilador: Para separar mezclas liquidas según puntos de
-                ebullición.
+                Equipo de Destilación por Carga.
               </li>
               <li className="pb-2">
-                Horno de mufla: Para separar componentes mediante calcinación.
+                Equipo de Fluidización.
               </li>
               <li className="pb-2">
-                Camara de electroforesís: Usada para separar moléculas según el
-                tamaño y carga eléctrica.
+                Equipo de Secado por Convección.
+              </li>
+              <li className="pb-2">
+                Equipo de Absorción.
+              </li>
+              <li className="pb-2">
+                Equipo de Filtración a Presión Constante.
+              </li>
+              <li className="pb-2">
+                Equipo de Extracción Líq-Líq.
               </li>
             </ul>
           </div>
@@ -48,20 +54,40 @@ const LabEquipment = () => {
           <div className="w-[max] pl-16 pr-10 animate-fade-right">
             <ul className="list-disc pt-5 ml-5 lg:ml-10">
               <li className="pb-2">
-                Ácido sulfúrico (H₂SO₄): Utilizado en numerosas reacciones y como
-                catalizador en ciertos procesos.
+                Tierra Diatomea (SiO2): 1 tambor, 150 litros.
               </li>
               <li className="pb-2">
-                Ácido clorhídrico (HCl): Ampliamente usado para ajustar el pH y como
-                reactivo en procesos de separación.
+                Alcohol Isopropílico (C3H7OH): 1 tambor, 10-20 galones.
               </li>
               <li className="pb-2">
-                Ácido nítrico (HNO₃): Utilizado en la digestión de muestras y en
-                ciertos procedimientos de separación.{" "}
+                Alcohol Isopropílico (C3H7OH): 1 tambor, 15-50 galones.
               </li>
               <li className="pb-2">
-                Etanol (C₂H₅OH): Un solvente orgánico común en extracciones y otros
-                procesos.
+                Alcohol Isopropílico (C3H7OH): 1 galón.
+              </li>
+              <li className="pb-2">
+                N-Butanol (C4H10O): 2 tambores, 30-50 galones c/u.
+              </li>
+              <li className="pb-2">
+                Hexano (C6H14): 1 tambor, 40-50 galones.
+              </li>
+              <li className="pb-2">
+                Hexano (C6H14): 1 tambor, 20-40 galones.
+              </li>
+              <li className="pb-2">
+                Parafina Refinada (CnH2n+2): 16 sacos, 24 kilogramos en total.
+              </li>
+              <li className="pb-2">
+                Sal Industrial (NaCl): 1 saco, 20 kilogramos.
+              </li>
+              <li className="pb-2">
+                Aceite ISO 46: 1 tambor turbolub, 10-20 galones.
+              </li>
+              <li className="pb-2">
+                Venotherm 32: 1 tambor, 10-30 galones.
+              </li>
+              <li className="pb-2">
+                Carbonato de Calcio (CaCO3): 4 envaces de 5 kilogramos, 20 kilogramos total.
               </li>
             </ul>
           </div>
