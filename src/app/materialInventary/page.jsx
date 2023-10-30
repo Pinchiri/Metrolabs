@@ -2,7 +2,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import ReagentCard from '@/components/reagentCard/reagentCard';
+import MaterialCard from '@/components/materialCard/materialCard';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear'; 
 
@@ -18,7 +18,7 @@ const SheetComponent = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await fetch('/api/sheetsReagent');
+        const response = await fetch('/api/sheetsMaterial');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -38,7 +38,7 @@ const SheetComponent = () => {
   if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
 
   const filteredData = data.filter(item =>
-    item.reactive.toLowerCase().includes(searchTerm.toLowerCase())
+    item.material.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleSearchChange = (event) => {
@@ -52,7 +52,7 @@ const SheetComponent = () => {
   return (
     <div className="mt-20 ml-10 mr-7">
       <h1 className="font-['B612'] font-bold pt-5 text-3xl">
-        Inventario de Reactivos
+        Inventario de Materiales
       </h1>
 
       <div >
@@ -60,7 +60,7 @@ const SheetComponent = () => {
         <input
           className='w-11/12 mt-5 bg-[#FFF8E4] p-3 rounded-xl ml-2'
           type="text"
-          placeholder='Buscar un reactivo....'
+          placeholder='Buscar un material....'
           value={searchTerm}
           onChange={handleSearchChange}
         />
@@ -74,23 +74,19 @@ const SheetComponent = () => {
       </div>
       
       <p className="mt-5 font-['B612'] font-bold text-xl pb-2"> 
-        Lista de Reactivos 
+        Lista de Materiales
       </p>
 
       <div className='bg-manz-200 p-5 rounded-lg lg:mr-12'>
         {filteredData.map((item, index) => (
-        <ReagentCard 
+        <MaterialCard 
             key={index} 
-            reactive= {item.reactive} 
-            formule = {item.formule}
-            cas = {item.cas}
-            brand= {item.brand}
-            concentration= {item.concentration}
-            quantity= {item.quantity}
-            units= {item.units}
-            risk= {item.risk}
-            ubication= {item.ubication}
-            observations= {item.observations}
+            material= {item.material} 
+            capacity = {item.capacity}
+            brand = {item.brand}
+            quantity = {item.brand}
+            ubication = {item.ubication}
+            observations = {item.observations}
         />
 
       ))}

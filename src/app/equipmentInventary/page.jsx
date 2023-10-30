@@ -74,7 +74,7 @@ const SheetComponent = () => {
       </div>
       
       <p className="mt-5 font-['B612'] font-bold text-xl pb-2"> 
-        Lista de Reactivos 
+        Lista de Equipos
       </p>
 
       <div className='bg-manz-200 p-5 rounded-lg lg:mr-12'>
