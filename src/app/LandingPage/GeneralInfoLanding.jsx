@@ -20,7 +20,7 @@ const GeneralInfoLanding = () => {
         <img
           src={guyAsset.src}
           alt="Guy Asset"
-          className="h-1/2 sm:h-1/3 lg:h-[350px] w-1/2 sm:w-1/3 lg:w-[170px] relative z-10 animate-fade-left mr-4 mt-4"
+          className="h-1/2 sm:h-1/3 lg:h-[350px] w-1/2 sm:w-1/3 lg:w-[200px] relative z-10 animate-fade-left mr-4 mt-4"
         />
       </div>
       <div className="self-end mt-2 mr-6 sm:mr-20 lg:mr-52">

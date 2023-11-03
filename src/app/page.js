@@ -7,7 +7,7 @@ import GeneralInfoLanding from "./LandingPage/GeneralInfoLanding";
 import QuoteInfoLanding from "./LandingPage/QuoteInfoLanding";
 
 export const metadata = {
-  title: "Metrolabs",
+  title: "Process Lab",
   description: "Tu app para reservar labs",
 };
 

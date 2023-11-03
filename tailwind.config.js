@@ -12,6 +12,9 @@ module.exports = {
         sans: ["DM Sans", "sans-serif"],
       },
       colors: {
+        primary: "#FFB635",
+        secondary: "#434040",
+        accent: "#02073e",
         manz: {
           100: "#f6fac7",
           200: "#FFB635",

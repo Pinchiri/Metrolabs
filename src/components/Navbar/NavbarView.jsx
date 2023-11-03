@@ -1,8 +1,9 @@
-import metrolabsLogo from "../../assets/metrolabs-logo.png";
+import metrolabsLogo from "../../assets/logo.png";
 import AccountCircleIcon from "mdi-react/AccountCircleIcon";
 import NavbarOptionsList from "./NavbarOptionsList";
 import Link from "next/link";
 import { homeURL } from "@/constants/urls";
+import Image from "next/image";
 
 const NavbarView = ({ isExpanded, setIsExpanded, options }) => {
   return (
@@ -11,7 +12,7 @@ const NavbarView = ({ isExpanded, setIsExpanded, options }) => {
         <button
           data-collapse-toggle="navbar-sticky"
           type="button"
-          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-masala rounded-lg lg:hidden hover:bg-[#F3F386] focus:outline-none focus:ring-2 focus:ring-manz-200"
+          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-masala rounded-lg lg:hidden hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary"
           aria-controls="navbar-sticky"
           onClick={() => setIsExpanded(!isExpanded)}
         >
@@ -34,13 +35,14 @@ const NavbarView = ({ isExpanded, setIsExpanded, options }) => {
         </button>
 
         <Link
-          //FIXME - Change link
           href={homeURL}
           className="flex items-center md:-ml-20"
         >
-          <img
+          <Image
             src={metrolabsLogo.src}
-            className="hover:bg-[#F3F386] w-[220px] h-12 rounded-full transition-all px-6 py-1 md:ml-20 xl:ml-14 2xl:ml-0"
+            width={622}
+            height={225}
+            className="hover:scale-110 w-[220px] h-12 self-center rounded-full transition-all mt-1 md:ml-20 xl:ml-14 2xl:ml-0"
             alt="Metrolabs Logo"
           />
         </Link>
@@ -48,7 +50,7 @@ const NavbarView = ({ isExpanded, setIsExpanded, options }) => {
           <AccountCircleIcon
             size="full"
             color="#434040"
-            className="hover:fill-manz-200"
+            className="hover:fill-primary"
           />
         </div>
         <div

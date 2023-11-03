@@ -1,12 +1,12 @@
 {
-  "theme_color": "#F1F574",
+  "theme_color": "#FFB635",
   "background_color": "#fff",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
-  "name": "Metrolabs",
-  "short_name": "Metrolabs",
-  "description": "Your favorite labs app",
+  "name": "Process Lab",
+  "short_name": "Process Lab",
+  "description": "Your app for booking UNIMET lab",
   "icons": [
     {
       "src": "/icon-192x192.png",
