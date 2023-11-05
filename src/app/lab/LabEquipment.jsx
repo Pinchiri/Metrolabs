@@ -4,7 +4,7 @@ import Equipment from "../../assets/Equipos.PNG";
 const LabEquipment = () => {
   return (
     <div className="w-full flex flex-col mt-2 mb-10" id="LabEquipment">
-      <p className=" pl-10 pb-10 text-stratos px-4 text-3xl sm:text-3xl self-left tracking-tighter font-b612 font-bold">
+      <p className=" pl-10 pb-10 text-stratos flex justify-center px-4 text-3xl sm:text-3xl self-left tracking-tighter font-b612 font-bold">
         Equipamiento Disponible
       </p>
       <img
@@ -12,9 +12,9 @@ const LabEquipment = () => {
         alt="Equipamiento"
         className="drop-shadow-lg pl-10 self-left lg-px-36 rounded-lg h-[150px] w-[auto] mr-10 lg:h-[350px] lg:mx-40"
       />
-      <div className="lg:flex lg:flex-row lg: flex-between">
-        <div>
-          <p className="pt-6 pl-10 text-stratos px-4 text-2xl sm:text-2xl xl:self-start xl:ml-10 lg:w-1/2 tracking-tighter font-b612 font-bold lg:pl-4">
+      <div className="lg:flex lg:flex-row lg:flex-between">
+        <div className="lg:w-1/2">
+          <p className="pt-6 pl-10 flex justify-center text-stratos px-4 text-2xl sm:text-2xl xl:self-start xl:ml-10 lg:w-full tracking-tighter font-b612 font-bold lg:pl-4">
             Equipos
           </p>
           <div className="w-[max] pl-16 pr-10 animate-fade-right">
@@ -47,8 +47,8 @@ const LabEquipment = () => {
           </div>
         </div>
 
-        <div>
-          <p className="pt-5 pl-10 text-stratos px-4 text-2xl sm:text-2xl xl:self-start xl:ml-10 lg:w-1/2 tracking-tighter font-b612 font-bold">
+        <div className="lg:w-1/2">
+          <p className="pt-5 pl-10 flex justify-center text-stratos px-4 text-2xl sm:text-2xl xl:self-start xl:ml-10 lg:w-full tracking-tighter font-b612 font-bold">
             Reactivos
           </p>
           <div className="w-[max] pl-16 pr-10 animate-fade-right">
