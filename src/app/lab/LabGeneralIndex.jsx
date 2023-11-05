@@ -15,7 +15,7 @@ const LabGeneralIndex = () => {
 
     return (
         <>
-        <h1  className=" pl-10 mt-10 mb-4 text-stratos px-4 text-3xl sm:text-3xl self-left tracking-tighter font-b612 font-bold">
+        <h1  className=" pl-10 mt-10 pb-8 mb-4 text-stratos px-4 text-3xl sm:text-3xl flex justify-center self-left tracking-tighter font-b612 font-bold">
                 Información del Laboratorio
             </h1>
         <div className="flex-col align-start pl-8 pr-3  md:grid md:grid-cols-2 lg:flex lg:flex-row lg:justify-around ">
