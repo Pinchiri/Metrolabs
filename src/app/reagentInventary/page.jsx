@@ -24,6 +24,7 @@ const SheetComponent = () => {
 
 
   const fetchData = async () => {
+    setToasterVisible(false);
     setLoading(true);
     try {
       const response = await fetch('/api/sheetsReagent');
@@ -31,7 +32,15 @@ const SheetComponent = () => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      setData(data);
+
+
+      const dataWithIndex = data.map((item, index) => ({
+        ...item,
+        originalIndex: index
+      }));
+
+
+      setData(dataWithIndex);
     } catch (error) {
       setError(error);
     } finally {
@@ -44,40 +53,37 @@ const SheetComponent = () => {
   }, []);
 
 
-const updateData = async (rowIndex, rowData) => {
-  rowIndex= rowIndex + 4;
-  try {
-    const response = await fetch('/api/sheetsReagentUpdate', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ rowIndex, rowData }), 
-    });
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+  const updateData = async (rowIndex, rowData) => {
+    rowIndex = rowIndex + 4;
+    try {
+      const response = await fetch('/api/sheetsReagentUpdate', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ rowIndex, rowData }),
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const result = await response.json();
+      fetchData();
+      setToasterVisible(true); 
+      setTimeout(() => {
+        setToasterVisible(false);
+      }, 3000);
+
+
+    } catch (error) {
+      console.error('Failed to update data', error);
     }
-    const result = await response.json();
-    fetchData();
-    showToast();
+  };
 
 
-  } catch (error) {
-    console.error('Failed to update data', error);
-  }
-};
+  if (isLoading) return <> <h1 className="font-['B612'] ml-10 mt-20 font-bold pt-5 text-3xl"> Inventario de Reactivos </h1> <Spinner /> </>;
 
-
-  if (isLoading) return <> <h1 className="font-['B612'] ml-10 mt-20 font-bold pt-5 text-3xl"> Inventario de Reactivos </h1> <Spinner /> </> ;
-  
   if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
 
-  const showToast = () => {
-    setToasterVisible(true); // Esto mostrará el toaster
-    setTimeout(() => {
-      setToasterVisible(false); // Esto ocultará el toaster después de 3 segundos
-    }, 5000);
-  };
 
   const filteredData = data.filter(item =>
     item.reactive.toLowerCase().includes(searchTerm.toLowerCase())
@@ -98,7 +104,7 @@ const updateData = async (rowIndex, rowData) => {
       </h1>
 
       <div>
-        <SearchIcon style={{ position: 'absolute', marginLeft: '20px', marginTop: '32px' }}   />
+        <SearchIcon style={{ position: 'absolute', marginLeft: '20px', marginTop: '32px' }} />
         <input
           className='w-11/12 pl-11 mt-5 bg-[#FFF8E4] p-3 rounded-xl ml-2 '
           type="text"
@@ -120,10 +126,10 @@ const updateData = async (rowIndex, rowData) => {
       </p>
 
       <div className='bg-manz-200 p-5 rounded-lg lg:mr-12'>
-        {filteredData.map((item, index) => (
+        {filteredData.map((item) => (
           <ReagentCard
-            key={index}
-            index={index}
+            key={item.originalIndex}
+            index={item.originalIndex}
             reactive={item.reactive}
             formule={item.formule}
             cas={item.cas}
@@ -141,8 +147,8 @@ const updateData = async (rowIndex, rowData) => {
       </div>
 
       <div className="mt-20 ml-10 mr-7">
-      <Toaster message="Inventario actualizado" isVisible={toasterVisible} />
-    </div>
+        <Toaster message="Inventario actualizado" isVisible={toasterVisible} />
+      </div>
     </div>
   );
 };
