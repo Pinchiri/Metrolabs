@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
+import Spinner from '../Spinner/spinner';
 
 const ReagentCard = ({index, reactive, formule, cas, brand, concentration, quantity, units, risk, ubication, observations, setEditIndex, setEditData }) => {
 
   const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+
   const [editableFields, setEditableFields] = useState({
     reactive,
     formule,
@@ -24,7 +27,7 @@ const ReagentCard = ({index, reactive, formule, cas, brand, concentration, quant
   };
 
   const handleSave = () => {
-
+    setLoading(true);
     setIsEditing(false); 
     setEditIndex(index);
     setEditData(editableFields); 
@@ -45,6 +48,26 @@ const ReagentCard = ({index, reactive, formule, cas, brand, concentration, quant
     }); 
     setIsEditing(false); 
   };
+
+  if (isLoading) return (
+    <div
+      style={{
+        position: 'fixed',
+        top: 195,       
+        left: 0,          
+        width: '100%',    
+        height: '90%',  
+        zIndex: 1000,    
+        display: 'flex', 
+        justifyContent: 'center',
+        alignItems: 'center',     
+        background: 'white'
+      }}
+    >
+      <Spinner />
+    </div>
+  );
+
 
 
   return (

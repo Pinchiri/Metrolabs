@@ -5,6 +5,9 @@ import MaterialCard from '@/components/materialCard/materialCard';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear'; 
 import Spinner from '@/components/Spinner/spinner';
+import Snackbar from '@mui/material/Snackbar';
+import { Alert } from '@mui/material';
+
 
 
 
@@ -61,6 +64,7 @@ const updateData = async (rowIndex, rowData) => {
     const result = await response.json();
     fetchData();
 
+
   } catch (error) {
     console.error('Failed to update data', error);
   }
@@ -69,7 +73,6 @@ const updateData = async (rowIndex, rowData) => {
 
   if (isLoading) return <> <h1 className="font-['B612'] ml-10 mt-20 font-bold pt-5 text-3xl"> Inventario de Materiales </h1> <Spinner /> </> ;
   if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
-
   const filteredData = data.filter(item =>
     item.material.toLowerCase().includes(searchTerm.toLowerCase())
   );
