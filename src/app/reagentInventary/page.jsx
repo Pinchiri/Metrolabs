@@ -5,10 +5,12 @@ import ReagentCard from '@/components/reagentCard/reagentCard';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import Spinner from '@/components/Spinner/spinner';
+import Toaster from '@/components/toast/toaster';
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
+  const [toasterVisible, setToasterVisible] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [editIndex, setEditIndex] = useState(null);
@@ -57,6 +59,8 @@ const updateData = async (rowIndex, rowData) => {
     }
     const result = await response.json();
     fetchData();
+    showToast();
+
 
   } catch (error) {
     console.error('Failed to update data', error);
@@ -67,6 +71,13 @@ const updateData = async (rowIndex, rowData) => {
   if (isLoading) return <> <h1 className="font-['B612'] ml-10 mt-20 font-bold pt-5 text-3xl"> Inventario de Reactivos </h1> <Spinner /> </> ;
   
   if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
+
+  const showToast = () => {
+    setToasterVisible(true); // Esto mostrará el toaster
+    setTimeout(() => {
+      setToasterVisible(false); // Esto ocultará el toaster después de 3 segundos
+    }, 5000);
+  };
 
   const filteredData = data.filter(item =>
     item.reactive.toLowerCase().includes(searchTerm.toLowerCase())
@@ -128,6 +139,10 @@ const updateData = async (rowIndex, rowData) => {
           />
         ))}
       </div>
+
+      <div className="mt-20 ml-10 mr-7">
+      <Toaster message="Inventario actualizado" isVisible={toasterVisible} />
+    </div>
     </div>
   );
 };
