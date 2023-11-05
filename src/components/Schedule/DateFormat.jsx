@@ -4,9 +4,9 @@ import React from "react";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import "dayjs/locale/es";
-import AccordionList from "../Accordion/AccordionList";
 import InitialDialog from "./InitialDialog";
 import scientistAsset from "../../assets/scientist-asset.png";
+import ListAccordion from "../Accordion/ListAccordion";
 
 dayjs.locale("es");
 
@@ -24,15 +24,14 @@ const DateFormat = ({ selectedDate, jsonDates }) => {
     const selectedMonth = capitalizeWords(dayjs(selectedDate).format("MMMM"));
     const dayInt = parseInt(dayjs(selectedDate).format("DD"));
 
-    if (jsonDates && selectedDate) {
+    if (Array.isArray(jsonDates) && selectedDate) {
       const monthData = jsonDates.filter((month) => month[selectedMonth]);
+      const dayData =
+        monthData[0] && monthData[0][selectedMonth]
+          ? monthData[0][selectedMonth][dayInt]
+          : null;
 
-      const dayData = monthData[0][selectedMonth][dayInt];
-      if (dayData) {
-        return dayData;
-      } else {
-        return null;
-      }
+      return dayData || null;
     }
     return null;
   };
@@ -41,29 +40,29 @@ const DateFormat = ({ selectedDate, jsonDates }) => {
     setDateInfo(handleDates(jsonDates, selectedDate));
   }, [jsonDates, selectedDate]);
 
-  useEffect(() => {
-    // console.log("dateInfo:", dateInfo);
-  }, [dateInfo]);
-
   return (
     <div className="flex justify-center items-center">
       {selectedDate ? (
-        //Si dateinfo no es null
         dateInfo ? (
-          <div className="flex flex-col items-center">
-            <p className="text-stratos px-4 tracking-tighter text-3xl sm:text-5xl lg:self-center font-b612 font-bold mb-5">
+          <div className="flex flex-col items-center h-auto">
+            <p
+              className="text-stratos px-4 tracking-tighter text-xl sm:text-3xl lg:self-center font-b612 font-bold mb-5"
+              style={{ fontSize: "40px" }}
+            >
               {capitalizeWords(dayjs(selectedDate).format("dddd DD MMMM YYYY"))}
             </p>
-            <AccordionList data={dateInfo} />
+
+            <ListAccordion dateInfo={dateInfo} />
           </div>
         ) : (
           <div className="flex flex-col items-center">
             <h2
               className="text-stratos tracking-tighter text-2xl sm:text-5xl lg:self-center font-b612 mb-3 font-bold "
-              style={{ fontSize: "45px" }}
+              style={{ fontSize: "40px" }}
             >
               {capitalizeWords(dayjs(selectedDate).format("dddd DD MMMM YYYY"))}
             </h2>
+
             <h2
               className="text-black tracking-tighter text-2xl sm:text-5xl lg:self-center font-b612 mb-3 font-bold "
               style={{ fontSize: "20px" }}

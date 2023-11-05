@@ -7,7 +7,7 @@ import DateFormat from "../../components/Schedule/DateFormat";
 import { handleCalendarFetch } from "./handleCalendarFetch";
 
 export default function ClassSchedules() {
-  const [selectedDate, setSelectedDate] = useState("");
+  const [value, setValue] = useState(null);
   const [labDates, setLabDates] = useState({});
 
   useEffect(() => {
@@ -22,22 +22,24 @@ export default function ClassSchedules() {
     fetchData();
   }, []);
 
+  // useEffect(() => {
+  //   console.log(value);
+  //   console.log("labDates:", labDates);
+
+  // }, [value, labDates]);
+
   return (
-    <div className="flex h-auto px-10 mt-4 justify-center items-center flex-col md:flex-row md:items-center md:space-y-6 md:space-x-4">
-      <div className="flex-1 max-w-screen-sm p-3 mr-5 animate-fade-right">
-        <div className="flex flex-col justify-center items-center mx-auto">
-          <div className="flex justify-center mt-2 mx-auto">
-            <Schedule
-              onAccept={setSelectedDate}
-              value={selectedDate}
-            />
-          </div>
-        </div>
+    <div className="flex flex-col md:flex-row justify-center items-center min-h-screen px-4 md:px-10 mt-[30px] md:mt-0">
+      <div className="flex flex-col w-full p-3 animate-fade-right">
+        <Schedule
+          value={value}
+          onChange={(newValue) => setValue(newValue)}
+        />
       </div>
 
-      <div className="flex-2 p-5 animate-fade-right justify-center items-center mx-auto">
+      <div className="flex flex-col w-full items-center p-3 animate-fade-right">
         <DateFormat
-          selectedDate={selectedDate}
+          selectedDate={value}
           jsonDates={labDates}
         />
       </div>
