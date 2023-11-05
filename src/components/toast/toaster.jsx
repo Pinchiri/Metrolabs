@@ -1,21 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 
-const Toaster = ({ message = "Inventario actualizado" }) => {
-  const [show, setShow] = useState(true);  // Estado local para controlar la visibilidad
+const Toaster = ({ message = "Inventario actualizado", isVisible }) => {
+  const [show, setShow] = useState(isVisible);
 
-  if (!show) return null;
+  useEffect(() => {
+    if (isVisible) {
+      const timer = setTimeout(() => {
+        setShow(false);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible]); 
+
+  useEffect(() => {
+    let timer;
+    if (show) {
+      timer = setTimeout(() => {
+        setShow(false);
+      }, 4000); 
+    }
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [show]);
 
   const handleClose = () => {
-    setShow(false);  // Función para cambiar el estado y ocultar el Toaster
+    setShow(false);  
   };
 
   return (
     <div
-      className={`fixed top-64 mt-10 right-15 bg-[#FFB635] p-4 pr-12 z-50rounded shadow-md transition-opacity duration-300 ease-in-out`}
+      className={`fixed top-64 mt-10 mr-16 bg-[#FFB635] p-4 pr-12 rounded shadow-md transition-opacity duration-300 ease-in-out z-50 ${
+        show ? 'opacity-100' : 'opacity-0'
+      }`}
       style={{
         top: '50px',
-        right: '10px',
+        right: '20px',
+        transition: 'opacity 0.5s ease-in-out',
+      }}
+      onAnimationEnd={() => {
+        if (!show) {
+        }
       }}
     >
       <button
