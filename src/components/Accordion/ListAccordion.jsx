@@ -4,14 +4,14 @@ import React, { useEffect, useState } from "react";
 import SingleAccordion from "./SingleAccordion";
 
 const ListAccordion = (dateInfo) => {
-  const [selected, setSelected] = useState("item1");
+  const [selected, setSelected] = useState("");
   const list = dateInfo.dateInfo;
   const handleChange = (itemId) => {
     setSelected((prevSelected) => (prevSelected === itemId ? null : itemId));
   };
 
   useEffect(() => {
-    console.log("ListAccordion:", list);
+    setSelected("");
   }, [list]);
 
   return (

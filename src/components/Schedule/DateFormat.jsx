@@ -46,8 +46,8 @@ const DateFormat = ({ selectedDate, jsonDates }) => {
         dateInfo ? (
           <div className="flex flex-col items-center h-auto">
             <p
-              className="text-stratos px-4 tracking-tighter text-xl sm:text-3xl lg:self-center font-b612 font-bold mb-5"
-              style={{ fontSize: "40px" }}
+              className="px-4 tracking-tighter text-xl sm:text-3xl lg:self-center font-b612 font-bold mb-5"
+              style={{ fontSize: "35px" }}
             >
               {capitalizeWords(dayjs(selectedDate).format("dddd DD MMMM YYYY"))}
             </p>
@@ -57,14 +57,14 @@ const DateFormat = ({ selectedDate, jsonDates }) => {
         ) : (
           <div className="flex flex-col items-center">
             <h2
-              className="text-stratos tracking-tighter text-2xl sm:text-5xl lg:self-center font-b612 mb-3 font-bold "
-              style={{ fontSize: "40px" }}
+              className="tracking-tighter text-2xl sm:text-5xl lg:self-center font-b612 mb-3 font-bold "
+              style={{ fontSize: "35px" }}
             >
               {capitalizeWords(dayjs(selectedDate).format("dddd DD MMMM YYYY"))}
             </h2>
 
             <h2
-              className="text-black tracking-tighter text-2xl sm:text-5xl lg:self-center font-b612 mb-3 font-bold "
+              className="tracking-tighter text-2xl sm:text-5xl lg:self-center font-b612 mb-3 font-bold "
               style={{ fontSize: "20px" }}
             >
               No hay horarios disponibles
@@ -73,7 +73,7 @@ const DateFormat = ({ selectedDate, jsonDates }) => {
             <img
               src={scientistAsset.src}
               alt="Scientist Asset"
-              className="h-1/2 sm:h-1/3 lg:h-[350px] w-1/2 lg:w-[170px]  sm:w-1/3 mt-10 sm:ml-10 relative z-10 animate-fade-right"
+              className="h-1/2 sm:h-1/3 lg:h-[350px] w-1/2 lg:w-[170px] sm:w-1/3 mt-5 sm:mt-0 sm:ml-10 relative z-10 animate-fade-right "
             />
           </div>
         )

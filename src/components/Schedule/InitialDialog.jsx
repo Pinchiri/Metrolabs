@@ -4,8 +4,8 @@ const InitialDialog = () => {
   return (
     <div className="flex flex-col items-center">
       <h2
-        className="text-stratos tracking-tighter text-2xl sm:text-5xl lg:self-center font-b612 font-bold"
-        style={{ fontSize: "45px", whiteSpace: "nowrap" }}
+        className="tracking-tighter text-2xl sm:text-5xl lg:self-center font-b612 font-bold"
+        style={{ fontSize: "35px", whiteSpace: "nowrap" }}
       >
         Selecciona una fecha
       </h2>

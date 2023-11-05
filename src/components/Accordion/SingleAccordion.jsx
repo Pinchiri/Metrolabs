@@ -5,10 +5,6 @@ import React, { useEffect } from "react";
 const SingleAccordion = ({ id, selected, handleChange, title, data }) => {
   const isActive = selected === id;
 
-  useEffect(() => {
-    console.log("SingleAccordion:", data);
-  }, [data]);
-
   return (
     <div className="collapse collapse-plus mb-2">
       <input
