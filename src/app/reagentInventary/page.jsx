@@ -6,6 +6,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import Spinner from '@/components/Spinner/spinner';
 import Toaster from '@/components/toast/toaster';
+import PrivateRoute from '@/privateRoute/privateRoute';
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
@@ -98,58 +99,62 @@ const SheetComponent = () => {
   };
 
   return (
-    <div className="mt-20 ml-10 mr-7">
-      <h1 className="font-['B612'] font-bold pt-5 text-3xl">
-        Inventario de Reactivos
-      </h1>
+    <> 
+    <PrivateRoute>
+      <div className="mt-12 ml-10 mr-7">
+        <h1 className="font-['B612'] font-bold pt-2 text-3xl">
+          Inventario de Reactivos
+        </h1>
 
-      <div>
-        <SearchIcon style={{ position: 'absolute', marginLeft: '20px', marginTop: '32px' }} />
-        <input
-          className='w-11/12 pl-11 mt-5 bg-[#FFF8E4] p-3 rounded-xl ml-2 '
-          type="text"
-          placeholder='Buscar un reactivo....'
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
-
-        {searchTerm && (
-          <button onClick={clearSearch} className='ml-2'>
-            <ClearIcon style={{ marginLeft: '-70px' }} />
-          </button>
-        )}
-
-      </div>
-
-      <p className="mt-5 font-['B612'] font-bold text-xl pb-2">
-        Lista de Reactivos
-      </p>
-
-      <div className='bg-manz-200 p-5 rounded-lg lg:mr-12'>
-        {filteredData.map((item) => (
-          <ReagentCard
-            key={item.originalIndex}
-            index={item.originalIndex}
-            reactive={item.reactive}
-            formule={item.formule}
-            cas={item.cas}
-            brand={item.brand}
-            concentration={item.concentration}
-            quantity={item.quantity}
-            units={item.units}
-            risk={item.risk}
-            ubication={item.ubication}
-            observations={item.observations}
-            setEditIndex={setEditIndex}
-            setEditData={setEditData}
+        <div>
+          <SearchIcon style={{ position: 'absolute', marginLeft: '20px', marginTop: '32px' }} />
+          <input
+            className='w-11/12 pl-11 mt-5 bg-[#FFF8E4] p-3 rounded-xl ml-2 '
+            type="text"
+            placeholder='Buscar un reactivo....'
+            value={searchTerm}
+            onChange={handleSearchChange}
           />
-        ))}
-      </div>
 
-      <div className="mt-20 ml-10 mr-7">
-        <Toaster message="Inventario actualizado" isVisible={toasterVisible} />
+          {searchTerm && (
+            <button onClick={clearSearch} className='ml-2'>
+              <ClearIcon style={{ marginLeft: '-70px' }} />
+            </button>
+          )}
+
+        </div>
+
+        <p className="mt-5 font-['B612'] font-bold text-xl pb-2">
+          Lista de Reactivos
+        </p>
+
+        <div className='bg-manz-200 p-5 rounded-lg lg:mr-12'>
+          {filteredData.map((item) => (
+            <ReagentCard
+              key={item.originalIndex}
+              index={item.originalIndex}
+              reactive={item.reactive}
+              formule={item.formule}
+              cas={item.cas}
+              brand={item.brand}
+              concentration={item.concentration}
+              quantity={item.quantity}
+              units={item.units}
+              risk={item.risk}
+              ubication={item.ubication}
+              observations={item.observations}
+              setEditIndex={setEditIndex}
+              setEditData={setEditData}
+            />
+          ))}
+        </div>
+
+        <div className="mt-20 ml-10 mr-7">
+          <Toaster message="Inventario actualizado" isVisible={toasterVisible} />
+        </div>
       </div>
-    </div>
+    </PrivateRoute>
+    </>
   );
 };
 

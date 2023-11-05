@@ -1,4 +1,4 @@
-import { db } from "../../firebase";
+import { db } from "../../firebase.js";
 import { getDocs, collection, limit, query } from "firebase/firestore";
 
 import AvailableSchedulesLanding from "./LandingPage/AvailableSchedulesLanding";

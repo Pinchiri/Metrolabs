@@ -5,6 +5,7 @@ import EquipmentCard from '@/components/equipmentCard/equipmentCard';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear'; 
 import Spinner from '@/components/Spinner/spinner';
+import PrivateRoute from '@/privateRoute/privateRoute';
 
 
 
@@ -82,55 +83,59 @@ const updateData = async (rowIndex, rowData) => {
   };
 
   return (
-    <div className="mt-20 ml-10 mr-7">
-      <h1 className="font-['B612'] font-bold pt-5 text-3xl">
-        Inventario de Equipos
-      </h1>
+    <>
+      <PrivateRoute>
+        <div className="mt-12 ml-10 mr-7">
+          <h1 className="font-['B612'] font-bold pt-5 text-3xl">
+            Inventario de Equipos
+          </h1>
 
-      <div>
-        <SearchIcon style={{ position: 'absolute', marginLeft: '20px', marginTop: '32px' }}   />
-        <input
-          className='w-11/12 pl-11 mt-5 bg-[#FFF8E4] p-3 rounded-xl ml-2 '
-          type="text"
-          placeholder='Buscar un reactivo....'
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
+          <div>
+            <SearchIcon style={{ position: 'absolute', marginLeft: '20px', marginTop: '32px' }}   />
+            <input
+              className='w-11/12 pl-11 mt-5 bg-[#FFF8E4] p-3 rounded-xl ml-2 '
+              type="text"
+              placeholder='Buscar un reactivo....'
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
 
-        {searchTerm && (
-          <button onClick={clearSearch} className='ml-2'>
-            <ClearIcon style={{ marginLeft: '-70px' }} />
-          </button>
-        )}
+            {searchTerm && (
+              <button onClick={clearSearch} className='ml-2'>
+                <ClearIcon style={{ marginLeft: '-70px' }} />
+              </button>
+            )}
 
-      </div>
+          </div>
 
-      
-      <p className="mt-5 font-['B612'] font-bold text-xl pb-2"> 
-        Lista de Equipos
-      </p>
+          
+          <p className="mt-5 font-['B612'] font-bold text-xl pb-2"> 
+            Lista de Equipos
+          </p>
 
-      <div className='bg-manz-200 p-5 rounded-lg lg:mr-12'>
-        {filteredData.map((item, index) => (
-        <EquipmentCard 
-            key={index} 
-            index={index}
-            equipment= {item.equipment} 
-            brand = {item.brand}
-            model = {item.model}
-            quantity= {item.quantity}
-            ubication= {item.ubication}
-            userManual= {item.userManual}
-            frecuency= {item.frecuency}
-            date= {item.date}
-            observations= {item.observations}
-            setEditIndex={setEditIndex}
-            setEditData={setEditData}
-        />
+          <div className='bg-manz-200 p-5 rounded-lg lg:mr-12'>
+            {filteredData.map((item, index) => (
+            <EquipmentCard 
+                key={index} 
+                index={index}
+                equipment= {item.equipment} 
+                brand = {item.brand}
+                model = {item.model}
+                quantity= {item.quantity}
+                ubication= {item.ubication}
+                userManual= {item.userManual}
+                frecuency= {item.frecuency}
+                date= {item.date}
+                observations= {item.observations}
+                setEditIndex={setEditIndex}
+                setEditData={setEditData}
+            />
 
-      ))}
-      </div>
-    </div>
+          ))}
+          </div>
+        </div>
+    </PrivateRoute>
+    </>
   );
 };
 
