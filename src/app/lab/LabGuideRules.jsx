@@ -4,7 +4,7 @@ import Guiderule from "../../assets/Normativas.PNG";
 const LabGuideRules = () => {
   return (
     <div className="w-full flex flex-col mt-2 mb-10" id="LabGuideRules">
-      <p className=" pl-10 pb-10 text-stratos px-4 text-3xl sm:text-3xl self-left tracking-tighter font-b612 font-bold">
+      <p className=" pl-10 pb-10 text-stratos flex justify-center px-4 text-3xl sm:text-3xl self-left tracking-tighter font-b612 font-bold">
         Normativas del Laboratorio
       </p>
       <img
