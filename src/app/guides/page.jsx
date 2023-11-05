@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import GuideCard from "@/components/guideCard/guideCard";
+import Spinner from "@/components/Spinner/spinner";
 
 function DrivePage() {
   const [files, setFiles] = useState([]);
@@ -24,7 +25,7 @@ function DrivePage() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <> <h1 className="font-['B612'] ml-10 mt-20 pt-12 font-bold pt-5 text-3xl"> Manuales de Laboratorio </h1> <Spinner /> </> ;
   }
 
   return (
