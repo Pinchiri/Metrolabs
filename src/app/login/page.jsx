@@ -20,19 +20,18 @@ const Login = () => {
     const logGoogleUser = async () => {
         try {
             const { user } = await signInWithGooglePopup();
-            setCurrentUser(user);
             const isUnimetEmail = user.email.endsWith('@correo.unimet.edu.ve') || user.email.endsWith('@unimet.edu.ve');
             if (!isUnimetEmail) {
                 alert("El correo electrónico no es un correo válido de la Unimet.");
                 return;
               }
-
+            setCurrentUser(user);
             const userDocRef = await createUserDocumentFromAuth(user);
             const docSnapshot = await getDoc(userDocRef);
             if (docSnapshot.exists()) {
                 const userData = docSnapshot.data();
                 if (userData.email.endsWith('@correo.unimet.edu.ve')) {
-                    router.push('/reagentInventary');
+                    router.push('/profesorPanel');
                 } else {
                     router.push('/');
 
