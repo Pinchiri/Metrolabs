@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import ReagentCard from '@/components/reagentCard/reagentCard';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
+import Spinner from '@/components/Spinner/spinner';
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
@@ -63,7 +64,8 @@ const updateData = async (rowIndex, rowData) => {
 };
 
 
-  if (isLoading) return <div>Cargando...</div>;
+  if (isLoading) return <> <h1 className="font-['B612'] ml-10 mt-20 font-bold pt-5 text-3xl"> Inventario de Reactivos </h1> <Spinner /> </> ;
+  
   if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
 
   const filteredData = data.filter(item =>
@@ -85,9 +87,9 @@ const updateData = async (rowIndex, rowData) => {
       </h1>
 
       <div>
-        <SearchIcon />
+        <SearchIcon style={{ position: 'absolute', marginLeft: '20px', marginTop: '32px' }}   />
         <input
-          className='w-11/12 mt-5 bg-[#FFF8E4] p-3 rounded-xl ml-2'
+          className='w-11/12 pl-11 mt-5 bg-[#FFF8E4] p-3 rounded-xl ml-2 '
           type="text"
           placeholder='Buscar un reactivo....'
           value={searchTerm}
