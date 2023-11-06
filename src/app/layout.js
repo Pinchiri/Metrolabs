@@ -4,7 +4,7 @@ import { UserProvider } from "@/context/userContext";
 
 export const metadata = {
   manifest: "/manifest.json",
-  themeColor: "#F1F574",
+  themeColor: "#FFB635",
 };
 
 export default function RootLayout({ children }) {
