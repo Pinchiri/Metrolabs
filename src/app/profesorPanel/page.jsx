@@ -49,6 +49,12 @@ const profesorPanel = () => {
                 <Link href="/equipmentInventary"> Inventario de Equipos </Link>
               </p>
             </div>
+
+            <div className="bg-white p-5 rounded-lg mt-8 lg:mr-12 flex justify-center">
+              <p className="font-['B612'] font-bold pt-1 text-xl">
+                <Link href="/manageClasses"> Modificar Horarios de Clases</Link>
+              </p>
+            </div>
           </div>
         </div>
       </PrivateRoute>

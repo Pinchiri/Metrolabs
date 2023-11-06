@@ -25,7 +25,7 @@ const sheets = google.sheets({ version: "v4", auth });
 
 async function getSheetData() {
   try {
-    const range = "Equipos!A4:K"; // Ajusta según tu rango necesario
+    const range = "Horario de Clases!A4:G"; // Ajusta según tu rango necesario
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: "1_-0ao8kLOr21E8BmrkSjEBMM3sKJvMp92yK8DYZWkO0",
       range: range,
@@ -40,15 +40,12 @@ async function getSheetData() {
     return rows.map((row) => {
       return {
         // Ajusta de acuerdo a tus columnas
-        equipment: row[1],
-        brand: row[2],
-        model: row[3],
-        quantity: row[4],
-        ubication: row[5],
-        userManual: row[6],
-        frequency: row[7],
-        date: row[8],
-        observations: row[9],
+        className: row[1],
+        professor: row[2],
+        trimester: row[3],
+        day: row[4],
+        start: row[5],
+        end: row[6],
       };
     });
   } catch (error) {
