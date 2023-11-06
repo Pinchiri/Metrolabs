@@ -36,6 +36,8 @@ const Navbar = () => {
       } catch (error) {
         console.error('Error during logout', error);
       }
+    } else {
+      router.push('/login'); 
     }
   };
 
