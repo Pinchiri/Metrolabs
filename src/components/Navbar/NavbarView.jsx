@@ -5,7 +5,7 @@ import Link from "next/link";
 import { homeURL } from "@/constants/urls";
 import Image from "next/image";
 
-const NavbarView = ({ isExpanded, setIsExpanded, options }) => {
+const NavbarView = ({ isExpanded, setIsExpanded, options, signOut }) => {
   return (
     <nav className="bg-white fixed w-full z-20 top-0 left-0">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -51,6 +51,7 @@ const NavbarView = ({ isExpanded, setIsExpanded, options }) => {
             size="full"
             color="#434040"
             className="hover:fill-primary"
+            onClick={signOut}
           />
         </div>
         <div
