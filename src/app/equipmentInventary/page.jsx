@@ -6,12 +6,14 @@ import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear'; 
 import Spinner from '@/components/Spinner/spinner';
 import PrivateRoute from '@/privateRoute/privateRoute';
+import Toaster from '@/components/toast/toaster';
 
 
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
+  const [toasterVisible, setToasterVisible] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [editIndex, setEditIndex] = useState(null);
@@ -25,6 +27,7 @@ const SheetComponent = () => {
 
 
   const fetchData = async () => {
+    setToasterVisible(false);
     setLoading(true);
     try {
       const response = await fetch('/api/sheetsEquipment');
@@ -32,7 +35,15 @@ const SheetComponent = () => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      setData(data);
+
+
+      const dataWithIndex = data.map((item, index) => ({
+        ...item,
+        originalIndex: index
+      }));
+
+
+      setData(dataWithIndex);
     } catch (error) {
       setError(error);
     } finally {
@@ -45,26 +56,31 @@ const SheetComponent = () => {
   }, []);
 
 
-const updateData = async (rowIndex, rowData) => {
-  rowIndex= rowIndex + 4;
-  try {
-    const response = await fetch('/api/sheetsEquipmentUpdate', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ rowIndex, rowData }), 
-    });
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const result = await response.json();
-    fetchData();
+  const updateData = async (rowIndex, rowData) => {
+    rowIndex = rowIndex + 4;
+    try {
+      const response = await fetch('/api/sheetsEquipmentUpdate', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ rowIndex, rowData }),
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const result = await response.json();
+      fetchData();
+      setToasterVisible(true); 
+      setTimeout(() => {
+        setToasterVisible(false);
+      }, 3000);
 
-  } catch (error) {
-    console.error('Failed to update data', error);
-  }
-};
+
+    } catch (error) {
+      console.error('Failed to update data', error);
+    }
+  };
 
 
   if (isLoading) return <> <h1 className="font-['B612'] ml-10 mt-20 font-bold pt-5 text-3xl"> Inventario de Equipos </h1> <Spinner /> </> ;
@@ -116,8 +132,8 @@ const updateData = async (rowIndex, rowData) => {
           <div className='bg-manz-200 p-5 rounded-lg lg:mr-12'>
             {filteredData.map((item, index) => (
             <EquipmentCard 
-                key={index} 
-                index={index}
+                key={item.originalIndex}
+                index={item.originalIndex}
                 equipment= {item.equipment} 
                 brand = {item.brand}
                 model = {item.model}
@@ -133,6 +149,11 @@ const updateData = async (rowIndex, rowData) => {
 
           ))}
           </div>
+
+          <div className="mt-20 ml-10 mr-7">
+            <Toaster message="Inventario actualizado" isVisible={toasterVisible} />
+          </div>
+
         </div>
     </PrivateRoute>
     </>

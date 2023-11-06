@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
+import Spinner from '../Spinner/spinner';
+
 
 const MaterialCard = ({index, material, capacity, brand, quantity, ubication, observations,  setEditIndex, setEditData  }) => {
     const [isEditing, setIsEditing] = useState(false);
+    const [isLoading, setLoading] = useState(false);
+
     const [editableFields, setEditableFields] = useState({
         material, 
         capacity,
@@ -18,12 +22,12 @@ const MaterialCard = ({index, material, capacity, brand, quantity, ubication, ob
         setEditableFields(prevFields => ({ ...prevFields, [name]: value }));
         };
     
-        const handleSave = () => {
-    
-        setIsEditing(false); 
-        setEditIndex(index);
-        setEditData(editableFields); 
-        };
+    const handleSave = () => {
+    setLoading(true);
+    setIsEditing(false); 
+    setEditIndex(index);
+    setEditData(editableFields); 
+    };
     
     
     const handleCancel = () => {
@@ -37,6 +41,25 @@ const MaterialCard = ({index, material, capacity, brand, quantity, ubication, ob
         }); 
         setIsEditing(false); 
     };
+
+    if (isLoading) return (
+        <div
+          style={{
+            position: 'fixed',
+            top: 195,       
+            left: 0,          
+            width: '100%',    
+            height: '90%',  
+            zIndex: 1000,    
+            display: 'flex', 
+            justifyContent: 'center',
+            alignItems: 'center',     
+            background: 'white'
+          }}
+        >
+          <Spinner />
+        </div>
+      );
     
     
     return (

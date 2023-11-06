@@ -2,10 +2,14 @@ import React, { useState} from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
+import Spinner from '../Spinner/spinner';
+
 
 const EquipmentCard = ({index, equipment, brand, model, quantity, ubication, userManual, frecuency, date, observations,setEditIndex, setEditData }) => {
       
         const [isEditing, setIsEditing] = useState(false);
+        const [isLoading, setLoading] = useState(false);
+
         const [editableFields, setEditableFields] = useState({
           equipment,
           brand, 
@@ -44,6 +48,25 @@ const EquipmentCard = ({index, equipment, brand, model, quantity, ubication, use
           }); 
           setIsEditing(false); 
         };
+
+        if (isLoading) return (
+            <div
+              style={{
+                position: 'fixed',
+                top: 195,       
+                left: 0,          
+                width: '100%',    
+                height: '90%',  
+                zIndex: 1000,    
+                display: 'flex', 
+                justifyContent: 'center',
+                alignItems: 'center',     
+                background: 'white'
+              }}
+            >
+              <Spinner />
+            </div>
+          );
       
       
     return (

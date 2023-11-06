@@ -1,16 +1,15 @@
 "use client"
 import {useEffect, useState} from "react";
-import {auth} from "../../../firebase.js";
+import {auth} from "../../../firebase.js"
 import { useRouter } from 'next/navigation'; 
 import { onAuthStateChanged } from "firebase/auth";
-import ProfesorPanelView from "./profesorPanelView.jsx";
+import StudentPanelView from "./studentPanelView.jsx";
 
 
-const ProfesorPanel = () => {
+const StudentPanel = () => {
 
   const [name, setName] = useState("");
   const router = useRouter();
-
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -18,7 +17,6 @@ const ProfesorPanel = () => {
         setName(firebaseUser.displayName)
       } else {
         router.push('/login');
-        
       }
     });
         return () => unsubscribe();
@@ -26,9 +24,9 @@ const ProfesorPanel = () => {
 
     return (
         <>
-        <ProfesorPanelView name = {name}/>
+            <StudentPanelView name = {name}/>
         </>
     )
 }
 
-export default ProfesorPanel;
+export default StudentPanel;
