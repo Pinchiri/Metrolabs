@@ -2,12 +2,12 @@ const TeacherCard = ({name, imageURL, education, email, interestAreas, asignatur
     return (
         <>
         <div className="ml-10 mr-10">
-          <h3 className="text-2xl flex justify-center font-bold font-b612 font-bold text-manz-200"> {name}  </h3>
-          <p className="flex justify-center">  Adscrito a la Facultad de Ingeniería.  </p>
-          <div className="flex justify-center pb-3">
+          <h3 className="text-2xl font-bold font-b612 font-bold text-manz-200"> {name}  </h3>
+          <p>  Adscrito a la Facultad de Ingeniería.  </p>
+          <div className="flex justify-center">
             <img 
                 src={imageURL} 
-                className="h-[250px] w-[350px] mt-5 lg:h-[400px]"
+                className="h-[250px] w-[auto] mt-5 lg:h-[400px]"
                 alt="Imagen del profesor" 
                 />
             </div>
