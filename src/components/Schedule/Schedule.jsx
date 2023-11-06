@@ -9,9 +9,8 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import dayjs from "dayjs";
 
 const Schedule = ({ value, onChange }) => {
-  const minDate = dayjs().startOf("month");
-  // Último día del año actual
-  const maxDate = dayjs().endOf("year");
+  const minDate = dayjs().startOf("year"); // Primer día del año actual
+  const maxDate = dayjs().endOf("year"); // Último día del año actual
 
   return (
     <LocalizationProvider

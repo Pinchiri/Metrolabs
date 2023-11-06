@@ -46,6 +46,7 @@ const DateFormat = ({ selectedDate, data }) => {
         content: {
           Clase: item.className,
           Profesor: item.professor,
+          Trimestre: item.trimester,
         },
       };
     });
@@ -54,10 +55,6 @@ const DateFormat = ({ selectedDate, data }) => {
   useEffect(() => {
     setInfoClasses(formatDataClasses(handleDataClasses(selectedDate, data)));
   }, [selectedDate, data]);
-
-  useEffect(() => {
-    console.log(infoClasses);
-  }, [infoClasses]);
 
   return (
     <div className="flex justify-center items-center">

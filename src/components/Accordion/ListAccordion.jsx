@@ -16,21 +16,16 @@ const ListAccordion = (dateInfo) => {
 
   return (
     <>
-      {Object.keys(list).map(
-        (k, index) => (
-          console.log(list[k].content),
-          (
-            <SingleAccordion
-              key={index}
-              id={k}
-              selected={selected}
-              handleChange={handleChange}
-              title={list[k].title}
-              data={list[k].content}
-            />
-          )
-        )
-      )}
+      {Object.keys(list).map((k, index) => (
+        <SingleAccordion
+          key={index}
+          id={k}
+          selected={selected}
+          handleChange={handleChange}
+          title={list[k].title}
+          data={list[k].content}
+        />
+      ))}
     </>
   );
 };
