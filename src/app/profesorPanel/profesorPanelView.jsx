@@ -39,6 +39,14 @@ const ProfesorPanelView = ({ name }) => {
                 </p>
               </div>
             </Link>
+
+            <Link href="/manageClasses">
+              <div className="bg-white p-5 rounded-lg mt-8 lg:mr-12 flex justify-center">
+                <p className="font-['B612'] font-bold pt-1 text-xl">
+                  Horario de Clases
+                </p>
+              </div>
+            </Link>
           </div>
         </div>
       </PrivateRoute>

@@ -148,7 +148,7 @@ const ClassesCard = ({
       </div>
 
       {/* Dia*/}
-      <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
+      <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
         <h3 className="font-bold text-lg "> Día de las clases: </h3>
         {isEditing ? (
           <input
@@ -163,7 +163,7 @@ const ClassesCard = ({
       </div>
 
       {/* Hora de Inicio*/}
-      <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
+      <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
         <h3 className="font-bold text-lg"> Hora de Inicio: </h3>
         {isEditing ? (
           <input

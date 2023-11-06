@@ -3,18 +3,25 @@
 import React, { useEffect, useState } from "react";
 import ClassesCard from "./ClassesCard";
 
-const ClassesList = (props) => {
-  const [selected, setSelected] = useState("");
-  const list = dateInfo.dateInfo;
-  const handleChange = (itemId) => {
-    setSelected((prevSelected) => (prevSelected === itemId ? null : itemId));
-  };
-
-  useEffect(() => {
-    setSelected("");
-  }, [list]);
-
-  return <>{}</>;
+const ClassesList = ({ data, setEditIndex, setEditData }) => {
+  return (
+    <>
+      {data.map((item, index) => (
+        <ClassesCard
+          key={index}
+          index={index}
+          className={item.className}
+          professor={item.professor}
+          trimester={item.trimester}
+          day={item.day}
+          start={item.start}
+          end={item.end}
+          setEditIndex={setEditIndex}
+          setEditData={setEditData}
+        />
+      ))}
+    </>
+  );
 };
 
 export default ClassesList;

@@ -27,23 +27,19 @@ async function updateSheetData(rowIndex, rowData) {
   try {
     console.log(rowData);
 
-    const range = `Reactivos!A${rowIndex}:K${2 + rowIndex}`;
+    const range = `Horario de Clases!A${rowIndex}:G${2 + rowIndex}`;
     const valueInputOption = "RAW";
     const rowBlank = "";
 
     const values = [
       [
         rowBlank,
-        rowData.reactive,
-        rowData.formule,
-        rowData.cas,
-        rowData.brand,
-        rowData.concentration,
-        rowData.quantity,
-        rowData.units,
-        rowData.risk,
-        rowData.ubication,
-        rowData.observations,
+        rowData.className,
+        rowData.professor,
+        rowData.trimester,
+        rowData.day,
+        rowData.start,
+        rowData.end,
       ],
     ];
 

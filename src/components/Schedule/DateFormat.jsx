@@ -10,8 +10,8 @@ import ListAccordion from "../Accordion/ListAccordion";
 
 dayjs.locale("es");
 
-const DateFormat = ({ selectedDate, jsonDates }) => {
-  const [dateInfo, setDateInfo] = useState({});
+const DateFormat = ({ selectedDate, data }) => {
+  const [infoClasses, setInfoClasses] = useState([]);
 
   const capitalizeWords = (str) => {
     return str
@@ -20,30 +20,49 @@ const DateFormat = ({ selectedDate, jsonDates }) => {
       .join(" ");
   };
 
-  const handleDates = (jsonDates, selectedDate) => {
-    const selectedMonth = capitalizeWords(dayjs(selectedDate).format("MMMM"));
-    const dayInt = parseInt(dayjs(selectedDate).format("DD"));
+  const handleDataClasses = (selectedDate, data) => {
+    const month = dayjs(selectedDate).format("MMMM").toLowerCase();
+    const day = dayjs(selectedDate).format("dddd").toLowerCase();
+    const trimester = {
+      "Enero-Marzo": ["enero", "febrero", "marzo"],
+      "Abril-Junio": ["abril", "mayo", "junio"],
+      "Septiembre-Noviembre": ["septiembre", "octubre", "noviembre"],
+    };
 
-    if (Array.isArray(jsonDates) && selectedDate) {
-      const monthData = jsonDates.filter((month) => month[selectedMonth]);
-      const dayData =
-        monthData[0] && monthData[0][selectedMonth]
-          ? monthData[0][selectedMonth][dayInt]
-          : null;
+    return data.filter((item) => {
+      const monthRange = trimester[item.trimester];
+      if (!monthRange || !item.day) return false;
 
-      return dayData || null;
-    }
-    return null;
+      return monthRange.includes(month) && item.day.toLowerCase().includes(day);
+    });
+  };
+
+  const formatDataClasses = (data) => {
+    if (data.length === 0) return [];
+
+    return data.map((item) => {
+      return {
+        title: item.start + "-" + item.end,
+        content: {
+          Clase: item.className,
+          Profesor: item.professor,
+        },
+      };
+    });
   };
 
   useEffect(() => {
-    setDateInfo(handleDates(jsonDates, selectedDate));
-  }, [jsonDates, selectedDate]);
+    setInfoClasses(formatDataClasses(handleDataClasses(selectedDate, data)));
+  }, [selectedDate, data]);
+
+  useEffect(() => {
+    console.log(infoClasses);
+  }, [infoClasses]);
 
   return (
     <div className="flex justify-center items-center">
       {selectedDate ? (
-        dateInfo ? (
+        infoClasses.length > 0 ? (
           <div className="flex flex-col items-center h-auto">
             <p
               className="px-4 tracking-tighter text-xl sm:text-3xl lg:self-center font-b612 font-bold mb-5"
@@ -52,7 +71,7 @@ const DateFormat = ({ selectedDate, jsonDates }) => {
               {capitalizeWords(dayjs(selectedDate).format("dddd DD MMMM YYYY"))}
             </p>
 
-            <ListAccordion dateInfo={dateInfo} />
+            <ListAccordion dateInfo={infoClasses} />
           </div>
         ) : (
           <div className="flex flex-col items-center">

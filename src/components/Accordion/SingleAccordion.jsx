@@ -27,15 +27,15 @@ const SingleAccordion = ({ id, selected, handleChange, title, data }) => {
           isActive ? "block" : "hidden"
         } bg-primary text-primary-content peer-checked:bg-white peer-checked:text-black`}
       >
-        <div className="flex">
-          <p className="font-bold mr-2">Cupos totales:</p>
-          <p>{parseInt(data["Espacio Total"])}</p>
-        </div>
-
-        <div className="flex">
-          <p className="font-bold mr-2"> Cupos reservados: </p>
-          <p>{parseInt(data["Espacio Reservados"])}</p>
-        </div>
+        {Object.keys(data).map((k, index) => (
+          <div
+            className="flex"
+            key={index}
+          >
+            <p className="font-bold mr-2">{k}:</p>
+            <p>{data[k]}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
