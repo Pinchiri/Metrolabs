@@ -1,8 +1,8 @@
-import LabInformation from './LabInformation';
-import LabEquipment from './LabEquipment';
-import LabGuideRules from './LabGuideRules';
-import LabGeneralIndex from './LabGeneralIndex';
-import LabTeachersInformation from './LabTeachersInformation';
+import LabInformation from "./LabInformation";
+import LabEquipment from "./LabEquipment";
+import LabGuideRules from "./LabGuideRules";
+import LabGeneralIndex from "./LabGeneralIndex";
+import LabTeachersInformation from "./LabTeachersInformation";
 
 const LabInfo = () => {
   return (

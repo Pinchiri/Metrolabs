@@ -38,25 +38,8 @@ const TeacherCard = ({
         <p className="mb-7 whitespace-pre-line "> {asignatures} </p>
 
         {/* <h3 className="text-xl font-bold mb-1"> Publicaciones (últimos 5 años): </h3>
-            <p className="mb-7 overflow-hidden whitespace-pre-line "> {publications} </p> */}
+          <p className="mb-7 overflow-hidden whitespace-pre-line "> {publications} </p> */}
       </div>
-      <h3 className="text-xl font-bold mb-1">
-        {" "}
-        Educación y formación académica concluida:{" "}
-      </h3>
-      <p className="mb-7 whitespace-pre-line"> {education} </p>
-
-      <h3 className="text-xl font-bold mb-1"> Contacto: </h3>
-      <p className="mb-7"> {email} </p>
-
-      <h3 className="text-xl font-bold mb-1"> Áreas de interés: </h3>
-      <p className="mb-7"> {interestAreas} </p>
-
-      <h3 className="text-xl font-bold mb-1"> Asignaturas que imparte: </h3>
-      <p className="mb-7 whitespace-pre-line "> {asignatures} </p>
-
-      {/* <h3 className="text-xl font-bold mb-1"> Publicaciones (últimos 5 años): </h3>
-            <p className="mb-7 overflow-hidden whitespace-pre-line "> {publications} </p> */}
     </>
   );
 };
