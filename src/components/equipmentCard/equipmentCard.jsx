@@ -128,7 +128,7 @@ const EquipmentCard = ({
         </div>
 
         {/* Mostrar marca */}
-        <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
+        <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
           <h3 className="font-bold text-lg"> Marca: </h3>
           {isEditing ? (
             <input
@@ -158,7 +158,7 @@ const EquipmentCard = ({
         </div>
 
         {/* Mostrar cantidad */}
-        <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
+        <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
           <h3 className="font-bold text-lg"> Cantidad: </h3>
           {isEditing ? (
             <input
@@ -188,7 +188,7 @@ const EquipmentCard = ({
         </div>
 
         {/* Mostrar Manual de usuario */}
-        <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
+        <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
           <h3 className="font-bold text-lg"> Manual: </h3>
           {isEditing ? (
             <input
@@ -218,7 +218,7 @@ const EquipmentCard = ({
         </div>
 
         {/* Mostrar fecha último mantenimiento */}
-        <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
+        <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
           <h3 className="font-bold text-lg"> Fecha último Mantenimiento: </h3>
           {isEditing ? (
             <input
