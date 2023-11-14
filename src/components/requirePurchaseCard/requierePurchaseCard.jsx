@@ -4,16 +4,14 @@ import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Spinner from "../Spinner/spinner";
 
-const EquipmentCard = ({
+const RequirePurchaseCard = ({
   index,
-  equipment,
+  material,
+  capacity,
   brand,
-  model,
   quantity,
-  ubication,
-  userManual,
-  frecuency,
-  date,
+  price,
+  status,
   observations,
   setEditIndex,
   setEditData,
@@ -22,15 +20,13 @@ const EquipmentCard = ({
   const [isLoading, setLoading] = useState(false);
 
   const [editableFields, setEditableFields] = useState({
-    equipment,
-    brand,
-    model,
-    quantity,
-    ubication,
-    userManual,
-    frecuency,
-    date,
-    observations,
+      material,
+      capacity,
+      brand,
+      quantity,
+      price,
+      status,
+      observations,
   });
 
   const handleChange = (name, value) => {
@@ -45,14 +41,12 @@ const EquipmentCard = ({
 
   const handleCancel = () => {
     setEditableFields({
-      equipment,
+      material,
+      capacity,
       brand,
-      model,
       quantity,
-      ubication,
-      userManual,
-      frecuency,
-      date,
+      price,
+      status,
       observations,
     });
     setIsEditing(false);
@@ -112,126 +106,67 @@ const EquipmentCard = ({
         </div>
 
         {/* INFORMACIÓN  PARA VER  O EDITAR */}
-        {/* Mostrar equipo */}
+        {/* Mostrar Equipo o Material requerido*/}
         <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-          <h3 className="font-bold text-lg"> Equipo: </h3>
+          <h3 className="font-bold text-lg"> Material: </h3>
           {isEditing ? (
             <input
               className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
               type="text"
-              value={editableFields.equipment}
-              onChange={(e) => handleChange("equipment", e.target.value)}
+              value={editableFields.material}
+              onChange={(e) => handleChange("material", e.target.value)}
             />
           ) : (
-            <p> {equipment} </p>
+            <p> {material} </p>
           )}
         </div>
 
-        {/* Mostrar marca */}
+        {/* Mostrar capacidad */}
         <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-          <h3 className="font-bold text-lg"> Marca: </h3>
+          <h3 className="font-bold text-lg"> Capacidad: </h3>
           {isEditing ? (
             <input
               className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
               type="text"
-              value={editableFields.brand}
-              onChange={(e) => handleChange("brand", e.target.value)}
+              value={editableFields.capacity}
+              onChange={(e) => handleChange("capacity", e.target.value)}
             />
           ) : (
-            <p> {brand} </p>
+            <p> {capacity} </p>
           )}
         </div>
 
-        {/* Mostrar modelo */}
+        {/* Mostrar marca*/}
         <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-          <h3 className="font-bold text-lg"> Modelo: </h3>
+          <h3 className="font-bold text-lg"> Precio: </h3>
           {isEditing ? (
             <input
               className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
               type="text"
-              value={editableFields.model}
-              onChange={(e) => handleChange("model", e.target.value)}
+              value={editableFields.price}
+              onChange={(e) => handleChange("price", e.target.value)}
             />
           ) : (
-            <p> {model} </p>
+            <p> {price} </p>
           )}
         </div>
 
         {/* Mostrar cantidad */}
         <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-          <h3 className="font-bold text-lg"> Cantidad: </h3>
+          <h3 className="font-bold text-lg"> Status: </h3>
           {isEditing ? (
             <input
               className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
               type="text"
-              value={editableFields.quantity}
-              onChange={(e) => handleChange("quantity", e.target.value)}
+              value={editableFields.status}
+              onChange={(e) => handleChange("status", e.target.value)}
             />
           ) : (
-            <p> {quantity} </p>
+            <p> {status} </p>
           )}
         </div>
 
-        {/* Mostrar ubicación */}
-        <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-          <h3 className="font-bold text-lg"> Ubicación: </h3>
-          {isEditing ? (
-            <input
-              className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-              type="text"
-              value={editableFields.ubication}
-              onChange={(e) => handleChange("ubication", e.target.value)}
-            />
-          ) : (
-            <p> {ubication} </p>
-          )}
-        </div>
-
-        {/* Mostrar Manual de usuario */}
-        <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-          <h3 className="font-bold text-lg"> Manual: </h3>
-          {isEditing ? (
-            <input
-              className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-              type="text"
-              value={editableFields.userManual}
-              onChange={(e) => handleChange("userManual", e.target.value)}
-            />
-          ) : (
-            <p> {userManual} </p>
-          )}
-        </div>
-
-        {/* Mostrar frecuencia de mantenimiento */}
-        <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-          <h3 className="font-bold text-lg"> Frecuencia Mantenimiento: </h3>
-          {isEditing ? (
-            <input
-              className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-              type="text"
-              value={editableFields.frecuency}
-              onChange={(e) => handleChange("frecuency", e.target.value)}
-            />
-          ) : (
-            <p> {frecuency} </p>
-          )}
-        </div>
-
-        {/* Mostrar fecha último mantenimiento */}
-        <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-          <h3 className="font-bold text-lg"> Fecha último Mantenimiento: </h3>
-          {isEditing ? (
-            <input
-              className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-              type="text"
-              value={editableFields.date}
-              onChange={(e) => handleChange("date", e.target.value)}
-            />
-          ) : (
-            <p> {date} </p>
-          )}
-        </div>
-
+  
         {/* Mostrar observaciones */}
         <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
           <h3 className="font-bold text-lg"> Comentarios: </h3>
@@ -246,9 +181,10 @@ const EquipmentCard = ({
             <p> {observations} </p>
           )}
         </div>
+     
       </div>
     </>
   );
 };
 
-export default EquipmentCard;
+export default RequirePurchaseCard;
