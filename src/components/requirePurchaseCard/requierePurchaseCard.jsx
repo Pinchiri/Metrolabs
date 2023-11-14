@@ -122,7 +122,7 @@ const RequirePurchaseCard = ({
         </div>
 
         {/* Mostrar capacidad */}
-        <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
+        <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
           <h3 className="font-bold text-lg"> Capacidad: </h3>
           {isEditing ? (
             <input
@@ -152,7 +152,7 @@ const RequirePurchaseCard = ({
         </div>
 
         {/* Mostrar cantidad */}
-        <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
+        <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
           <h3 className="font-bold text-lg"> Status: </h3>
           {isEditing ? (
             <input

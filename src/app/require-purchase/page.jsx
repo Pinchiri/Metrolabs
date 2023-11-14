@@ -53,7 +53,7 @@ const SheetComponent = () => {
   const updateData = async (rowIndex, rowData) => {
     rowIndex = rowIndex + 4;
     try {
-      const response = await fetch("/api/sheetsMaterialUpdate", {
+      const response = await fetch("/api/sheetsRequirePurchaseUpdate", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -80,7 +80,7 @@ const SheetComponent = () => {
         {" "}
         <h1 className="font-['B612'] ml-10 mt-20 font-bold pt-5 text-3xl">
           {" "}
-          Inventario de Materiales{" "}
+          Materiales requeridos{" "}
         </h1>{" "}
         <Spinner />{" "}
       </>
@@ -103,7 +103,7 @@ const SheetComponent = () => {
       <PrivateRoute>
         <div className="mt-20 ml-10 mr-7">
           <h1 className="font-['B612'] font-bold pt-5 text-3xl">
-            Inventario de Materiales
+            Compras Requeridas
           </h1>
 
           <div>
@@ -111,7 +111,7 @@ const SheetComponent = () => {
             <input
               className="w-11/12 mt-5 bg-[#FFF8E4] p-3 rounded-xl ml-2"
               type="text"
-              placeholder="Buscar un material...."
+              placeholder="Buscar un requerimiento...."
               value={searchTerm}
               onChange={handleSearchChange}
             />
@@ -127,7 +127,7 @@ const SheetComponent = () => {
           </div>
 
           <p className="mt-5 font-['B612'] font-bold text-xl pb-2">
-            Lista de Materiales
+            Lista de Materiales/ Equipos requeridos
           </p>
 
           <div className="bg-manz-200 p-5 rounded-lg lg:mr-12">

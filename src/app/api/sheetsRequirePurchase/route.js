@@ -23,7 +23,7 @@ const sheets = google.sheets({ version: 'v4', auth });
 
 async function getSheetData() {
   try {
-    const range = 'Compras Requeridas!A4:G'; 
+    const range = 'Compras requeridas!A4:G'; 
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: '1_-0ao8kLOr21E8BmrkSjEBMM3sKJvMp92yK8DYZWkO0',
       range: range,
