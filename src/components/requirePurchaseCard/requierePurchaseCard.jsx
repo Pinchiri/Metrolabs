@@ -138,6 +138,38 @@ const RequirePurchaseCard = ({
 
         {/* Mostrar marca*/}
         <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
+          <h3 className="font-bold text-lg"> Marca: </h3>
+          {isEditing ? (
+            <input
+              className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+              type="text"
+              value={editableFields.brand}
+              onChange={(e) => handleChange("brand", e.target.value)}
+            />
+          ) : (
+            <p> {brand} </p>
+          )}
+        </div>
+
+        {/* Mostrar cantidad*/}
+        <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
+          <h3 className="font-bold text-lg"> Cantidad: </h3>
+          {isEditing ? (
+            <input
+              className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+              type="text"
+              value={editableFields.quantity}
+              onChange={(e) => handleChange("quantity", e.target.value)}
+            />
+          ) : (
+            <p> {quantity} </p>
+          )}
+        </div>
+
+        
+
+        {/* Mostrar precio*/}
+        <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
           <h3 className="font-bold text-lg"> Precio: </h3>
           {isEditing ? (
             <input
@@ -151,7 +183,7 @@ const RequirePurchaseCard = ({
           )}
         </div>
 
-        {/* Mostrar cantidad */}
+        {/* Mostrar status */}
         <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
           <h3 className="font-bold text-lg"> Status: </h3>
           {isEditing ? (
