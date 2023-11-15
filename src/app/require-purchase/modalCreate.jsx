@@ -36,17 +36,18 @@ export const ModalCreatePurchase = ({ open, handleClose }) => {
 
     const handleSubmit = async () => {
         try {
+            console.log(formData)
             const response = await fetch("/api/sheetsRequirePurchaseCreate", {
-                method: 'PUT',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ newRowData: [formData] }),
+                body: JSON.stringify({ formData }),
             });
 
             if (response.ok) {
                 const result = await response.json();
-                console.log(result.message);
+                console.log("Resultado de Google Sheets:", result);
                 handleClose();
             } else {
                 console.error('Error en el servidor al añadir fila');
