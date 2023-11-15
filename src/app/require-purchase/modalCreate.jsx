@@ -1,7 +1,18 @@
-import React from "react";
-import { Modal, Button, Typography, Box } from "@mui/material";
+"use client"
+import {useState, useEffect} from "react";
+import { Modal, Button, Typography, Box, Autocomplete, TextField } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
+import Toaster from "@/components/toast/toaster";
 
+
+// Valores del comboBox de status
+const statusLabels = [
+    { label: 'Pendiente', status: "Pediente"},
+    { label: 'Solicitado', status: "Solicitado" },
+    { label: 'Comprado', status: "Comprado"},
+  ];
+
+// Estilos de la ventana Modal
 const style = {
   position: 'absolute',
   top: '50%',
@@ -14,9 +25,13 @@ const style = {
   p: 4,
 };
 
-export const ModalCreatePurchase = ({ open, handleClose }) => {
+// Componente de la ventana Modal PPD
+export const ModalCreatePurchase = ({ open, setOpen }) => {
 
-    const [formData, setFormData] = React.useState({
+    const [toasterVisible, setToasterVisible] = useState(false);
+   
+    // Valores del formulario
+    const [formData, setFormData] = useState({
         material: '',
         capacity: '',
         brand: '',
@@ -26,6 +41,8 @@ export const ModalCreatePurchase = ({ open, handleClose }) => {
         observations: '',
       });
 
+
+    // Manejador de cambios en el formulario
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData(prevFormData => ({
@@ -34,6 +51,12 @@ export const ModalCreatePurchase = ({ open, handleClose }) => {
         }));
     };
 
+    // Manejadore de cierre de la ventana Modal
+    const handleClose = () => {
+        setOpen(false);
+     };
+
+    // Manejador de envío de datos al servidor
     const handleSubmit = async () => {
         try {
             console.log(formData)
@@ -52,12 +75,34 @@ export const ModalCreatePurchase = ({ open, handleClose }) => {
             } else {
                 console.error('Error en el servidor al añadir fila');
                 console.log(response);
+                handleClose();
+                setToasterVisible(true);
             }
         } catch (error) {
             console.error('Error al enviar datos al servidor:', error);
+            handleClose();
         }
+        setFormData({
+            material: '',
+            capacity: '',
+            brand: '',
+            quantity: '',
+            price: '',
+            status: '',
+            observations: '',
+        });
     };
-    
+
+    useEffect(() => {
+        if (toasterVisible) {
+            const timer = setTimeout(() => {
+                setToasterVisible(false);
+            }, 3000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [toasterVisible]);
+
   return (
     <div>
       <Modal
@@ -125,7 +170,7 @@ export const ModalCreatePurchase = ({ open, handleClose }) => {
                  value={formData.quantity}
                  onChange={handleChange}
                 className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-                type="text"
+                type="number"
                 />
           </div>
 
@@ -144,15 +189,19 @@ export const ModalCreatePurchase = ({ open, handleClose }) => {
 
            {/* Añadir Status */}
            <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-            <h3 className="font-bold text-lg"> Status: </h3>
-                <input
-                 name="status"
-                 value={formData.status}
-                 onChange={handleChange}
-                className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-                type="text"
+                <h3 className="font-bold text-lg"> Status: </h3>
+                <Autocomplete
+                    disablePortal
+                    id="status-autocomplete"
+                    options={statusLabels}
+                    sx={{ width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
+                    getOptionLabel={(option) => option.label}
+                    onChange={(event, newValue) => {
+                        setFormData({ ...formData, status: newValue ? newValue.status : '' });
+                    }}
+                    renderInput={(params) => <TextField {...params}  />}
                 />
-          </div>
+            </div>
 
           {/* Añadir Comentarios */}
           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
@@ -174,10 +223,15 @@ export const ModalCreatePurchase = ({ open, handleClose }) => {
             </button>
           </div>
           
-
-          
         </Box>
       </Modal>
+
+      <div className="mt-20 ml-10 mr-7">
+            <Toaster
+              message="Inventario actualizado"
+              isVisible={toasterVisible}
+            />
+      </div>
     </div>
   );
 }

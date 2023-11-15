@@ -3,6 +3,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Spinner from "../Spinner/spinner";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const RequirePurchaseCard = ({
   index,
@@ -15,6 +16,7 @@ const RequirePurchaseCard = ({
   observations,
   setEditIndex,
   setEditData,
+  setDeleteIndex,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setLoading] = useState(false);
@@ -37,6 +39,10 @@ const RequirePurchaseCard = ({
     setIsEditing(false);
     setEditIndex(index);
     setEditData(editableFields);
+  };
+
+  const handleDelete = () => {
+    setDeleteIndex(index);
   };
 
   const handleCancel = () => {
@@ -74,7 +80,7 @@ const RequirePurchaseCard = ({
 
   return (
     <>
-      <div className="bg-white rounded-lg mt-1 mb-3 p-3">
+      <div className="bg-white rounded-lg mt-1 mb-3 p-3 border">
         {/* Selector de opción para ejecutar */}
         <div className="flex justify-end p-3 gap-2">
           {isEditing ? (
@@ -95,6 +101,7 @@ const RequirePurchaseCard = ({
               </div>
             </>
           ) : (
+            <>
             <div
               onClick={() => setIsEditing(true)}
               className="cursor-pointer flex flex-col items-center"
@@ -102,6 +109,17 @@ const RequirePurchaseCard = ({
               <EditIcon />
               <p>Editar</p>
             </div>
+
+            <div
+              onClick={handleDelete}
+              className="ml-4 cursor-pointer flex flex-col items-center"
+            >
+              <DeleteForeverIcon />
+              <p>Eliminar</p>
+            </div>
+
+            </>
+            
           )}
         </div>
 
@@ -213,8 +231,7 @@ const RequirePurchaseCard = ({
             <p> {observations} </p>
           )}
         </div>
-     
-      </div>
+        </div>
     </>
   );
 };

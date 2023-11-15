@@ -20,16 +20,21 @@ const SheetComponent = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [editData, setEditData] = useState(null);
+  const [deleteIndex, setDeleteIndex] = useState(null);
   const router = useRouter();
-  const [open, setOpen] = useState(true);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (editIndex !== null && editData !== null) {
       updateData(editIndex, editData);
     }
   }, [editIndex, editData]);
+
+  useEffect(() => {
+    if (deleteIndex !== null) {
+      deleteData(deleteIndex);
+    }
+  }, [deleteIndex]);
 
   const fetchData = async () => {
     setToasterVisible(false);
@@ -99,16 +104,36 @@ const SheetComponent = () => {
     item.material.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const deleteData = async (rowIndex) => {
+    rowIndex = rowIndex + 4;
+    try {
+      const response = await fetch(`/api/sheetsRequirePurchaseDelete`, {
+        method: "DELETE",
+         headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ rowIndex }),
+      });
+      if (!response.ok) {
+        console.log(response)
+        throw new Error("Network response was not ok");
+      }
+      fetchData();
+      setToasterVisible(true);
+      setTimeout(() => {
+        setToasterVisible(false);
+      }, 3000);
+    } catch (error) {
+      console.error("Failed to delete data", error);
+    }
+  };
+
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
   const clearSearch = () => {
     setSearchTerm("");
-  };
-
-  const handleAddButtonClick = () => {
-    setShowForm(true);
   };
 
   return (
@@ -150,21 +175,19 @@ const SheetComponent = () => {
           </div>
 
           
-          <div className="mt-5 flex flex-row justify-between lg:mr-12">
-            <p className=" font-['B612'] font-bold text-xl pb-2">
+          <div className="mt-5 flex flex-col lg:flex-row gap-3 lg:gap-0 justify-between lg:mr-12 ">
+            <p className=" font-['B612'] font-bold text-xl">
               Lista de Materiales/ Equipos requeridos
             </p>
             <div>
               <button 
-              className="bg-manz-200 text-black font-bold py-2 px-4 rounded mb-4"
-              onClick={handleOpen}> 
+              className="bg-manz-200 text-black font-bold py-2 px-4 rounded"
+              onClick={() => setOpen(true)}> 
                 Agregar material
               </button>
-              <ModalCreatePurchase open={open} handleClose={handleClose}/>  
+              <ModalCreatePurchase  open={open} setOpen={setOpen}/>  
             </div>
           </div>
-
-          
 
           <div className="bg-manz-200 p-5 rounded-lg lg:mr-12">
             {filteredData.map((item, index) => (
@@ -180,13 +203,14 @@ const SheetComponent = () => {
                 observations={item.observations}
                 setEditIndex={setEditIndex}
                 setEditData={setEditData}
+                setDeleteIndex = {setDeleteIndex}
               />
             ))}
           </div>
 
           <div className="mt-20 ml-10 mr-7">
             <Toaster
-              message="Inventario actualizado"
+              message="Lista actualizada"
               isVisible={toasterVisible}
             />
           </div>
