@@ -118,6 +118,7 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
                     id="modal-modal-title" 
                     variant="h6" 
                     component="h1"
+                    className="text-sm md:text-lg lg:text-xl"
                     style={{ fontWeight: 'bold', fontFamily: 'B612, sans-serif' }}
                     >
                     Añadir nuevo requerimiento de compra
@@ -127,8 +128,8 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
             </div>
         
           {/* Añadir material */}
-          <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3 mt-8">
-            <h3 className="font-bold text-lg"> Material: </h3>
+          <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3 mt-4">
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Material: </h3>
                 <input
                 name="material"
                 value={formData.material}
@@ -140,7 +141,7 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
 
           {/* Añadir capacidad */}
           <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-            <h3 className="font-bold text-lg"> Capacidad: </h3>
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Capacidad: </h3>
                 <input
                  name="capacity"
                  value={formData.capacity}
@@ -152,7 +153,7 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
 
           {/* Añadir marca */}
           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
-            <h3 className="font-bold text-lg"> Marca: </h3>
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Marca: </h3>
                 <input
                  name="brand"
                  value={formData.brand}
@@ -164,7 +165,7 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
 
           {/* Añadir cantidad */}
           <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-            <h3 className="font-bold text-lg"> Cantidad: </h3>
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Cantidad: </h3>
                 <input
                  name="quantity"
                  value={formData.quantity}
@@ -177,7 +178,7 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
 
           {/* Añadir precio */}
           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
-            <h3 className="font-bold text-lg"> Precio: </h3>
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Precio: </h3>
                 <input
                  name="price"
                  value={formData.price}
@@ -189,12 +190,12 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
 
            {/* Añadir Status */}
            <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-                <h3 className="font-bold text-lg"> Status: </h3>
+                <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Status: </h3>
                 <Autocomplete
                     disablePortal
                     id="status-autocomplete"
                     options={statusLabels}
-                    sx={{ width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
+                    sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
                     getOptionLabel={(option) => option.label}
                     onChange={(event, newValue) => {
                         setFormData({ ...formData, status: newValue ? newValue.status : '' });
@@ -205,7 +206,7 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
 
           {/* Añadir Comentarios */}
           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
-            <h3 className="font-bold text-lg"> Comentarios: </h3>
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Comentarios: </h3>
                 <input
                  name="observations"
                  value={formData.observations}
@@ -218,7 +219,7 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
           {/* Añadir Botón de enviar */}
 
           <div className="flex flex-row justify-end">
-            <button className="bg-manz-200 text-black font-bold py-2 px-4 rounded" onClick={handleSubmit}>
+            <button className="bg-manz-200 text-black font-bold py-2 px-4 rounded text-sm md:text-lg lg:text-xl mt-2" onClick={handleSubmit}>
                  Enviar
             </button>
           </div>

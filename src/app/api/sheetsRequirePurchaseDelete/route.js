@@ -1,6 +1,6 @@
-// Utilidad para autenticación y cliente de Sheets
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
+
 
 // Configuración de autenticación
 const auth = new google.auth.GoogleAuth({
@@ -22,29 +22,26 @@ const auth = new google.auth.GoogleAuth({
     },
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
   });
-   
+
 const sheets = google.sheets({ version: "v4", auth });
 
 // Función para eliminar una fila
-async function deleteSheetRow(rowIndex) {
+async function deleteRow(rowIndex) {
   try {
-
-    const response = await sheets.spreadsheets.batchUpdate({
-      spreadsheetId: "1_-0ao8kLOr21E8BmrkSjEBMM3sKJvMp92yK8DYZWkO0",
-      resource: {
-        requests: [
-          {
-            deleteDimension: {
-              range: {
-                sheetId: 5, 
-                dimension: "ROWS",
-                startIndex: rowIndex.rowIndex-1,
-                endIndex: rowIndex.rowIndex,
-              }
-            }
-          }
-        ]
+    const requests = [{
+      deleteDimension: {
+        range: {
+          sheetId: 332024710,
+          dimension: "ROWS",
+          startIndex: rowIndex - 1,
+          endIndex: rowIndex
+        }
       }
+    }];
+
+    await sheets.spreadsheets.batchUpdate({
+      spreadsheetId: "1_-0ao8kLOr21E8BmrkSjEBMM3sKJvMp92yK8DYZWkO0",
+      resource: { requests }
     });
   } catch (error) {
     console.error("Error al eliminar la fila: " + error);
@@ -52,18 +49,19 @@ async function deleteSheetRow(rowIndex) {
   }
 }
 
-// Endpoint de API para manejar la eliminación de una fila
-export async function DELETE(request) {
+// Función para manejar la solicitud DELETE
+export async function POST(request) {
   try {
     const body = await request.json();
     const { rowIndex } = body;
 
-    const result = await deleteSheetRow(rowIndex);
-    return NextResponse.json(result, { status: 200 });
+    await deleteRow(rowIndex);
+
+    return NextResponse.json({ message: "Fila eliminada con éxito" }, { status: 200 });
   } catch (error) {
-    console.error("Error en el servidor: " + error.message);
+    console.error(error);
     return NextResponse.json(
-      { error: "Error procesando la solicitud: " + error.message },
+      { error: "Error al procesar la solicitud: " + error.message },
       { status: 400 }
     );
   }

@@ -108,7 +108,7 @@ const SheetComponent = () => {
     rowIndex = rowIndex + 4;
     try {
       const response = await fetch(`/api/sheetsRequirePurchaseDelete`, {
-        method: "DELETE",
+        method: "POST",
          headers: {
         'Content-Type': 'application/json',
       },
