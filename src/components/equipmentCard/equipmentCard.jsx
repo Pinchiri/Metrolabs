@@ -3,6 +3,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Spinner from "../Spinner/spinner";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+
 
 const EquipmentCard = ({
   index,
@@ -17,6 +19,8 @@ const EquipmentCard = ({
   observations,
   setEditIndex,
   setEditData,
+  setDeleteIndex,
+
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setLoading] = useState(false);
@@ -42,6 +46,11 @@ const EquipmentCard = ({
     setEditIndex(index);
     setEditData(editableFields);
   };
+
+  const handleDelete = () => {
+    setDeleteIndex(index);
+  };
+
 
   const handleCancel = () => {
     setEditableFields({
@@ -101,6 +110,7 @@ const EquipmentCard = ({
               </div>
             </>
           ) : (
+            <>
             <div
               onClick={() => setIsEditing(true)}
               className="cursor-pointer flex flex-col items-center"
@@ -108,6 +118,15 @@ const EquipmentCard = ({
               <EditIcon />
               <p>Editar</p>
             </div>
+
+            <div
+              onClick={handleDelete}
+              className="ml-4 cursor-pointer flex flex-col items-center"
+            >
+              <DeleteForeverIcon />
+              <p>Eliminar</p>
+            </div>
+            </>
           )}
         </div>
 

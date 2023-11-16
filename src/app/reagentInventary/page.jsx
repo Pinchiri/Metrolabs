@@ -185,7 +185,7 @@ const SheetComponent = () => {
               <button 
               className="bg-manz-200 text-black font-bold py-2 px-4 rounded"
               onClick={() => setOpen(true)}> 
-                Agregar material
+                Agregar Reactivo
               </button>
               <ModalCreateReagent  open={open} setOpen={setOpen}/>  
             </div>

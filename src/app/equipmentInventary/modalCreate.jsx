@@ -3,7 +3,7 @@ import {useState, useEffect} from "react";
 import { Modal, Button, Typography, Box, Autocomplete, TextField } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import Toaster from "@/components/toast/toaster";
-import { locationLabels, brandLabels, capacityLabels } from "./comboBoxData";
+import { frecuencyLabels } from "./comboBoxData";
 
 // Estilos de la ventana Modal
 const style = {
@@ -21,19 +21,22 @@ const style = {
 };
 
 // Componente de la ventana Modal PPD
-export const ModalCreateMaterial = ({ open, setOpen }) => {
+export const ModalCreateEquipment = ({ open, setOpen }) => {
 
     const [toasterVisible, setToasterVisible] = useState(false);
    
     // Valores del formulario
     const [formData, setFormData] = useState({
-        material: '',
-        capacity: '',
+        equipment: '',
         brand: '',
+        model: '',
         quantity: '',
         ubication: '',
+        userManual: '',
+        frecuency: '',
+        date: '',
         observations: '',
-      });
+      }); 
 
     // Manejador de cambios en el formulario
     const handleChange = (event) => {
@@ -53,7 +56,7 @@ export const ModalCreateMaterial = ({ open, setOpen }) => {
     const handleSubmit = async () => {
         try {
             console.log(formData)
-            const response = await fetch("/api/sheetsMaterialCreate", {
+            const response = await fetch("/api/sheetsEquipmentCreate", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,11 +79,14 @@ export const ModalCreateMaterial = ({ open, setOpen }) => {
             handleClose();
         }
         setFormData({
-            material: '',
-            capacity: '',
+            equipment: '',
             brand: '',
+            model: '',
             quantity: '',
             ubication: '',
+            userManual: '',
+            frecuency: '',
+            date: '',
             observations: '',
         });
     };
@@ -113,53 +119,45 @@ export const ModalCreateMaterial = ({ open, setOpen }) => {
                     className="text-sm md:text-lg lg:text-xl"
                     style={{ fontWeight: 'bold', fontFamily: 'B612, sans-serif' }}
                     >
-                    Añadir nuevo material al inventario
+                    Añadir nuevo Equipo al inventario
                 </Typography>
 
             <Button onClick={handleClose}> <CloseIcon style={{ color: 'black' }}/> </Button> 
             </div>
         
-          {/* Añadir material */}
+          {/* Añadir Material */}
           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3 mt-4">
-            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Material: </h3>
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Equipo: </h3>
                 <input
-                name="material"
-                value={formData.material}
+                name="equipment"
+                value={formData.equipment}
                 onChange={handleChange}
                 className="rounded-lg p-2 hover:border-2 hover:border-amber-300"
                 type="text"
                 />
           </div>
 
-          {/* Añadir Capacidad */}
+          {/* Añadir Marca */}
           <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Capacidad: </h3>
-            <Autocomplete
-                    disablePortal
-                    id="status-autocomplete"
-                    options={capacityLabels}
-                    sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
-                    getOptionLabel={(option) => option.label}
-                    onChange={(event, newValue) => {
-                        setFormData({ ...formData, status: newValue ? newValue.status : '' });
-                    }}
-                    renderInput={(params) => <TextField {...params}  />}
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Marca: </h3>
+            <input
+                name="brand"
+                value={formData.brand}
+                onChange={handleChange}
+                className="rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                type="text"
                 />
           </div>
 
-          {/* Añadir Marca */}
+          {/* Añadir Modelo */}
           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
-            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Marca: </h3>
-            <Autocomplete
-                    disablePortal
-                    id="status-autocomplete"
-                    options={brandLabels}
-                    sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
-                    getOptionLabel={(option) => option.label}
-                    onChange={(event, newValue) => {
-                        setFormData({ ...formData, status: newValue ? newValue.status : '' });
-                    }}
-                    renderInput={(params) => <TextField {...params}  />}
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Modelo: </h3>
+            <input
+                name="model"
+                value={formData.model}
+                onChange={handleChange}
+                className="rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                type="text"
                 />
           </div>
 
@@ -175,32 +173,57 @@ export const ModalCreateMaterial = ({ open, setOpen }) => {
                 />
             </div>
 
-          {/* Añadir ubicación */}
+          {/* Añadir Manual de Usuario */}
           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
-            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Ubicación: </h3>
-            <Autocomplete
-                    disablePortal
-                    id="status-autocomplete"
-                    options={locationLabels}
-                    sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
-                    getOptionLabel={(option) => option.label}
-                    onChange={(event, newValue) => {
-                        setFormData({ ...formData, status: newValue ? newValue.status : '' });
-                    }}
-                    renderInput={(params) => <TextField {...params}  />}
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Manual de Usuario: </h3>
+            <input
+                 name="userManual"
+                 value={formData.userManual}
+                 onChange={handleChange}
+                className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                type="file"
+                />
+            
+          </div>
+
+           {/* Añadir Frecuencia */}
+           <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Frecuencia Mant: </h3>
+                <Autocomplete
+                        disablePortal
+                        id="status-autocomplete"
+                        options={frecuencyLabels}
+                        sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
+                        getOptionLabel={(option) => option.label}
+                        onChange={(event, newValue) => {
+                            setFormData({ ...formData, status: newValue ? newValue.status : '' });
+                        }}
+                        renderInput={(params) => <TextField {...params}  />}
+                    />
+          </div>
+
+           {/* Añadir último mantenimiento */}
+          <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Fecha último Mant: </h3>
+            <input
+                 name="date"
+                 value={formData.date}
+                 onChange={handleChange}
+                className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                type="date"
                 />
           </div>
 
-           {/* Añadir Observaciones */}
-           <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
+          {/* Añadir Observaciones */}
+          <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
             <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Observaciones: </h3>
                 <input
-                 name="observations"
-                 value={formData.observations}
-                 onChange={handleChange}
-                className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-                type="text"
-                />
+                    name="observations"
+                    value={formData.observations}
+                    onChange={handleChange}
+                    className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                    type="text"
+                    />
           </div>
 
           {/* Añadir Botón de enviar */}

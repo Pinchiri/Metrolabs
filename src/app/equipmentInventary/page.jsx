@@ -7,6 +7,10 @@ import ClearIcon from "@mui/icons-material/Clear";
 import Spinner from "@/components/Spinner/spinner";
 import PrivateRoute from "@/privateRoute/privateRoute";
 import Toaster from "@/components/toast/toaster";
+import { useRouter } from "next/navigation";
+import { ModalCreateEquipment } from "./modalCreate";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
@@ -16,12 +20,21 @@ const SheetComponent = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [editData, setEditData] = useState(null);
+  const [deleteIndex, setDeleteIndex] = useState(null);
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (editIndex !== null && editData !== null) {
       updateData(editIndex, editData);
     }
   }, [editIndex, editData]);
+
+  useEffect(() => {
+    if (deleteIndex !== null) {
+      deleteData(deleteIndex);
+    }
+  }, [deleteIndex]);
 
   const fetchData = async () => {
     setToasterVisible(false);
@@ -87,6 +100,33 @@ const SheetComponent = () => {
     );
   if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
 
+  const deleteData = async (rowIndex) => {
+    rowIndex = rowIndex + 4;
+    const confirmDelete = window.confirm("¿Seguro que desea eliminar el ítem?");
+    if (confirmDelete) {
+      try {
+        const response = await fetch(`/api/sheetsEquipmentDelete`, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ rowIndex }),
+        });
+        if (!response.ok) {
+          console.log(response);
+          throw new Error("Network response was not ok");
+        }
+        fetchData();
+        setToasterVisible(true);
+        setTimeout(() => {
+          setToasterVisible(false);
+        }, 3000);
+      } catch (error) {
+        console.error("Failed to delete data", error);
+      }
+    }
+  };
+
   const filteredData = data.filter((item) =>
     item.equipment.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -103,9 +143,12 @@ const SheetComponent = () => {
     <>
       <PrivateRoute>
         <div className="mt-12 ml-10 mr-7">
-          <h1 className="font-['B612'] font-bold pt-5 text-3xl">
-            Inventario de Equipos
-          </h1>
+          <div className="flex flex-row gap-3">
+              <ArrowBackIcon  onClick={() => router.back()} style={{marginTop: "25px"}}/>
+              <h1 className="font-['B612'] font-bold pt-5 text-3xl">
+                 Inventario de Equipos
+              </h1>
+          </div>
 
           <div>
             <SearchIcon
@@ -133,9 +176,19 @@ const SheetComponent = () => {
             )}
           </div>
 
-          <p className="mt-5 font-['B612'] font-bold text-xl pb-2">
-            Lista de Equipos
-          </p>
+          <div className="mt-5 flex flex-col lg:flex-row gap-3 lg:gap-0 justify-between lg:mr-12 ">
+            <p className=" font-['B612'] font-bold text-xl">
+              Lista de Equipos
+            </p>
+            <div>
+              <button 
+              className="bg-manz-200 text-black font-bold py-2 px-4 rounded"
+              onClick={() => setOpen(true)}> 
+                Agregar Equipo
+              </button>
+              <ModalCreateEquipment open={open} setOpen={setOpen}/>  
+            </div>
+          </div>
 
           <div className="bg-manz-200 p-5 rounded-lg lg:mr-12">
             {filteredData.map((item, index) => (
@@ -153,6 +206,7 @@ const SheetComponent = () => {
                 observations={item.observations}
                 setEditIndex={setEditIndex}
                 setEditData={setEditData}
+                setDeleteIndex = {setDeleteIndex}
               />
             ))}
           </div>
