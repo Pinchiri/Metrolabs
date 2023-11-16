@@ -10,6 +10,8 @@ import Toaster from "@/components/toast/toaster";
 import PrivateRoute from "@/privateRoute/privateRoute";
 import { useRouter } from "next/navigation";
 import { ModalCreateMaterial } from "./modalCreate";
+import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
+
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
@@ -99,9 +101,6 @@ const SheetComponent = () => {
       </>
     );
   if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
-  const filteredData = data.filter((item) =>
-    item.material.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   const deleteData = async (rowIndex) => {
     rowIndex = rowIndex + 4;
@@ -129,6 +128,12 @@ const SheetComponent = () => {
       }
     }
   };
+
+  const filteredData = data.filter((item) =>
+  item.material.toLowerCase().includes(searchTerm.toLowerCase())
+);
+
+  const noResults = filteredData.length === 0 && searchTerm;
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -190,23 +195,28 @@ const SheetComponent = () => {
           </div>
 
           <div className="bg-manz-200 p-5 rounded-lg lg:mr-12">
-            {filteredData.map((item, index) => (
-              <MaterialCard
-                key={item.originalIndex}
-                index={item.originalIndex}
-                material={item.material}
-                capacity={item.capacity}
-                brand={item.brand}
-                quantity={item.brand}
-                ubication={item.ubication}
-                observations={item.observations}
-                setEditIndex={setEditIndex}
-                setEditData={setEditData}
-                setDeleteIndex = {setDeleteIndex}
-                
-
-              />
-            ))}
+            {noResults ? (
+              <div className={`flex flex-col justify-center items-center`}>
+                <SentimentDissatisfiedIcon style={{ width: '80px', height: '80px', color: 'white'}} />
+                <p className="font-['B612'] font-bold pt-3  text-white ">Ups, parece que no hay coincidencias</p>
+              </div>
+            ) : (
+              filteredData.map((item, index) => (
+                <MaterialCard
+                  key={item.originalIndex}
+                  index={item.originalIndex}
+                  material={item.material}
+                  capacity={item.capacity}
+                  brand={item.brand}
+                  quantity={item.brand}
+                  ubication={item.ubication}
+                  observations={item.observations}
+                  setEditIndex={setEditIndex}
+                  setEditData={setEditData}
+                  setDeleteIndex = {setDeleteIndex}
+                />
+              ))
+            )}
           </div>
 
           <div className="mt-20 ml-10 mr-7">

@@ -10,6 +10,8 @@ import Toaster from "@/components/toast/toaster";
 import { useRouter } from "next/navigation";
 import { ModalCreateEquipment } from "./modalCreate";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
+
 
 
 const SheetComponent = () => {
@@ -191,24 +193,31 @@ const SheetComponent = () => {
           </div>
 
           <div className="bg-manz-200 p-5 rounded-lg lg:mr-12">
-            {filteredData.map((item, index) => (
-              <EquipmentCard
-                key={item.originalIndex}
-                index={item.originalIndex}
-                equipment={item.equipment}
-                brand={item.brand}
-                model={item.model}
-                quantity={item.quantity}
-                ubication={item.ubication}
-                userManual={item.userManual}
-                frecuency={item.frecuency}
-                date={item.date}
-                observations={item.observations}
-                setEditIndex={setEditIndex}
-                setEditData={setEditData}
-                setDeleteIndex = {setDeleteIndex}
-              />
-            ))}
+            {noResults ? (
+              <div className={`flex flex-col justify-center items-center`}>
+                <SentimentDissatisfiedIcon style={{ width: '80px', height: '80px', color: 'white'}} />
+                <p className="font-['B612'] font-bold pt-3  text-white ">Ups, parece que no hay coincidencias</p>
+              </div>
+            ) : (
+              filteredData.map((item, index) => (
+                <EquipmentCard
+                  key={item.originalIndex}
+                  index={item.originalIndex}
+                  equipment={item.equipment}
+                  brand={item.brand}
+                  model={item.model}
+                  quantity={item.quantity}
+                  ubication={item.ubication}
+                  userManual={item.userManual}
+                  frecuency={item.frecuency}
+                  date={item.date}
+                  observations={item.observations}
+                  setEditIndex={setEditIndex}
+                  setEditData={setEditData}
+                  setDeleteIndex = {setDeleteIndex}
+                />
+              ))
+            )}
           </div>
 
           <div className="mt-20 ml-10 mr-7">
