@@ -147,7 +147,7 @@ const SheetComponent = () => {
           <div className="flex flex-row gap-3">
             <ArrowBackIcon  onClick={() => router.back()} style={{marginTop: "25px"}}/>
             <h1 className="font-['B612'] font-bold pt-5 text-3xl">
-              Compras Requeridas
+            Inventario de Reactivos
             </h1>
           </div>
 
@@ -179,7 +179,7 @@ const SheetComponent = () => {
 
           <div className="mt-5 flex flex-col lg:flex-row gap-3 lg:gap-0 justify-between lg:mr-12 ">
             <p className=" font-['B612'] font-bold text-xl">
-              Lista de Materiales/ Equipos requeridos
+              Lista de Reactivos
             </p>
             <div>
               <button 
