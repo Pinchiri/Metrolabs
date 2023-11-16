@@ -106,27 +106,31 @@ const SheetComponent = () => {
 
   const deleteData = async (rowIndex) => {
     rowIndex = rowIndex + 4;
-    try {
-      const response = await fetch(`/api/sheetsRequirePurchaseDelete`, {
-        method: "POST",
-         headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ rowIndex }),
-      });
-      if (!response.ok) {
-        console.log(response)
-        throw new Error("Network response was not ok");
+    const confirmDelete = window.confirm("¿Seguro que desea eliminar el ítem?");
+    if (confirmDelete) {
+      try {
+        const response = await fetch(`/api/sheetsRequirePurchaseDelete`, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ rowIndex }),
+        });
+        if (!response.ok) {
+          console.log(response);
+          throw new Error("Network response was not ok");
+        }
+        fetchData();
+        setToasterVisible(true);
+        setTimeout(() => {
+          setToasterVisible(false);
+        }, 3000);
+      } catch (error) {
+        console.error("Failed to delete data", error);
       }
-      fetchData();
-      setToasterVisible(true);
-      setTimeout(() => {
-        setToasterVisible(false);
-      }, 3000);
-    } catch (error) {
-      console.error("Failed to delete data", error);
     }
   };
+  
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);

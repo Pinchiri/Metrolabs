@@ -3,6 +3,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Spinner from "../Spinner/spinner";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+
 
 const ReagentCard = ({
   index,
@@ -18,6 +20,7 @@ const ReagentCard = ({
   observations,
   setEditIndex,
   setEditData,
+  setDeleteIndex,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setLoading] = useState(false);
@@ -62,6 +65,10 @@ const ReagentCard = ({
     setIsEditing(false);
   };
 
+  const handleDelete = () => {
+    setDeleteIndex(index);
+  };
+
   if (isLoading)
     return (
       <div
@@ -81,6 +88,8 @@ const ReagentCard = ({
         <Spinner />
       </div>
     );
+
+    
 
   return (
     <div className="bg-white rounded-lg mt-1 mb-3 p-3">
@@ -104,13 +113,23 @@ const ReagentCard = ({
             </div>
           </>
         ) : (
-          <div
-            onClick={() => setIsEditing(true)}
-            className="cursor-pointer flex flex-col items-center"
-          >
-            <EditIcon />
-            <p>Editar</p>
-          </div>
+          <>
+            <div
+              onClick={() => setIsEditing(true)}
+              className="cursor-pointer flex flex-col items-center"
+            >
+              <EditIcon />
+              <p>Editar</p>
+            </div>
+
+            <div
+            onClick={handleDelete}
+            className="ml-4 cursor-pointer flex flex-col items-center"
+            >
+              <DeleteForeverIcon />
+              <p>Eliminar</p>
+            </div>
+          </>
         )}
       </div>
 

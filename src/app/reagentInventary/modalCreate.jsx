@@ -3,14 +3,7 @@ import {useState, useEffect} from "react";
 import { Modal, Button, Typography, Box, Autocomplete, TextField } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import Toaster from "@/components/toast/toaster";
-
-
-// Valores del comboBox de status
-const statusLabels = [
-    { label: 'Pendiente', status: "Pediente"},
-    { label: 'Solicitado', status: "Solicitado" },
-    { label: 'Comprado', status: "Comprado"},
-  ];
+import { riskLabels, locationLabels, unitsLabels, brandLabels } from "./comboBoxData";
 
 // Estilos de la ventana Modal
 const style = {
@@ -28,21 +21,22 @@ const style = {
 };
 
 // Componente de la ventana Modal PPD
-export const ModalCreatePurchase = ({ open, setOpen }) => {
+export const ModalCreateReagent = ({ open, setOpen }) => {
 
     const [toasterVisible, setToasterVisible] = useState(false);
    
     // Valores del formulario
     const [formData, setFormData] = useState({
-        material: '',
-        capacity: '',
+        reactive: '',
+        formule: '',
+        cas: '',
         brand: '',
+        concentration: '',
         quantity: '',
-        price: '',
-        status: '',
+        risk: '',
+        ubication: '',
         observations: '',
       });
-
 
     // Manejador de cambios en el formulario
     const handleChange = (event) => {
@@ -62,7 +56,7 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
     const handleSubmit = async () => {
         try {
             console.log(formData)
-            const response = await fetch("/api/sheetsRequirePurchaseCreate", {
+            const response = await fetch("/api/sheetsReagentCreate", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -85,12 +79,14 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
             handleClose();
         }
         setFormData({
-            material: '',
-            capacity: '',
+            reactive: '',
+            formule: '',
+            cas: '',
             brand: '',
+            concentration: '',
             quantity: '',
-            price: '',
-            status: '',
+            risk: '',
+            ubication: '',
             observations: '',
         });
     };
@@ -129,74 +125,49 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
             <Button onClick={handleClose}> <CloseIcon style={{ color: 'black' }}/> </Button> 
             </div>
         
-          {/* Añadir material */}
+          {/* Añadir reactivo */}
           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3 mt-4">
-            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Material: </h3>
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Reactivo: </h3>
                 <input
-                name="material"
-                value={formData.material}
+                name="reactive"
+                value={formData.reactive}
                 onChange={handleChange}
                 className="rounded-lg p-2 hover:border-2 hover:border-amber-300"
                 type="text"
                 />
           </div>
 
-          {/* Añadir capacidad */}
+          {/* Añadir formula */}
           <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Capacidad: </h3>
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Formula: </h3>
                 <input
-                 name="capacity"
-                 value={formData.capacity}
+                 name="formule"
+                 value={formData.formule}
                  onChange={handleChange}
                 className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
                 type="text"
                 />
           </div>
 
-          {/* Añadir marca */}
+          {/* Añadir CAS */}
           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> CAS: </h3>
+                <input
+                 name="cas"
+                 value={formData.cas}
+                 onChange={handleChange}
+                className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                type="text"
+                />
+          </div>
+
+          {/* Añadir Marca */}
+          <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
             <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Marca: </h3>
-                <input
-                 name="brand"
-                 value={formData.brand}
-                 onChange={handleChange}
-                className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-                type="text"
-                />
-          </div>
-
-          {/* Añadir cantidad */}
-          <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Cantidad: </h3>
-                <input
-                 name="quantity"
-                 value={formData.quantity}
-                 onChange={handleChange}
-                className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-                type="number"
-                />
-          </div>
-
-
-          {/* Añadir precio */}
-          <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
-            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Precio: </h3>
-                <input
-                 name="price"
-                 value={formData.price}
-                 onChange={handleChange}
-                className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-                type="text"
-                />
-          </div>
-
-           {/* Añadir Status */}
-           <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-                <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Status: </h3>
-                <Autocomplete
+            <Autocomplete
                     disablePortal
                     id="status-autocomplete"
-                    options={statusLabels}
+                    options={brandLabels}
                     sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
                     getOptionLabel={(option) => option.label}
                     onChange={(event, newValue) => {
@@ -204,11 +175,84 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
                     }}
                     renderInput={(params) => <TextField {...params}  />}
                 />
+          </div>
+
+
+          {/* Añadir concentración */}
+          <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Concentración: </h3>
+                <input
+                 name="concentration"
+                 value={formData.concentration}
+                 onChange={handleChange}
+                className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                type="text"
+                />
+          </div>
+
+           {/* Añadir Quantity */}
+           <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
+                <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Cantidad: </h3>
+                <input
+                 name="quantity"
+                 value={formData.quantity}
+                 onChange={handleChange}
+                className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                type="number"
+                />
             </div>
 
-          {/* Añadir Comentarios */}
+            {/* Añadir Unidad */}
           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
-            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Comentarios: </h3>
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Unidad: </h3>
+            <Autocomplete
+                    disablePortal
+                    id="status-autocomplete"
+                    options={unitsLabels}
+                    sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
+                    getOptionLabel={(option) => option.label}
+                    onChange={(event, newValue) => {
+                        setFormData({ ...formData, status: newValue ? newValue.status : '' });
+                    }}
+                    renderInput={(params) => <TextField {...params}  />}
+                />
+          </div>
+
+          {/* Añadir Riesgo */}
+          <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Riesgo: </h3>
+            <Autocomplete
+                    disablePortal
+                    id="status-autocomplete"
+                    options={riskLabels}
+                    sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
+                    getOptionLabel={(option) => option.label}
+                    onChange={(event, newValue) => {
+                        setFormData({ ...formData, status: newValue ? newValue.status : '' });
+                    }}
+                    renderInput={(params) => <TextField {...params}  />}
+                />
+          </div>
+
+           {/* Añadir Ubicación */}
+           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Ubicación: </h3>
+            <Autocomplete
+                    disablePortal
+                    id="status-autocomplete"
+                    options={locationLabels}
+                    sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
+                    getOptionLabel={(option) => option.label}
+                    onChange={(event, newValue) => {
+                        setFormData({ ...formData, status: newValue ? newValue.status : '' });
+                    }}
+                    renderInput={(params) => <TextField {...params}  />}
+                />
+          </div>
+
+           {/* Añadir Observaciones */}
+           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Riesgo: </h3>
                 <input
                  name="observations"
                  value={formData.observations}
