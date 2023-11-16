@@ -3,10 +3,13 @@
 import React, { useState, useEffect } from "react";
 import MaterialCard from "@/components/materialCard/materialCard";
 import SearchIcon from "@mui/icons-material/Search";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ClearIcon from "@mui/icons-material/Clear";
 import Spinner from "@/components/Spinner/spinner";
 import Toaster from "@/components/toast/toaster";
 import PrivateRoute from "@/privateRoute/privateRoute";
+import { useRouter } from "next/navigation";
+import { ModalCreateMaterial } from "./modalCreate";
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
@@ -16,12 +19,22 @@ const SheetComponent = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [editData, setEditData] = useState(null);
+  const [deleteIndex, setDeleteIndex] = useState(null);
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (editIndex !== null && editData !== null) {
       updateData(editIndex, editData);
     }
   }, [editIndex, editData]);
+
+  useEffect(() => {
+    if (deleteIndex !== null) {
+      deleteData(deleteIndex);
+    }
+  }, [deleteIndex]);
+
 
   const fetchData = async () => {
     setToasterVisible(false);
@@ -90,6 +103,33 @@ const SheetComponent = () => {
     item.material.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const deleteData = async (rowIndex) => {
+    rowIndex = rowIndex + 4;
+    const confirmDelete = window.confirm("¿Seguro que desea eliminar el ítem?");
+    if (confirmDelete) {
+      try {
+        const response = await fetch(`/api/sheetsMaterialDelete`, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ rowIndex }),
+        });
+        if (!response.ok) {
+          console.log(response);
+          throw new Error("Network response was not ok");
+        }
+        fetchData();
+        setToasterVisible(true);
+        setTimeout(() => {
+          setToasterVisible(false);
+        }, 3000);
+      } catch (error) {
+        console.error("Failed to delete data", error);
+      }
+    }
+  };
+
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -102,14 +142,23 @@ const SheetComponent = () => {
     <>
       <PrivateRoute>
         <div className="mt-20 ml-10 mr-7">
-          <h1 className="font-['B612'] font-bold pt-5 text-3xl">
-            Inventario de Materiales
-          </h1>
+          <div className="flex flex-row gap-3">
+              <ArrowBackIcon  onClick={() => router.back()} style={{marginTop: "25px"}}/>
+              <h1 className="font-['B612'] font-bold pt-5 text-3xl">
+              Inventario de Materiales
+              </h1>
+          </div>
 
           <div>
-            <SearchIcon />
+            <SearchIcon
+              style={{
+                position: "absolute",
+                marginLeft: "20px",
+                marginTop: "32px",
+              }}
+            />
             <input
-              className="w-11/12 mt-5 bg-[#FFF8E4] p-3 rounded-xl ml-2"
+              className="w-11/12 pl-11 mt-5 bg-[#FFF8E4] p-3 rounded-xl ml-2 "
               type="text"
               placeholder="Buscar un material...."
               value={searchTerm}
@@ -126,9 +175,19 @@ const SheetComponent = () => {
             )}
           </div>
 
-          <p className="mt-5 font-['B612'] font-bold text-xl pb-2">
-            Lista de Materiales
-          </p>
+          <div className="mt-5 flex flex-col lg:flex-row gap-3 lg:gap-0 justify-between lg:mr-12 ">
+            <p className=" font-['B612'] font-bold text-xl">
+              Lista de Materiales
+            </p>
+            <div>
+              <button 
+              className="bg-manz-200 text-black font-bold py-2 px-4 rounded"
+              onClick={() => setOpen(true)}> 
+                Agregar material
+              </button>
+              <ModalCreateMaterial  open={open} setOpen={setOpen}/>  
+            </div>
+          </div>
 
           <div className="bg-manz-200 p-5 rounded-lg lg:mr-12">
             {filteredData.map((item, index) => (
@@ -143,6 +202,9 @@ const SheetComponent = () => {
                 observations={item.observations}
                 setEditIndex={setEditIndex}
                 setEditData={setEditData}
+                setDeleteIndex = {setDeleteIndex}
+                
+
               />
             ))}
           </div>
