@@ -11,7 +11,7 @@ import PrivateRoute from "@/privateRoute/privateRoute";
 import { useRouter } from "next/navigation";
 import { ModalCreateReagent } from "./modalCreate";
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
-
+import Footer from "@/components/profesorFooter/footer";
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
@@ -231,6 +231,7 @@ const SheetComponent = () => {
             />
           </div>
         </div>
+        <Footer/>
       </PrivateRoute>
     </>
   );

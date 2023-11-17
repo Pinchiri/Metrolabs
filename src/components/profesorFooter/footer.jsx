@@ -13,25 +13,25 @@ const Footer = () => {
         <div className="bg-[#FAFAFA] px-5 py-10  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Contáctenos */}
             <div className="space-y-2">
-                <h2 className="font-bold text-lg text-[#283C7C]">CONTÁCTENOS</h2>
+                <h2 className="font-bold text-lg text-manz-200 ">CONTÁCTENOS</h2>
                 <p>soportevirtual@unimet.edu.ve</p>
             </div>
 
             {/* Enlaces de Interés */}
             <div className="space-y-2 ">
-                <h2 className="font-bold text-lg text-[#283C7C]">ENLACES DE INTERÉS</h2>
+                <h2 className="font-bold text-lg text-manz-200 ">ENLACES DE INTERÉS</h2>
                 <ul className="list-none space-y-1">
-                <Link href=" ">
-                    <li className="mb-2 transition-transform hover:scale-105 hover:translate-x-1.5">Guías de Laboratorio</li>
+                <Link href="materialInventary">
+                    <li className="mb-2 transition-transform hover:scale-105 hover:translate-x-1.5">Inventario de Materiales</li>
                 </Link>
-                <Link href=" ">
-                    <li className="mb-2 transition-transform hover:scale-105 hover:translate-x-1.5">Mis reservas Equipos</li>
+                <Link href="equipmentInventary">
+                    <li className="mb-2 transition-transform hover:scale-105 hover:translate-x-1.5">Inventario de Equipos </li>
                 </Link>
-                <Link href=" ">
-                    <li className="mb-2 transition-transform hover:scale-105 hover:translate-x-1.5">Mis reservas Reactivos</li>
+                <Link href="reagentInventary">
+                    <li className="mb-2 transition-transform hover:scale-105 hover:translate-x-1.5" >Inventario de Reactivos </li>
                 </Link>
-                <Link href=" ">
-                    <li className="mb-2 transition-transform hover:scale-105 hover:translate-x-1.5">Mis reservas Espacios</li>
+                <Link href="classSchedules">
+                    <li className="mb-2 transition-transform hover:scale-105 hover:translate-x-1.5">Horarios de clases </li>
                 </Link>
 
                 
@@ -40,7 +40,7 @@ const Footer = () => {
 
             {/* Campus Puerto La Cruz y Lechería */}
             <div className="space-y-2">
-                <h2 className="font-bold text-lg text-[#283C7C]">CAMPUS PUERTO LA CRUZ Y LECHERÍA</h2>
+                <h2 className="font-bold text-lg text-manz-200  ">CAMPUS PUERTO LA CRUZ Y LECHERÍA</h2>
                 <p>Dirección Puerto La Cruz Av. Municipal con calle Carabobo, Centro Seguros La Previsora</p>
                 <p>(0424)-854.61.46</p>
                 <p>Dirección Lechería Calle El Dorado, CC Guaica Center</p>
@@ -49,7 +49,7 @@ const Footer = () => {
 
             {/* Dirección */}
             <div className="space-y-2">
-                <h2 className="font-bold text-lg text-[#283C7C] ">DIRECCIÓN</h2>
+                <h2 className="font-bold text-lg text-manz-200  ">DIRECCIÓN</h2>
                 <p>Distribuidor Universidad Av. Boyacá con autopista Petare-Guarenas. Urbanización Terrazas del Ávila, Caracas-Miranda. Zona postal 1073</p>
                 <p>Email: soportevirtual@unimet.edu.ve</p>
                 {/* Iconos de redes sociales */}

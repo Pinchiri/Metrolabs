@@ -11,18 +11,19 @@ import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
+import Footer from "@/components/profesorFooter/footer";
 
 const ProfesorPanelView = ({ name }) => {
   return (
     <>
       <PrivateRoute>
         <div className="mt-12 mx-10">
-          <p className="font-['B612'] font-bold pt-8 text-3xl">
-            Bienvenido Profesor:
-          </p>
-          <p className="mt-3 text-2xl">{name}</p>
 
-          <p className="font-['B612'] font-bold pt-4 text-xl">Menú principal</p>
+          <p className="font-['B612'] font-bold pt-8 text-3xl">
+            Bienvenido Profesor: <span className=" font-sans font-normal ">{name} </span>
+          </p>
+
+           <p className="font-['B612'] font-bold pt-4 text-xl">Menú principal</p>
 
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-manz-200 p-5 mt-4 mb-8 rounded-lg lg:mr-12">
@@ -115,6 +116,7 @@ const ProfesorPanelView = ({ name }) => {
 
           </div>
         </div>
+        <Footer/>
       </PrivateRoute>
     </>
   );

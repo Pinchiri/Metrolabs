@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { ModalCreateEquipment } from "./modalCreate";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
+import Footer from "@/components/studentFooter/footer";
 
 
 
@@ -227,6 +228,7 @@ const SheetComponent = () => {
             />
           </div>
         </div>
+        <Footer/>s
       </PrivateRoute>
     </>
   );
