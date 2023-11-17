@@ -75,7 +75,7 @@ const StudentPanelView = ({ name, email }) => {
           </Link>
           </div>
         </div>
-        <Footer />
+        <Footer user= {email} />
       </PrivateRoute>
     </>
   );

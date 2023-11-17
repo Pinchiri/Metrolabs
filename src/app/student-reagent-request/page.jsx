@@ -17,6 +17,7 @@ import StudentReagentCard from "@/components/studentReagentCard/studentReagentCa
 const SheetComponent = () => {
     const router = useRouter();
     const [username, setUsername] = useState('');
+    const email = username.split('@')[0];
     const [data, setData] = useState([]);
     const [error, setError] = useState(null);
     const [toasterVisible, setToasterVisible] = useState(false);
@@ -125,13 +126,12 @@ const SheetComponent = () => {
             </div>
             </div>
 
-
             {/* Mapeo de la información de la reserva del estudiante */}
             <div className="px-5 rounded-lg lg:mr-12 mt-2">
                 {noResults ? (
-                <div className={`flex flex-col justify-center items-center`}>
+                <div className={`flex flex-col justify-center items-center bg-[#283C7C] p-10 rounded-md`}>
                     <SentimentDissatisfiedIcon style={{ width: '80px', height: '80px', color: 'white'}} />
-                    <p className="font-['B612'] font-bold pt-3  text-white ">Ups, parece que no hay coincidencias</p>
+                    <p className="font-['B612'] font-bold pt-3  text-white "> Ups, parece que no hay coincidencias</p>
                 </div>
                 ) : (
                    
@@ -166,7 +166,7 @@ const SheetComponent = () => {
                 ))
                 )}
             </div>
-          <Footer/>
+            <Footer user= {email} />
           </div>
 
         
