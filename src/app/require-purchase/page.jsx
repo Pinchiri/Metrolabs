@@ -108,7 +108,7 @@ const SheetComponent = () => {
     const confirmDelete = window.confirm("¿Seguro que desea eliminar el ítem?");
     if (confirmDelete) {
       try {
-        const response = await fetch(`/api/sheetsRequirePurchaseDelete`, {
+        const response = await fetch(`/api/sheetsResearchDelete`, {
           method: "POST",
           headers: {
             'Content-Type': 'application/json',

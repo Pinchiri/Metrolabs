@@ -60,7 +60,7 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
     const handleSubmit = async () => {
         try {
             console.log(formData)
-            const response = await fetch("/api/sheetsRequirePurchaseCreate", {
+            const response = await fetch("/api/sheetsResearchCreate", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -119,18 +119,18 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
                     className="text-sm md:text-lg lg:text-xl"
                     style={{ fontWeight: 'bold', fontFamily: 'B612, sans-serif' }}
                     >
-                    Añadir nuevo requerimiento de compra
+                    Añadir nuevo Trabajo de Investigación
                 </Typography>
 
             <Button onClick={handleClose}> <CloseIcon style={{ color: 'black' }}/> </Button> 
             </div>
         
-          {/* Añadir material */}
+          {/* Añadir estudiantes */}
           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3 mt-4">
-            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Material: </h3>
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Estudiantes: </h3>
                 <input
-                name="material"
-                value={formData.material}
+                name="students"
+                value={formData.students}
                 onChange={handleChange}
                 className="rounded-lg p-2 hover:border-2 hover:border-amber-300"
                 type="text"
@@ -139,68 +139,39 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
 
           {/* Añadir capacidad */}
           <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Capacidad: </h3>
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Tesis: </h3>
                 <input
-                 name="capacity"
-                 value={formData.capacity}
+                 name="tesis"
+                 value={formData.tesis}
                  onChange={handleChange}
                 className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
                 type="text"
                 />
           </div>
 
-          {/* Añadir marca */}
+          {/* Añadir fecha inicio */}
           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
-            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Marca: </h3>
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Fecha inicio: </h3>
                 <input
-                 name="brand"
-                 value={formData.brand}
+                 name="startDate"
+                 value={formData.startDate}
                  onChange={handleChange}
                 className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
                 type="text"
                 />
           </div>
 
-          {/* Añadir cantidad */}
+          {/* Añadir fecha fin */}
           <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Cantidad: </h3>
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Fecha fin: </h3>
                 <input
-                 name="quantity"
-                 value={formData.quantity}
+                 name="endDate"
+                 value={formData.endDate}
                  onChange={handleChange}
                 className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
                 type="number"
                 />
           </div>
-
-
-          {/* Añadir precio */}
-          <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
-            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Precio: </h3>
-                <input
-                 name="price"
-                 value={formData.price}
-                 onChange={handleChange}
-                className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-                type="text"
-                />
-          </div>
-
-           {/* Añadir Status */}
-           <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-                <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Status: </h3>
-                <Autocomplete
-                    disablePortal
-                    id="status-autocomplete"
-                    options={statusLabels}
-                    sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
-                    getOptionLabel={(option) => option.label}
-                    onChange={(event, newValue) => {
-                        setFormData({ ...formData, status: newValue ? newValue.status : '' });
-                    }}
-                    renderInput={(params) => <TextField {...params}  />}
-                />
-            </div>
 
           {/* Añadir Comentarios */}
           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
