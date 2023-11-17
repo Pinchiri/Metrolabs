@@ -104,7 +104,7 @@ const ProfesorPanelView = ({ name }) => {
               </div>
             </Link>
 
-            <Link href="">
+            <Link href="research-investigations">
             <div className="bg-white p-5 rounded-lg mt-4 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer" style={{ height: '15vh' }}>
                 <p className="font-['B612'] font-bold pt-1 text-xl">
                   Trabajos de Investigación en el Laboratorio
