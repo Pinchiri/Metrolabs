@@ -133,8 +133,7 @@ const SheetComponent = () => {
   const filteredData = data.filter((item) =>
   item.material.toLowerCase().includes(searchTerm.toLowerCase())
 );
-
-  const noResults = filteredData.length === 0 && searchTerm;
+const noResults = filteredData.length === 0;
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);

@@ -130,9 +130,8 @@ const SheetComponent = () => {
   };
 
   const filteredData = data.filter((item) =>
-  item.reactive.toLowerCase().includes(searchTerm.toLowerCase())
-);
-
+    item.reactive.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   const noResults = filteredData.length === 0 && searchTerm;
 
   const handleSearchChange = (event) => {
@@ -195,7 +194,7 @@ const SheetComponent = () => {
             </div>
           </div>
 
-          <div className="bg-manz-200 p-5 rounded-lg lg:mr-12">
+          <div className="bg-cp-5 rounded-lg lg:mr-12">
             {noResults ? (
               <div className={`flex flex-col justify-center items-center`}>
                 <SentimentDissatisfiedIcon style={{ width: '80px', height: '80px', color: 'white'}} />

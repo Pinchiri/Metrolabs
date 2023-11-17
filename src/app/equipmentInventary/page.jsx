@@ -134,6 +134,9 @@ const SheetComponent = () => {
     item.equipment.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const noResults = filteredData.length === 0;
+
+
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -228,7 +231,7 @@ const SheetComponent = () => {
             />
           </div>
         </div>
-        <Footer/>s
+        <Footer/>
       </PrivateRoute>
     </>
   );
