@@ -137,7 +137,7 @@ const SheetComponent = () => {
                    
                     
                 filteredData.map((item, index) => (
-                    <div className="px-4 mb-2">
+                    <div className="px-4 mb-2"  key={item.originalIndex}>
                     <StudentReagentCard
                         key={item.originalIndex}
                         index={item.originalIndex}

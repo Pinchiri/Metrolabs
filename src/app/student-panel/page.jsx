@@ -20,7 +20,7 @@ const StudentPanel = () => {
       }
     });
     return () => unsubscribe();
-  }, []);
+  }, [router]);
 
   return (
     <>

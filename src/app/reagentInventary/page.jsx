@@ -29,13 +29,13 @@ const SheetComponent = () => {
     if (editIndex !== null && editData !== null) {
       updateData(editIndex, editData);
     }
-  }, [editIndex, editData]);
+  }, [deleteIndex, deleteData]);
 
   useEffect(() => {
     if (deleteIndex !== null) {
       deleteData(deleteIndex);
     }
-  }, [deleteIndex]);
+  }, [deleteIndex, deleteData]);
 
   const fetchData = async () => {
     setToasterVisible(false);

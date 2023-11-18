@@ -20,7 +20,7 @@ export default function ManageClasses() {
     if (editIndex !== null && editData !== null) {
       updateData(editIndex, editData);
     }
-  }, [editIndex, editData]);
+  }, [editIndex, editData, updateData]);
 
   const fetchData = async () => {
     setToasterVisible(false);
