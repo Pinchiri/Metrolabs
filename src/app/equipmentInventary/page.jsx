@@ -27,45 +27,7 @@ const SheetComponent = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    if (editIndex !== null && editData !== null) {
-      updateData(editIndex, editData);
-    }
-  }, [editIndex, editData, updateData]);
-
-  useEffect(() => {
-    if (deleteIndex !== null) {
-      deleteData(deleteIndex);
-    }
-  }, [deleteIndex, deleteData]);
-
-  const fetchData = async () => {
-    setToasterVisible(false);
-    setLoading(true);
-    try {
-      const response = await fetch("/api/sheetsEquipment");
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-
-      const dataWithIndex = data.map((item, index) => ({
-        ...item,
-        originalIndex: index,
-      }));
-
-      setData(dataWithIndex);
-    } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
+  //Función para actualizar la data en GoogleSheets
   const updateData = async (rowIndex, rowData) => {
     rowIndex = rowIndex + 4;
     try {
@@ -90,19 +52,7 @@ const SheetComponent = () => {
     }
   };
 
-  if (isLoading)
-    return (
-      <>
-        {" "}
-        <h1 className="font-['B612'] ml-10 mt-20 font-bold pt-5 text-3xl">
-          {" "}
-          Inventario de Equipos{" "}
-        </h1>{" "}
-        <Spinner />{" "}
-      </>
-    );
-  if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
-
+    //Función para eliminar la data en GoogleSheets
   const deleteData = async (rowIndex) => {
     rowIndex = rowIndex + 4;
     const confirmDelete = window.confirm("¿Seguro que desea eliminar el ítem?");
@@ -130,12 +80,67 @@ const SheetComponent = () => {
     }
   };
 
+  //Función para traer la data de GoogleSheets
+  const fetchData = async () => {
+    setToasterVisible(false);
+    setLoading(true);
+    try {
+      const response = await fetch("/api/sheetsEquipment");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+
+      const dataWithIndex = data.map((item, index) => ({
+        ...item,
+        originalIndex: index,
+      }));
+
+      setData(dataWithIndex);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (deleteIndex !== null) {
+      deleteData(deleteIndex);
+    }
+  }, [deleteIndex, deleteData]);
+
+  useEffect(() => {
+    if (editIndex !== null && editData !== null) {
+      updateData(editIndex, editData);
+    }
+  }, [editIndex, editData, updateData]);
+
+
+
+   //Condicional para mostrar SPINNER si se está cargando 
+  if (isLoading)
+    return (
+      <>
+        {" "}
+        <h1 className="font-['B612'] ml-10 mt-20 font-bold pt-5 text-3xl">
+          {" "}
+          Inventario de Equipos{" "}
+        </h1>{" "}
+        <Spinner />{" "}
+      </>
+    );
+  if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
+
+  // Funcionalidad para el buscador. 
   const filteredData = data.filter((item) =>
     item.equipment.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
   const noResults = filteredData.length === 0;
-
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);

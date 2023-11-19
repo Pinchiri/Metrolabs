@@ -16,35 +16,7 @@ export default function ManageClasses() {
   const [editIndex, setEditIndex] = useState(null);
   const [editData, setEditData] = useState(null);
 
-  useEffect(() => {
-    if (editIndex !== null && editData !== null) {
-      updateData(editIndex, editData);
-    }
-  }, [editIndex, editData, updateData]);
-
-  const fetchData = async () => {
-    setToasterVisible(false);
-    setLoading(true);
-    try {
-      const response = await fetch("/api/sheetsClasses");
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-
-      const dataWithIndex = data.map((item, index) => ({
-        ...item,
-        originalIndex: index,
-      }));
-
-      setData(dataWithIndex);
-    } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  //Función para actualizar la data en GoogleSheets
   const updateData = async (rowIndex, rowData) => {
     rowIndex = rowIndex + 4;
     try {
@@ -70,10 +42,41 @@ export default function ManageClasses() {
     }
   };
 
+  //Función para traer la data de GoogleSheets
+  const fetchData = async () => {
+    setToasterVisible(false);
+    setLoading(true);
+    try {
+      const response = await fetch("/api/sheetsClasses");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+
+      const dataWithIndex = data.map((item, index) => ({
+        ...item,
+        originalIndex: index,
+      }));
+
+      setData(dataWithIndex);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (editIndex !== null && editData !== null) {
+      updateData(editIndex, editData);
+    }
+  }, [editIndex, editData, updateData]);
+
+  //Condicional para evaluar si está cargando y mostrar Spinner
   if (isLoading)
     return (
       <>
@@ -85,8 +88,8 @@ export default function ManageClasses() {
         <Spinner />{" "}
       </>
     );
+    if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
 
-  if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
 
   return (
     <PrivateRoute>

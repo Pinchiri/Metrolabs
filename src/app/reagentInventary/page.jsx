@@ -25,45 +25,7 @@ const SheetComponent = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    if (editIndex !== null && editData !== null) {
-      updateData(editIndex, editData);
-    }
-  }, [deleteIndex, deleteData]);
-
-  useEffect(() => {
-    if (deleteIndex !== null) {
-      deleteData(deleteIndex);
-    }
-  }, [deleteIndex, deleteData]);
-
-  const fetchData = async () => {
-    setToasterVisible(false);
-    setLoading(true);
-    try {
-      const response = await fetch("/api/sheetsReagent");
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-
-      const dataWithIndex = data.map((item, index) => ({
-        ...item,
-        originalIndex: index,
-      }));
-
-      setData(dataWithIndex);
-    } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
+  //Función para actualizar la data en GoogleSheets
   const updateData = async (rowIndex, rowData) => {
     rowIndex = rowIndex + 4;
     try {
@@ -88,20 +50,31 @@ const SheetComponent = () => {
     }
   };
 
-  if (isLoading)
-    return (
-      <>
-        {" "}
-        <h1 className="font-['B612'] ml-10 mt-20 font-bold pt-5 text-3xl">
-          {" "}
-          Inventario de Reactivos{" "}
-        </h1>{" "}
-        <Spinner />{" "}
-      </>
-    );
+  //Función para traer la data de GoogleSheets
+  const fetchData = async () => {
+    setToasterVisible(false);
+    setLoading(true);
+    try {
+      const response = await fetch("/api/sheetsReagent");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
 
-  if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
+      const dataWithIndex = data.map((item, index) => ({
+        ...item,
+        originalIndex: index,
+      }));
 
+      setData(dataWithIndex);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  //Función para eliminar la data en GoogleSheets
   const deleteData = async (rowIndex) => {
     rowIndex = rowIndex + 4;
     const confirmDelete = window.confirm("¿Seguro que desea eliminar el ítem?");
@@ -129,6 +102,39 @@ const SheetComponent = () => {
     }
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (editIndex !== null && editData !== null) {
+      updateData(editIndex, editData);
+    }
+  }, [deleteIndex, deleteData]);
+
+  useEffect(() => {
+    if (deleteIndex !== null) {
+      deleteData(deleteIndex);
+    }
+  }, [deleteIndex, deleteData]);
+
+
+  //Condicional para mostrar spinner, error o data
+  if (isLoading)
+    return (
+      <>
+        {" "}
+        <h1 className="font-['B612'] ml-10 mt-20 font-bold pt-5 text-3xl">
+          {" "}
+          Inventario de Reactivos{" "}
+        </h1>{" "}
+        <Spinner />{" "}
+      </>
+    );
+  if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
+
+  
+  //Funcionalidad de searchbar
   const filteredData = data.filter((item) =>
     item.reactive.toLowerCase().includes(searchTerm.toLowerCase())
   );

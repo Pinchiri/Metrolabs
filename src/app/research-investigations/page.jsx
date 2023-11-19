@@ -27,18 +27,7 @@ const SheetComponent = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    if (editIndex !== null && editData !== null) {
-      updateData(editIndex, editData);
-    }
-  }, [editIndex, editData, updateData]);
-
-  useEffect(() => {
-    if (deleteIndex !== null) {
-      deleteData(deleteIndex);
-    }
-  },  [deleteIndex, deleteData]);
-
+   //Función para traer la data en GoogleSheets
   const fetchData = async () => {
     setToasterVisible(false);
     setLoading(true);
@@ -62,10 +51,7 @@ const SheetComponent = () => {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
+   //Función para actualizar la data en GoogleSheets
   const updateData = async (rowIndex, rowData) => {
     rowIndex = rowIndex + 4;
     try {
@@ -90,20 +76,7 @@ const SheetComponent = () => {
     }
   };
 
-  if (isLoading)
-    return (
-      <>
-        <div className="flex flex-row gap-3 mt-20 ml-8">
-            <ArrowBackIcon  onClick={() => router.back()} style={{marginTop: "25px"}}/>
-            <h1 className="font-['B612'] font-bold pt-5 text-3xl">
-            Trabajo de Investigación
-            </h1>
-          </div>
-        <Spinner />
-      </>
-    );
-  if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
-
+   //Función para eliminar la data en GoogleSheets
   const deleteData = async (rowIndex) => {
     rowIndex = rowIndex + 4;
     const confirmDelete = window.confirm("¿Seguro que desea eliminar el ítem?");
@@ -130,7 +103,40 @@ const SheetComponent = () => {
       }
     }
   };
-  
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (editIndex !== null && editData !== null) {
+      updateData(editIndex, editData);
+    }
+  }, [editIndex, editData, updateData]);
+
+  useEffect(() => {
+    if (deleteIndex !== null) {
+      deleteData(deleteIndex);
+    }
+  },  [deleteIndex, deleteData]);
+
+
+  // Para mostrar el spinner de carga
+  if (isLoading)
+    return (
+      <>
+        <div className="flex flex-row gap-3 mt-20 ml-8">
+            <ArrowBackIcon  onClick={() => router.back()} style={{marginTop: "25px"}}/>
+            <h1 className="font-['B612'] font-bold pt-5 text-3xl">
+            Trabajo de Investigación
+            </h1>
+          </div>
+        <Spinner />
+      </>
+    );
+  if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
+
+  // Para filtrar la data por el input de búsqueda
   const filteredData = data.filter((item) =>
     item.tesis.toLowerCase().includes(searchTerm.toLowerCase())
   );

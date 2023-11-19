@@ -26,18 +26,60 @@ const SheetComponent = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    if (editIndex !== null && editData !== null) {
-      updateData(editIndex, editData);
-    }
-  }, [editIndex, editData, updateData]);
+  //Función para actualizar la data en GoogleSheets
+    const updateData = async (rowIndex, rowData) => {
+      rowIndex = rowIndex + 4;
+      try {
+        const response = await fetch("/api/sheetsMaterialUpdate", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ rowIndex, rowData }),
+        });
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const result = await response.json();
+        fetchData();
+        setToasterVisible(true);
+        setTimeout(() => {
+          setToasterVisible(false);
+        }, 3000);
+      } catch (error) {
+        console.error("Failed to update data", error);
+      }
+    };
 
-  useEffect(() => {
-    if (deleteIndex !== null) {
-      deleteData(deleteIndex);
-    }
-  }, [deleteIndex, deleteData]);
+    //Función para eliminar la data de GoogleSheets
+    const deleteData = async (rowIndex) => {
+      rowIndex = rowIndex + 4;
+      const confirmDelete = window.confirm("¿Seguro que desea eliminar el ítem?");
+      if (confirmDelete) {
+        try {
+          const response = await fetch(`/api/sheetsMaterialDelete`, {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ rowIndex }),
+          });
+          if (!response.ok) {
+            console.log(response);
+            throw new Error("Network response was not ok");
+          }
+          fetchData();
+          setToasterVisible(true);
+          setTimeout(() => {
+            setToasterVisible(false);
+          }, 3000);
+        } catch (error) {
+          console.error("Failed to delete data", error);
+        }
+      }
+    };
 
+    //Función para traer la data de GoogleSheets
 
   const fetchData = async () => {
     setToasterVisible(false);
@@ -66,30 +108,19 @@ const SheetComponent = () => {
     fetchData();
   }, []);
 
-  const updateData = async (rowIndex, rowData) => {
-    rowIndex = rowIndex + 4;
-    try {
-      const response = await fetch("/api/sheetsMaterialUpdate", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ rowIndex, rowData }),
-      });
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const result = await response.json();
-      fetchData();
-      setToasterVisible(true);
-      setTimeout(() => {
-        setToasterVisible(false);
-      }, 3000);
-    } catch (error) {
-      console.error("Failed to update data", error);
+  useEffect(() => {
+    if (editIndex !== null && editData !== null) {
+      updateData(editIndex, editData);
     }
-  };
+  }, [editIndex, editData, updateData]);
 
+  useEffect(() => {
+    if (deleteIndex !== null) {
+      deleteData(deleteIndex);
+    }
+  }, [deleteIndex, deleteData]);
+
+  // Condicional para mostrar spinner de carga
   if (isLoading)
     return (
       <>
@@ -101,39 +132,14 @@ const SheetComponent = () => {
         <Spinner />{" "}
       </>
     );
-  if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
+    if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
 
-  const deleteData = async (rowIndex) => {
-    rowIndex = rowIndex + 4;
-    const confirmDelete = window.confirm("¿Seguro que desea eliminar el ítem?");
-    if (confirmDelete) {
-      try {
-        const response = await fetch(`/api/sheetsMaterialDelete`, {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ rowIndex }),
-        });
-        if (!response.ok) {
-          console.log(response);
-          throw new Error("Network response was not ok");
-        }
-        fetchData();
-        setToasterVisible(true);
-        setTimeout(() => {
-          setToasterVisible(false);
-        }, 3000);
-      } catch (error) {
-        console.error("Failed to delete data", error);
-      }
-    }
-  };
 
+  // Funcionalidad de la barra buscadora
   const filteredData = data.filter((item) =>
-  item.material.toLowerCase().includes(searchTerm.toLowerCase())
-);
-const noResults = filteredData.length === 0;
+    item.material.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  const noResults = filteredData.length === 0;
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
