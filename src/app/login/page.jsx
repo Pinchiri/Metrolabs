@@ -29,10 +29,13 @@ const Login = () => {
       const docSnapshot = await getDoc(userDocRef);
       if (docSnapshot.exists()) {
         const userData = docSnapshot.data();
-        if (userData.email.endsWith("@correo.unimet.edu.ve")) {
-          router.push("/profesorPanel");
+        if (
+          userData.email.endsWith("@correo.unimet.edu.ve") &&
+          userData.email != "erika.hernandez@correo.unimet.edu.ve"
+        ) {
+          router.push("/student-panel");
         } else {
-          router.push("/studentPanel");
+          router.push("/profesorPanel");
         }
       }
     } catch (error) {
