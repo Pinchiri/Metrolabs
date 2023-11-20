@@ -1,14 +1,22 @@
 import metrolabsLogo from "../../assets/logo.png";
-import AccountCircleIcon from "mdi-react/AccountCircleIcon";
 import NavbarOptionsList from "./NavbarOptionsList";
 import Link from "next/link";
 import { homeURL } from "@/constants/urls";
 import Image from "next/image";
+import UserAvatar from "../UserAvatar/UserAvatar";
+import Button from "../Button/Button";
 
-const NavbarView = ({ isExpanded, setIsExpanded, options, signOut }) => {
+const NavbarView = ({
+  isExpanded,
+  setIsExpanded,
+  options,
+  handleAuth,
+  profilePicture,
+  user,
+}) => {
   return (
     <nav className="bg-white fixed w-full z-20 top-0 left-0">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <div className="max-w-screen-xl mx-auto p-4 flex justify-between items-center">
         <button
           data-collapse-toggle="navbar-sticky"
           type="button"
@@ -36,24 +44,17 @@ const NavbarView = ({ isExpanded, setIsExpanded, options, signOut }) => {
 
         <Link
           href={homeURL}
-          className="flex items-center md:-ml-20"
+          className="flex items-center md:-ml-30"
         >
           <Image
+            loader={() => metrolabsLogo.src}
             src={metrolabsLogo.src}
             width={622}
             height={225}
-            className="hover:scale-110 w-[220px] h-12 self-center rounded-full transition-all mt-1 md:ml-20 xl:ml-14 2xl:ml-0"
+            className="hover:scale-110 w-[150px] lg:w-[200px] self-center rounded-full transition-all mt-1 md:ml-20 xl:ml-14 2xl:ml-0"
             alt="Metrolabs Logo"
           />
         </Link>
-        <div className="flex lg:order-2 h-1/3 w-10 cursor-pointer hover:scale-110 transition-all">
-          <AccountCircleIcon
-            size="full"
-            color="#434040"
-            className="hover:fill-primary"
-            onClick={signOut}
-          />
-        </div>
         <div
           className={` ${
             isExpanded ? "" : "hidden"
@@ -61,6 +62,23 @@ const NavbarView = ({ isExpanded, setIsExpanded, options, signOut }) => {
           id="navbar-sticky"
         >
           <NavbarOptionsList options={options} />
+        </div>
+        <div className="flex lg:order-2 justify-end items-center space-x-4">
+          {user ? (
+            <UserAvatar
+              isProfessor={user.isProfessor}
+              handleLogout={handleAuth}
+              profilePicture={profilePicture}
+            />
+          ) : (
+            <Button
+              text="Iniciar sesión"
+              size="sm"
+              color="manz"
+              extraStyles="text-[10px] btn-xs md:btn-sm md:text-sm px-2 lg:px-4 font-bold rounded-lg hover:scale-105"
+              onClick={handleAuth}
+            />
+          )}
         </div>
       </div>
     </nav>

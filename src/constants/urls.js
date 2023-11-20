@@ -3,6 +3,8 @@ export const homeURL = "/";
 export const guidesURL = "/guides";
 export const labURL = "/lab";
 export const schedulesURL = "/classSchedules";
+export const studentPanelURL = "/student-panel";
+export const professorPanelURL = "/professor-panel";
 
 //NOTE - Google Form Links
 export const spacesAndEquipmentForm =

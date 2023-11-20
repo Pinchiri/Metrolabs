@@ -3,6 +3,8 @@ import Navbar from "@/components/Navbar/Navbar";
 import { UserProvider } from "@/context/userContext";
 
 export const metadata = {
+  title: "Process Lab",
+  description: "Tu app para reservar labs",
   manifest: "/manifest.json",
   themeColor: "#FFB635",
 };

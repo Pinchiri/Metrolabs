@@ -28,7 +28,7 @@ const Navbar = () => {
     },
   ];
 
-  const handleLogout = async () => {
+  const handleAuth = async () => {
     if (currentUser) {
       try {
         await signOut(auth);
@@ -46,7 +46,9 @@ const Navbar = () => {
       isExpanded={isExpanded}
       setIsExpanded={setIsExpanded}
       options={navbarOptions}
-      signOut={handleLogout}
+      handleAuth={handleAuth}
+      profilePicture={currentUser?.photoURL}
+      user={currentUser}
     />
   );
 };

@@ -9,10 +9,17 @@ export const UserContext = createContext({
 
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
-      setCurrentUser(user);
+      if (user) {
+        // Aquí se agrega el atributo isProfessor
+        const isProfessor = user.email.endsWith("@unimet.edu.ve");
+        setCurrentUser({ ...user, isProfessor });
+      } else {
+        setCurrentUser(user);
+      }
     });
 
     return unsubscribe;
