@@ -1,18 +1,18 @@
 "use client";
 import Link from "next/link";
-import PrivateRoute from "@/privateRoute/privateRoute.jsx";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
 import ScienceIcon from "@mui/icons-material/Science";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 import Footer from "@/components/studentFooter/footer";
 import { reagentsForm, spacesAndEquipmentForm } from "@/constants/urls";
+import StudentRoute from "@/StudentRoute/StudentRoute";
 
 const StudentPanelView = ({ name, email }) => {
   const username = email.split("@")[0];
   return (
     <>
-      <PrivateRoute>
+      <StudentRoute>
         <div className="mt-12 mx-10 mb-8">
           <p className="font-['B612'] font-bold pt-8 text-3xl">
             Bienvenido Estudiante:{" "}
@@ -98,7 +98,7 @@ const StudentPanelView = ({ name, email }) => {
           </div>
         </div>
         <Footer user={email} />
-      </PrivateRoute>
+      </StudentRoute>
     </>
   );
 };

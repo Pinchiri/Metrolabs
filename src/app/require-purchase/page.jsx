@@ -3,14 +3,14 @@
 import React, { useState, useEffect } from "react";
 import RequirePurchaseCard from "@/components/requirePurchaseCard/requierePurchaseCard";
 import SearchIcon from "@mui/icons-material/Search";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ClearIcon from "@mui/icons-material/Clear";
 import Spinner from "@/components/Spinner/spinner";
 import Toaster from "@/components/toast/toaster";
-import PrivateRoute from "@/privateRoute/privateRoute";
+import ProfessorRoute from "@/ProfessorRoute/ProfessorRoute";
 import { useRouter } from "next/navigation";
 import { ModalCreatePurchase } from "./modalCreate";
-import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
+import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import Footer from "@/components/profesorFooter/footer";
 
 const SheetComponent = () => {
@@ -49,7 +49,7 @@ const SheetComponent = () => {
     }
   };
 
-    //Función para actualizar la data en GoogleSheets
+  //Función para actualizar la data en GoogleSheets
   const updateData = async (rowIndex, rowData) => {
     rowIndex = rowIndex + 4;
     try {
@@ -83,7 +83,7 @@ const SheetComponent = () => {
         const response = await fetch(`/api/sheetsResearchDelete`, {
           method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({ rowIndex }),
         });
@@ -123,16 +123,19 @@ const SheetComponent = () => {
     return (
       <>
         <div className="flex flex-row gap-3 mt-20 ml-8">
-            <ArrowBackIcon  onClick={() => router.back()} style={{marginTop: "25px"}}/>
-            <h1 className="font-['B612'] font-bold pt-5 text-3xl">
-              Compras Requeridas
-            </h1>
-          </div>
+          <ArrowBackIcon
+            onClick={() => router.back()}
+            style={{ marginTop: "25px" }}
+          />
+          <h1 className="font-['B612'] font-bold pt-5 text-3xl">
+            Compras Requeridas
+          </h1>
+        </div>
         <Spinner />
       </>
     );
   if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
-  
+
   //Funcionalidad de la searchBar
   const filteredData = data.filter((item) =>
     item.material.toLowerCase().includes(searchTerm.toLowerCase())
@@ -150,11 +153,13 @@ const SheetComponent = () => {
 
   return (
     <>
-      <PrivateRoute>
+      <ProfessorRoute>
         <div className="mt-20 ml-10 mr-7">
-
           <div className="flex flex-row gap-3">
-            <ArrowBackIcon  onClick={() => router.back()} style={{marginTop: "25px"}}/>
+            <ArrowBackIcon
+              onClick={() => router.back()}
+              style={{ marginTop: "25px" }}
+            />
             <h1 className="font-['B612'] font-bold pt-5 text-3xl">
               Compras Requeridas
             </h1>
@@ -186,26 +191,33 @@ const SheetComponent = () => {
             )}
           </div>
 
-          
           <div className="mt-5 flex flex-col lg:flex-row gap-3 lg:gap-0 justify-between lg:mr-12 ">
             <p className=" font-['B612'] font-bold text-xl">
               Lista de Materiales/ Equipos requeridos
             </p>
             <div>
-              <button 
-              className="bg-manz-200 text-black font-bold py-2 px-4 rounded"
-              onClick={() => setOpen(true)}> 
+              <button
+                className="bg-manz-200 text-black font-bold py-2 px-4 rounded"
+                onClick={() => setOpen(true)}
+              >
                 Agregar material
               </button>
-              <ModalCreatePurchase  open={open} setOpen={setOpen}/>  
+              <ModalCreatePurchase
+                open={open}
+                setOpen={setOpen}
+              />
             </div>
           </div>
 
           <div className="bg-manz-200 p-5 rounded-lg lg:mr-12">
             {noResults ? (
               <div className={`flex flex-col justify-center items-center`}>
-                <SentimentDissatisfiedIcon style={{ width: '80px', height: '80px', color: 'white'}} />
-                <p className="font-['B612'] font-bold pt-3  text-white ">Ups, parece que no hay coincidencias</p>
+                <SentimentDissatisfiedIcon
+                  style={{ width: "80px", height: "80px", color: "white" }}
+                />
+                <p className="font-['B612'] font-bold pt-3  text-white ">
+                  Ups, parece que no hay coincidencias
+                </p>
               </div>
             ) : (
               filteredData.map((item, index) => (
@@ -216,13 +228,13 @@ const SheetComponent = () => {
                   capacity={item.capacity}
                   brand={item.brand}
                   quantity={item.quantity}
-                  price = {item.price}
-                  status = {item.status}
+                  price={item.price}
+                  status={item.status}
                   observations={item.observations}
                   setEditIndex={setEditIndex}
                   setEditData={setEditData}
-                  setDeleteIndex = {setDeleteIndex}
-                  />
+                  setDeleteIndex={setDeleteIndex}
+                />
               ))
             )}
           </div>
@@ -235,11 +247,9 @@ const SheetComponent = () => {
           </div>
 
           {/* Para mostrar no coincidencia en resultados */}
-         
-
         </div>
-        <Footer/>
-      </PrivateRoute>
+        <Footer />
+      </ProfessorRoute>
     </>
   );
 };

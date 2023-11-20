@@ -3,17 +3,15 @@
 import React, { useState, useEffect } from "react";
 import ResearchCard from "@/components/researchCard/researchCard";
 import SearchIcon from "@mui/icons-material/Search";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ClearIcon from "@mui/icons-material/Clear";
 import Spinner from "@/components/Spinner/spinner";
 import Toaster from "@/components/toast/toaster";
-import PrivateRoute from "@/privateRoute/privateRoute";
+import ProfessorRoute from "@/ProfessorRoute/ProfessorRoute";
 import { useRouter } from "next/navigation";
 import { ModalCreatePurchase } from "./modalCreate";
-import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
+import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import Footer from "@/components/profesorFooter/footer";
-
-
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
@@ -27,7 +25,7 @@ const SheetComponent = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
-   //Función para traer la data en GoogleSheets
+  //Función para traer la data en GoogleSheets
   const fetchData = async () => {
     setToasterVisible(false);
     setLoading(true);
@@ -51,7 +49,7 @@ const SheetComponent = () => {
     }
   };
 
-   //Función para actualizar la data en GoogleSheets
+  //Función para actualizar la data en GoogleSheets
   const updateData = async (rowIndex, rowData) => {
     rowIndex = rowIndex + 4;
     try {
@@ -76,7 +74,7 @@ const SheetComponent = () => {
     }
   };
 
-   //Función para eliminar la data en GoogleSheets
+  //Función para eliminar la data en GoogleSheets
   const deleteData = async (rowIndex) => {
     rowIndex = rowIndex + 4;
     const confirmDelete = window.confirm("¿Seguro que desea eliminar el ítem?");
@@ -85,7 +83,7 @@ const SheetComponent = () => {
         const response = await fetch(`/api/sheetsResearchDelete`, {
           method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({ rowIndex }),
         });
@@ -118,19 +116,21 @@ const SheetComponent = () => {
     if (deleteIndex !== null) {
       deleteData(deleteIndex);
     }
-  },  [deleteIndex, deleteData]);
-
+  }, [deleteIndex, deleteData]);
 
   // Para mostrar el spinner de carga
   if (isLoading)
     return (
       <>
         <div className="flex flex-row gap-3 mt-20 ml-8">
-            <ArrowBackIcon  onClick={() => router.back()} style={{marginTop: "25px"}}/>
-            <h1 className="font-['B612'] font-bold pt-5 text-3xl">
+          <ArrowBackIcon
+            onClick={() => router.back()}
+            style={{ marginTop: "25px" }}
+          />
+          <h1 className="font-['B612'] font-bold pt-5 text-3xl">
             Trabajo de Investigación
-            </h1>
-          </div>
+          </h1>
+        </div>
         <Spinner />
       </>
     );
@@ -153,11 +153,13 @@ const SheetComponent = () => {
 
   return (
     <>
-      <PrivateRoute>
+      <ProfessorRoute>
         <div className="mt-20 ml-10 mr-7">
-
           <div className="flex flex-row gap-3">
-            <ArrowBackIcon  onClick={() => router.back()} style={{marginTop: "25px"}}/>
+            <ArrowBackIcon
+              onClick={() => router.back()}
+              style={{ marginTop: "25px" }}
+            />
             <h1 className="font-['B612'] font-bold pt-5 text-3xl">
               Trabajos de Investigación desarrollados en el Laboratorio
             </h1>
@@ -189,26 +191,33 @@ const SheetComponent = () => {
             )}
           </div>
 
-          
           <div className="mt-5 flex flex-col lg:flex-row gap-3 lg:gap-0 justify-between lg:mr-12 ">
             <p className=" font-['B612'] font-bold text-xl">
               Lista de Trabajos de investigación en el Laboratorio
             </p>
             <div>
-              <button 
-              className="bg-manz-200 text-black font-bold py-2 px-4 rounded"
-              onClick={() => setOpen(true)}> 
+              <button
+                className="bg-manz-200 text-black font-bold py-2 px-4 rounded"
+                onClick={() => setOpen(true)}
+              >
                 Agregar Trabajo
               </button>
-              <ModalCreatePurchase  open={open} setOpen={setOpen}/>  
+              <ModalCreatePurchase
+                open={open}
+                setOpen={setOpen}
+              />
             </div>
           </div>
 
           <div className="bg-manz-200 p-5 rounded-lg lg:mr-12">
             {noResults ? (
               <div className={`flex flex-col justify-center items-center`}>
-                <SentimentDissatisfiedIcon style={{ width: '80px', height: '80px', color: 'white'}} />
-                <p className="font-['B612'] font-bold pt-3  text-white ">Ups, parece que no hay coincidencias</p>
+                <SentimentDissatisfiedIcon
+                  style={{ width: "80px", height: "80px", color: "white" }}
+                />
+                <p className="font-['B612'] font-bold pt-3  text-white ">
+                  Ups, parece que no hay coincidencias
+                </p>
               </div>
             ) : (
               filteredData.map((item, index) => (
@@ -222,8 +231,8 @@ const SheetComponent = () => {
                   observations={item.observations}
                   setEditIndex={setEditIndex}
                   setEditData={setEditData}
-                  setDeleteIndex = {setDeleteIndex}
-                  />
+                  setDeleteIndex={setDeleteIndex}
+                />
               ))
             )}
           </div>
@@ -233,11 +242,10 @@ const SheetComponent = () => {
               message="Lista actualizada"
               isVisible={toasterVisible}
             />
-          </div>         
-
+          </div>
         </div>
-        <Footer/>
-      </PrivateRoute>
+        <Footer />
+      </ProfessorRoute>
     </>
   );
 };

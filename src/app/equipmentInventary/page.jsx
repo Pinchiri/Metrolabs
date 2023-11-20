@@ -5,15 +5,13 @@ import EquipmentCard from "@/components/equipmentCard/equipmentCard";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 import Spinner from "@/components/Spinner/spinner";
-import PrivateRoute from "@/privateRoute/privateRoute";
+import ProfessorRoute from "@/ProfessorRoute/ProfessorRoute";
 import Toaster from "@/components/toast/toaster";
 import { useRouter } from "next/navigation";
 import { ModalCreateEquipment } from "./modalCreate";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import Footer from "@/components/studentFooter/footer";
-
-
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
@@ -52,7 +50,7 @@ const SheetComponent = () => {
     }
   };
 
-    //Función para eliminar la data en GoogleSheets
+  //Función para eliminar la data en GoogleSheets
   const deleteData = async (rowIndex) => {
     rowIndex = rowIndex + 4;
     const confirmDelete = window.confirm("¿Seguro que desea eliminar el ítem?");
@@ -61,7 +59,7 @@ const SheetComponent = () => {
         const response = await fetch(`/api/sheetsEquipmentDelete`, {
           method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({ rowIndex }),
         });
@@ -120,9 +118,7 @@ const SheetComponent = () => {
     }
   }, [editIndex, editData, updateData]);
 
-
-
-   //Condicional para mostrar SPINNER si se está cargando 
+  //Condicional para mostrar SPINNER si se está cargando
   if (isLoading)
     return (
       <>
@@ -136,7 +132,7 @@ const SheetComponent = () => {
     );
   if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
 
-  // Funcionalidad para el buscador. 
+  // Funcionalidad para el buscador.
   const filteredData = data.filter((item) =>
     item.equipment.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -152,13 +148,16 @@ const SheetComponent = () => {
 
   return (
     <>
-      <PrivateRoute>
+      <ProfessorRoute>
         <div className="mt-12 ml-10 mr-7">
           <div className="flex flex-row gap-3">
-              <ArrowBackIcon  onClick={() => router.back()} style={{marginTop: "25px"}}/>
-              <h1 className="font-['B612'] font-bold pt-5 text-3xl">
-                 Inventario de Equipos
-              </h1>
+            <ArrowBackIcon
+              onClick={() => router.back()}
+              style={{ marginTop: "25px" }}
+            />
+            <h1 className="font-['B612'] font-bold pt-5 text-3xl">
+              Inventario de Equipos
+            </h1>
           </div>
 
           <div>
@@ -188,24 +187,30 @@ const SheetComponent = () => {
           </div>
 
           <div className="mt-5 flex flex-col lg:flex-row gap-3 lg:gap-0 justify-between lg:mr-12 ">
-            <p className=" font-['B612'] font-bold text-xl">
-              Lista de Equipos
-            </p>
+            <p className=" font-['B612'] font-bold text-xl">Lista de Equipos</p>
             <div>
-              <button 
-              className="bg-manz-200 text-black font-bold py-2 px-4 rounded"
-              onClick={() => setOpen(true)}> 
+              <button
+                className="bg-manz-200 text-black font-bold py-2 px-4 rounded"
+                onClick={() => setOpen(true)}
+              >
                 Agregar Equipo
               </button>
-              <ModalCreateEquipment open={open} setOpen={setOpen}/>  
+              <ModalCreateEquipment
+                open={open}
+                setOpen={setOpen}
+              />
             </div>
           </div>
 
           <div className="bg-manz-200 p-5 rounded-lg lg:mr-12">
             {noResults ? (
               <div className={`flex flex-col justify-center items-center`}>
-                <SentimentDissatisfiedIcon style={{ width: '80px', height: '80px', color: 'white'}} />
-                <p className="font-['B612'] font-bold pt-3  text-white ">Ups, parece que no hay coincidencias</p>
+                <SentimentDissatisfiedIcon
+                  style={{ width: "80px", height: "80px", color: "white" }}
+                />
+                <p className="font-['B612'] font-bold pt-3  text-white ">
+                  Ups, parece que no hay coincidencias
+                </p>
               </div>
             ) : (
               filteredData.map((item, index) => (
@@ -223,7 +228,7 @@ const SheetComponent = () => {
                   observations={item.observations}
                   setEditIndex={setEditIndex}
                   setEditData={setEditData}
-                  setDeleteIndex = {setDeleteIndex}
+                  setDeleteIndex={setDeleteIndex}
                 />
               ))
             )}
@@ -236,8 +241,8 @@ const SheetComponent = () => {
             />
           </div>
         </div>
-        <Footer/>
-      </PrivateRoute>
+        <Footer />
+      </ProfessorRoute>
     </>
   );
 };

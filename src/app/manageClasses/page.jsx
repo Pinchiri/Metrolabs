@@ -4,7 +4,7 @@ import "../globals.css";
 import React, { useState, useEffect } from "react";
 import Spinner from "@/components/Spinner/spinner";
 import Toaster from "@/components/toast/toaster";
-import PrivateRoute from "@/privateRoute/privateRoute";
+import ProfessorRoute from "@/ProfessorRoute/ProfessorRoute";
 import ClassesList from "@/components/ClassesCard/ClassesList";
 import ClassesCard from "@/components/ClassesCard/ClassesCard";
 
@@ -88,11 +88,10 @@ export default function ManageClasses() {
         <Spinner />{" "}
       </>
     );
-    if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
-
+  if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
 
   return (
-    <PrivateRoute>
+    <ProfessorRoute>
       {isLoading ? (
         <Spinner />
       ) : (
@@ -118,6 +117,6 @@ export default function ManageClasses() {
           </div>
         </div>
       )}
-    </PrivateRoute>
+    </ProfessorRoute>
   );
 }

@@ -3,14 +3,14 @@
 import React, { useState, useEffect } from "react";
 import ReagentCard from "@/components/reagentCard/reagentCard";
 import SearchIcon from "@mui/icons-material/Search";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ClearIcon from "@mui/icons-material/Clear";
 import Spinner from "@/components/Spinner/spinner";
 import Toaster from "@/components/toast/toaster";
-import PrivateRoute from "@/privateRoute/privateRoute";
+import ProfessorRoute from "@/ProfessorRoute/ProfessorRoute";
 import { useRouter } from "next/navigation";
 import { ModalCreateReagent } from "./modalCreate";
-import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
+import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import Footer from "@/components/profesorFooter/footer";
 
 const SheetComponent = () => {
@@ -83,7 +83,7 @@ const SheetComponent = () => {
         const response = await fetch(`/api/sheetsReagentDelete`, {
           method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({ rowIndex }),
         });
@@ -118,7 +118,6 @@ const SheetComponent = () => {
     }
   }, [deleteIndex, deleteData]);
 
-
   //Condicional para mostrar spinner, error o data
   if (isLoading)
     return (
@@ -133,7 +132,6 @@ const SheetComponent = () => {
     );
   if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
 
-  
   //Funcionalidad de searchbar
   const filteredData = data.filter((item) =>
     item.reactive.toLowerCase().includes(searchTerm.toLowerCase())
@@ -150,13 +148,15 @@ const SheetComponent = () => {
 
   return (
     <>
-      <PrivateRoute>
+      <ProfessorRoute>
         <div className="mt-12 ml-10 mr-7">
-
           <div className="flex flex-row gap-3">
-            <ArrowBackIcon  onClick={() => router.back()} style={{marginTop: "25px"}}/>
+            <ArrowBackIcon
+              onClick={() => router.back()}
+              style={{ marginTop: "25px" }}
+            />
             <h1 className="font-['B612'] font-bold pt-5 text-3xl">
-            Inventario de Reactivos
+              Inventario de Reactivos
             </h1>
           </div>
 
@@ -191,20 +191,28 @@ const SheetComponent = () => {
               Lista de Reactivos
             </p>
             <div>
-              <button 
-              className="bg-manz-200 text-black font-bold py-2 px-4 rounded"
-              onClick={() => setOpen(true)}> 
+              <button
+                className="bg-manz-200 text-black font-bold py-2 px-4 rounded"
+                onClick={() => setOpen(true)}
+              >
                 Agregar Reactivo
               </button>
-              <ModalCreateReagent  open={open} setOpen={setOpen}/>  
+              <ModalCreateReagent
+                open={open}
+                setOpen={setOpen}
+              />
             </div>
           </div>
 
           <div className="bg-cp-5 rounded-lg lg:mr-12">
             {noResults ? (
               <div className={`flex flex-col justify-center items-center`}>
-                <SentimentDissatisfiedIcon style={{ width: '80px', height: '80px', color: 'white'}} />
-                <p className="font-['B612'] font-bold pt-3  text-white ">Ups, parece que no hay coincidencias</p>
+                <SentimentDissatisfiedIcon
+                  style={{ width: "80px", height: "80px", color: "white" }}
+                />
+                <p className="font-['B612'] font-bold pt-3  text-white ">
+                  Ups, parece que no hay coincidencias
+                </p>
               </div>
             ) : (
               filteredData.map((item) => (
@@ -223,7 +231,7 @@ const SheetComponent = () => {
                   observations={item.observations}
                   setEditIndex={setEditIndex}
                   setEditData={setEditData}
-                  setDeleteIndex = {setDeleteIndex}
+                  setDeleteIndex={setDeleteIndex}
                 />
               ))
             )}
@@ -236,8 +244,8 @@ const SheetComponent = () => {
             />
           </div>
         </div>
-        <Footer/>
-      </PrivateRoute>
+        <Footer />
+      </ProfessorRoute>
     </>
   );
 };

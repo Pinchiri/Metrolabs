@@ -5,6 +5,7 @@ import { homeURL } from "@/constants/urls";
 import Image from "next/image";
 import UserAvatar from "../UserAvatar/UserAvatar";
 import Button from "../Button/Button";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 const NavbarView = ({
   isExpanded,
@@ -13,7 +14,38 @@ const NavbarView = ({
   handleAuth,
   profilePicture,
   user,
+  isUserLoading,
 }) => {
+  const renderAvatar = () => {
+    if (isUserLoading) {
+      return (
+        <LoadingSpinner
+          color="primary"
+          extraStyles="pr-10"
+        />
+      );
+    }
+
+    if (user) {
+      return (
+        <UserAvatar
+          isProfessor={user.isProfessor}
+          handleLogout={handleAuth}
+          profilePicture={profilePicture}
+        />
+      );
+    }
+
+    return (
+      <Button
+        text="Iniciar sesión"
+        size="sm"
+        color="manz"
+        extraStyles="text-[10px] btn-xs md:btn-sm md:text-sm px-2 lg:px-4 font-bold rounded-lg hover:scale-105"
+        onClick={handleAuth}
+      />
+    );
+  };
   return (
     <nav className="bg-white fixed w-full z-20 top-0 left-0">
       <div className="max-w-screen-xl mx-auto p-4 flex justify-between items-center">
@@ -63,22 +95,8 @@ const NavbarView = ({
         >
           <NavbarOptionsList options={options} />
         </div>
-        <div className="flex lg:order-2 justify-end items-center space-x-4">
-          {user ? (
-            <UserAvatar
-              isProfessor={user.isProfessor}
-              handleLogout={handleAuth}
-              profilePicture={profilePicture}
-            />
-          ) : (
-            <Button
-              text="Iniciar sesión"
-              size="sm"
-              color="manz"
-              extraStyles="text-[10px] btn-xs md:btn-sm md:text-sm px-2 lg:px-4 font-bold rounded-lg hover:scale-105"
-              onClick={handleAuth}
-            />
-          )}
+        <div className="lg:order-2 justify-end items-center">
+          {renderAvatar()}
         </div>
       </div>
     </nav>
