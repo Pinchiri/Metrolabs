@@ -10,7 +10,10 @@ const InterestLinksFooter = ({ links, textColor }) => {
       </h2>
       <ul className="list-none space-y-1">
         {links.map((link, index) => (
-          <Link href={link.href}>
+          <Link
+            key={index}
+            href={link.href}
+          >
             <li
               key={index}
               className="mb-2 transition-transform hover:scale-105 hover:translate-x-1.5"
