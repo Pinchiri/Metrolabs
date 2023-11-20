@@ -4,10 +4,18 @@ import Logo from "../../assets/logo.png";
 import Unimet from "../../assets/unimet.png";
 import Image from "next/image";
 import GoogleIcon from "@mui/icons-material/Google";
+import Toast from "@/components/Toaster/Toast";
 
-const LoginView = ({ logGoogleUser }) => {
+const LoginView = ({ logGoogleUser, isToasterVisible, toasterProperties }) => {
   return (
     <>
+      {isToasterVisible && (
+        <Toast
+          message={toasterProperties.toasterMessage}
+          isVisible={isToasterVisible}
+          typeColor={toasterProperties.typeColor}
+        />
+      )}
       <div className="ml-6  mt-20 lg:pt-8 flex flex-col items-center justify-center gap-6">
         <Image
           src={Unimet.src}

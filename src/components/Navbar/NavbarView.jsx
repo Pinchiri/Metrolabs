@@ -47,7 +47,7 @@ const NavbarView = ({
     );
   };
   return (
-    <nav className="bg-white fixed w-full z-20 top-0 left-0">
+    <nav className="bg-white fixed w-full z-10 top-0 left-0">
       <div className="max-w-screen-xl mx-auto p-4 flex justify-between items-center">
         <button
           data-collapse-toggle="navbar-sticky"

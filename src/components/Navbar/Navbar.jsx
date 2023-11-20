@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const { currentUser, isUserLoading } = useUserData();
+  const { currentUser, isUserLoading, setCurrentUser } = useUserData();
   const router = useRouter();
 
   const navbarOptions = [
@@ -32,6 +32,7 @@ const Navbar = () => {
     if (currentUser) {
       try {
         await signOut(auth);
+        setCurrentUser(null);
         router.push("/");
       } catch (error) {
         console.error("Error during logout", error);

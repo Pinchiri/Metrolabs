@@ -20,8 +20,8 @@ const StudentPanel = () => {
   return (
     <>
       <StudentPanelView
-        name={currentUser.displayName}
-        email={currentUser.email}
+        name={currentUser?.displayName || ""}
+        email={currentUser?.email || "@"}
         footerLinks={studentFooterLinks}
       />
     </>

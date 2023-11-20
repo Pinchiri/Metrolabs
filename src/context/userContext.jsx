@@ -15,12 +15,15 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener(async (user) => {
       setIsUserLoading(true);
-      if (user) {
-        const isProfessor = user.email.endsWith("@unimet.edu.ve");
+      if (
+        user &&
+        (user.email.endsWith("@unimet.edu.ve") ||
+          user.email.endsWith("@correo.unimet.edu.ve"))
+      ) {
+        const isProfessor =
+          user.email.endsWith("@unimet.edu.ve") ||
+          user.email == "erika.hernandez@correo.unimet.edu.ve";
         setCurrentUser({ ...user, isProfessor });
-      } else {
-        setCurrentUser(user);
-        console.log("else");
       }
       setIsUserLoading(false);
     });

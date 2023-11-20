@@ -14,13 +14,16 @@ const StudentRoute = ({ children }) => {
   useEffect(() => {
     if (!isUserLoading) {
       const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+        setIsLoading(true);
         if (firebaseUser && currentUser) {
           if (currentUser.isProfessor) {
+            setIsLoading(false);
             router.push("/profesorPanel");
           } else {
             setIsLoading(false);
           }
         } else {
+          setIsLoading(false);
           router.push("/login");
         }
       });

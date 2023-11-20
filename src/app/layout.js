@@ -1,5 +1,6 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
+import Toast from "@/components/Toaster/Toast";
 import { UserProvider } from "@/context/userContext";
 
 export const metadata = {
