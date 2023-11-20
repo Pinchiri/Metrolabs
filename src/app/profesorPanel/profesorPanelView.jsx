@@ -11,7 +11,8 @@ import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
-import Footer from "@/components/profesorFooter/footer";
+import Footer from "@/components/Footer/Footer";
+import { professorFooterLinks } from "@/utils/footerUtils/professorFooterLinks";
 
 const ProfesorPanelView = ({ name }) => {
   return (
@@ -137,7 +138,10 @@ const ProfesorPanelView = ({ name }) => {
             </Link>
           </div>
         </div>
-        <Footer />
+        <Footer
+          links={professorFooterLinks}
+          footerColor="primary"
+        />
       </ProfessorRoute>
     </>
   );

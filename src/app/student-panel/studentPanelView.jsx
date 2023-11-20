@@ -4,11 +4,12 @@ import MenuBookIcon from "@mui/icons-material/MenuBook";
 import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
 import ScienceIcon from "@mui/icons-material/Science";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
-import Footer from "@/components/studentFooter/footer";
 import { reagentsForm, spacesAndEquipmentForm } from "@/constants/urls";
 import StudentRoute from "@/StudentRoute/StudentRoute";
+import Footer from "@/components/Footer/Footer";
+import { getStudentFooterLinks } from "@/utils/footerUtils/hooks/useStudentFooterLinks";
 
-const StudentPanelView = ({ name, email }) => {
+const StudentPanelView = ({ name, email, footerLinks }) => {
   const username = email.split("@")[0];
   return (
     <>
@@ -97,7 +98,10 @@ const StudentPanelView = ({ name, email }) => {
             </Link>
           </div>
         </div>
-        <Footer user={email} />
+        <Footer
+          links={footerLinks}
+          footerColor="blue"
+        />
       </StudentRoute>
     </>
   );

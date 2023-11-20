@@ -16,7 +16,7 @@ const StudentRoute = ({ children }) => {
       const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
         if (firebaseUser && currentUser) {
           if (currentUser.isProfessor) {
-            router.push("/");
+            router.push("/profesorPanel");
           } else {
             setIsLoading(false);
           }

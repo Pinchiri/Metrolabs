@@ -11,7 +11,8 @@ import { useRouter } from "next/navigation";
 import { ModalCreateEquipment } from "./modalCreate";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
-import Footer from "@/components/studentFooter/footer";
+import Footer from "@/components/Footer/Footer";
+import { professorFooterLinks } from "@/utils/footerUtils/professorFooterLinks";
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
@@ -241,7 +242,10 @@ const SheetComponent = () => {
             />
           </div>
         </div>
-        <Footer />
+        <Footer
+          links={professorFooterLinks}
+          footerColor="primary"
+        />
       </ProfessorRoute>
     </>
   );

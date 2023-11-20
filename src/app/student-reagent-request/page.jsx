@@ -7,16 +7,21 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ClearIcon from "@mui/icons-material/Clear";
 import Spinner from "@/components/Spinner/spinner";
 import Toaster from "@/components/toast/toaster";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
-import Footer from "@/components/studentFooter/footer";
 import StudentReagentCard from "@/components/studentReagentCard/studentReagentCard";
 import StudentRoute from "@/StudentRoute/StudentRoute";
+import Footer from "@/components/Footer/Footer";
+import useStudentFooterLinks from "@/utils/footerUtils/hooks/useStudentFooterLinks";
 
 const SheetComponent = () => {
   const router = useRouter();
-  const [username, setUsername] = useState("");
-  const email = username.split("@")[0];
+  const searchParams = useSearchParams();
+  const studentFooterLinks = useStudentFooterLinks();
+
+  const email = searchParams.get("username") + "@correo.unimet.edu.ve";
+  const username = email.split("@")[0];
+
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [toasterVisible, setToasterVisible] = useState(false);
@@ -25,15 +30,6 @@ const SheetComponent = () => {
   const [editData, setEditData] = useState(null);
   const [deleteIndex, setDeleteIndex] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-
-  // Obtener el username del estudiante para poder validar sus reservas
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const rawUsername = urlParams.get("username");
-    if (rawUsername) {
-      setUsername(`${rawUsername}@correo.unimet.edu.ve`);
-    }
-  }, []);
 
   // Obtener la información que se corresponda con la info del estudiante
   const fetchData = async () => {
@@ -45,7 +41,7 @@ const SheetComponent = () => {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      const filteredData = data.filter((item) => item.email === username);
+      const filteredData = data.filter((item) => item.email === email);
 
       const dataWithIndex = filteredData.map((item, index) => ({
         ...item,
@@ -61,10 +57,10 @@ const SheetComponent = () => {
   };
 
   useEffect(() => {
-    if (username) {
+    if (email) {
       fetchData();
     }
-  }, [username]);
+  }, [email]);
 
   const filteredData = data.filter((item) =>
     item.email.toLowerCase().includes(searchTerm.toLowerCase())
@@ -173,7 +169,10 @@ const SheetComponent = () => {
               ))
             )}
           </div>
-          <Footer user={email} />
+          <Footer
+            links={studentFooterLinks}
+            footerColor="blue"
+          />
         </div>
       </StudentRoute>
     </>
