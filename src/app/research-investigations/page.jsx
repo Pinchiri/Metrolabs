@@ -111,13 +111,13 @@ const SheetComponent = () => {
     if (editIndex !== null && editData !== null) {
       updateData(editIndex, editData);
     }
-  }, [editIndex, editData, updateData]);
+  }, [editIndex, editData]);
 
   useEffect(() => {
     if (deleteIndex !== null) {
       deleteData(deleteIndex);
     }
-  }, [deleteIndex, deleteData]);
+  }, [deleteIndex]);
 
   // Para mostrar el spinner de carga
   if (isLoading)

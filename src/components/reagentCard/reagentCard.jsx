@@ -3,8 +3,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Spinner from "../Spinner/spinner";
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const ReagentCard = ({
   index,
@@ -47,6 +46,7 @@ const ReagentCard = ({
     setIsEditing(false);
     setEditIndex(index);
     setEditData(editableFields);
+    setLoading(false);
   };
 
   const handleCancel = () => {
@@ -89,8 +89,6 @@ const ReagentCard = ({
       </div>
     );
 
-    
-
   return (
     <div className="bg-white rounded-lg mt-1 mb-3 p-3">
       {/* Selector de opción para ejecutar */}
@@ -123,8 +121,8 @@ const ReagentCard = ({
             </div>
 
             <div
-            onClick={handleDelete}
-            className="ml-4 cursor-pointer flex flex-col items-center"
+              onClick={handleDelete}
+              className="ml-4 cursor-pointer flex flex-col items-center"
             >
               <DeleteForeverIcon />
               <p>Eliminar</p>

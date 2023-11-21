@@ -3,8 +3,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Spinner from "../Spinner/spinner";
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const MaterialCard = ({
   index,
@@ -17,7 +16,6 @@ const MaterialCard = ({
   setEditIndex,
   setEditData,
   setDeleteIndex,
-
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setLoading] = useState(false);
@@ -40,6 +38,7 @@ const MaterialCard = ({
     setIsEditing(false);
     setEditIndex(index);
     setEditData(editableFields);
+    setLoading(false);
   };
 
   const handleDelete = () => {
@@ -102,24 +101,23 @@ const MaterialCard = ({
             </>
           ) : (
             <>
-            <div
-              onClick={() => setIsEditing(true)}
-              className="cursor-pointer flex flex-col items-center"
-            >
-              <EditIcon />
-              <p>Editar</p>
-            </div>
+              <div
+                onClick={() => setIsEditing(true)}
+                className="cursor-pointer flex flex-col items-center"
+              >
+                <EditIcon />
+                <p>Editar</p>
+              </div>
 
-            <div
-            onClick={handleDelete}
-            className="ml-4 cursor-pointer flex flex-col items-center"
-            >
-              <DeleteForeverIcon />
-              <p>Eliminar</p>
-            </div>
+              <div
+                onClick={handleDelete}
+                className="ml-4 cursor-pointer flex flex-col items-center"
+              >
+                <DeleteForeverIcon />
+                <p>Eliminar</p>
+              </div>
             </>
           )}
-          
         </div>
 
         {/* Mostrar material*/}
