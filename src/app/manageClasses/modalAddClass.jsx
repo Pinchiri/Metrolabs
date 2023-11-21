@@ -78,12 +78,12 @@ export const ModalAddClass = ({ open, setOpen }) => {
   const handleSubmit = async () => {
     console.log(formData);
 
-    // for (const key in formData) {
-    //     if (formData[key] === "") {
-    //         handleClose();
-    //         return;
-    //     }
-    // }
+    for (const key in formData) {
+      if (formData[key] === "") {
+        handleClose();
+        return;
+      }
+    }
 
     try {
       const response = await fetch("/api/sheetsClassesCreate", {
@@ -109,14 +109,14 @@ export const ModalAddClass = ({ open, setOpen }) => {
       console.error("Error al enviar datos al servidor:", error);
       handleClose();
     }
-    // setFormData({
-    //     className: "",
-    //     professor: "",
-    //     trimester: "",
-    //     day: "",
-    //     start: "",
-    //     end: "",
-    // });
+    setFormData({
+      className: "",
+      professor: "",
+      trimester: "",
+      day: "",
+      start: "",
+      end: "",
+    });
   };
 
   useEffect(() => {

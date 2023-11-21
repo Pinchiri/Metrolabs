@@ -12,7 +12,7 @@ export const professorFooterLinks = [
     href: "reagentInventary",
   },
   {
-    label: "Horarios de clases",
+    label: "Horarios de Clases",
     href: "classSchedules",
   },
 ];

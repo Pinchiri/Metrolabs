@@ -26,16 +26,7 @@ const sheets = google.sheets({ version: "v4", auth });
 async function updateSheetData(body) {
   try {
     const range = `Horario de Clases!B:G`;
-
-    console.log(
-      "ESTE ES EL BODY",
-      body.className,
-      body.professor,
-      body.trimester,
-      body.day,
-      body.start,
-      body.end
-    );
+    body = body.formData;
 
     const values = [
       [

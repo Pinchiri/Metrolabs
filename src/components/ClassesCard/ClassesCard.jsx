@@ -57,25 +57,7 @@ const ClassesCard = ({
     setDeleteIndex(index);
   };
 
-  if (isLoading)
-    return (
-      // <div
-      //   style={{
-      //     position: "fixed",
-      //     top: 195,
-      //     left: 0,
-      //     width: "100%",
-      //     height: "90%",
-      //     zIndex: 1000,
-      //     display: "flex",
-      //     justifyContent: "center",
-      //     alignItems: "center",
-      //     background: "white",
-      //   }}
-      //   >
-      // </div>
-      <Spinner />
-    );
+  if (isLoading) return <Spinner />;
 
   return (
     <div className="bg-white rounded-lg mt-1 mb-3 p-3">
