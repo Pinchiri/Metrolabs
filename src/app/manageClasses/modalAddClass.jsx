@@ -11,6 +11,7 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
+import Toaster from "@/components/toast/toaster";
 import CloseIcon from "@mui/icons-material/Close";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -46,6 +47,7 @@ const style = {
 };
 
 export const ModalAddClass = ({ open, setOpen }) => {
+  const [toasterVisible, setToasterVisible] = useState(false);
   const [minH, setMinH] = useState(
     dayjs().set("hour", 7).startOf("hour").set("minute", 5)
   );
@@ -74,13 +76,14 @@ export const ModalAddClass = ({ open, setOpen }) => {
   };
 
   const handleSubmit = async () => {
-    // primero validamos que ningun dato este vacio
-    for (const key in formData) {
-      if (formData[key] === "") {
-        handleClose();
-        return;
-      }
-    }
+    console.log(formData);
+
+    // for (const key in formData) {
+    //     if (formData[key] === "") {
+    //         handleClose();
+    //         return;
+    //     }
+    // }
 
     try {
       const response = await fetch("/api/sheetsClassesCreate", {
@@ -94,45 +97,41 @@ export const ModalAddClass = ({ open, setOpen }) => {
       if (response.ok) {
         const result = await response.json();
         console.log("Resultado de Google Sheets:", result);
-
+        setToasterVisible(true);
         handleClose();
       } else {
         console.error("Error en el servidor al añadir fila");
         console.log(response);
         handleClose();
+        setToasterVisible(true);
       }
     } catch (error) {
       console.error("Error al enviar datos al servidor:", error);
       handleClose();
     }
-    setFormData({
-      className: "",
-      professor: "",
-      trimester: "",
-      day: "",
-      start: "",
-      end: "",
-    });
+    // setFormData({
+    //     className: "",
+    //     professor: "",
+    //     trimester: "",
+    //     day: "",
+    //     start: "",
+    //     end: "",
+    // });
   };
 
-  // useEffect(() => {
-  //     if (toasterVisible) {
-  //         const timer = setTimeout(() => {
-  //             setToasterVisible(false);
-  //         }, 3000);
+  useEffect(() => {
+    if (toasterVisible) {
+      const timer = setTimeout(() => {
+        setToasterVisible(false);
+      }, 3000);
 
-  //         return () => clearTimeout(timer);
-  //     }
-  // }, [toasterVisible]);
+      return () => clearTimeout(timer);
+    }
+  }, [toasterVisible]);
 
   useEffect(() => {
     console.log(formData);
   }, [formData]);
-
-  useEffect(() => {
-    console.log(formData.start);
-    console.log(formData.end);
-  }, [minH, maxH]);
 
   return (
     <div>
@@ -345,13 +344,12 @@ export const ModalAddClass = ({ open, setOpen }) => {
         </Box>
       </Modal>
 
-      {/* 
-            <div className="mt-20 ml-10 mr-7">
-                <Toaster
-                    message={toasterMessage}
-                    isVisible={toasterVisible}
-                />
-            </div> */}
+      <div className="mt-20 ml-10 mr-7">
+        <Toaster
+          message="Horario de clases actualizado"
+          isVisible={toasterVisible}
+        />
+      </div>
     </div>
   );
 };

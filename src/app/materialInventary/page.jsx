@@ -109,16 +109,16 @@ const SheetComponent = () => {
   }, []);
 
   useEffect(() => {
-    if (editIndex !== null && editData !== null) {
+    if (editIndex != null && editData != null) {
       updateData(editIndex, editData);
     }
-  }, [editIndex, editData, updateData]);
+  }, [editIndex, editData]);
 
   useEffect(() => {
-    if (deleteIndex !== null) {
+    if (deleteIndex != null) {
       deleteData(deleteIndex);
     }
-  }, [deleteIndex, deleteData]);
+  }, [deleteIndex]);
 
   // Condicional para mostrar spinner de carga
   if (isLoading)

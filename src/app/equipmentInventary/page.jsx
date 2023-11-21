@@ -111,13 +111,13 @@ const SheetComponent = () => {
     if (deleteIndex !== null) {
       deleteData(deleteIndex);
     }
-  }, [deleteIndex, deleteData]);
+  }, [deleteIndex]);
 
   useEffect(() => {
     if (editIndex !== null && editData !== null) {
       updateData(editIndex, editData);
     }
-  }, [editIndex, editData, updateData]);
+  }, [editIndex, editData]);
 
   //Condicional para mostrar SPINNER si se está cargando
   if (isLoading)

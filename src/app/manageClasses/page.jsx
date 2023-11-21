@@ -125,7 +125,7 @@ export default function ManageClasses() {
             style={{ marginTop: "25px" }}
           />
           <h1 className="font-['B612'] font-bold pt-5 text-3xl">
-            Horario de Clases
+            Horarios de Clases
           </h1>
         </div>
         <Spinner />

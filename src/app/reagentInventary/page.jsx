@@ -108,16 +108,16 @@ const SheetComponent = () => {
   }, []);
 
   useEffect(() => {
-    if (editIndex !== null && editData !== null) {
+    if (editIndex != null && editData != null) {
       updateData(editIndex, editData);
     }
-  }, [deleteIndex, deleteData]);
+  }, [editIndex, editData]);
 
   useEffect(() => {
-    if (deleteIndex !== null) {
+    if (deleteIndex != null) {
       deleteData(deleteIndex);
     }
-  }, [deleteIndex, deleteData]);
+  }, [deleteIndex]);
 
   //Condicional para mostrar spinner, error o data
   if (isLoading)
@@ -205,7 +205,7 @@ const SheetComponent = () => {
             </div>
           </div>
 
-          <div className="bg-cp-5 rounded-lg lg:mr-12">
+          <div className="bg-manz-200 p-5 rounded-lg lg:mr-12">
             {noResults ? (
               <div className={`flex flex-col justify-center items-center`}>
                 <SentimentDissatisfiedIcon

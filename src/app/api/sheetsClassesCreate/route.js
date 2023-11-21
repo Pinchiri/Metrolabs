@@ -23,9 +23,19 @@ const auth = new google.auth.GoogleAuth({
 
 const sheets = google.sheets({ version: "v4", auth });
 
-async function createSheetData(body) {
+async function updateSheetData(body) {
   try {
     const range = `Horario de Clases!B:G`;
+
+    console.log(
+      "ESTE ES EL BODY",
+      body.className,
+      body.professor,
+      body.trimester,
+      body.day,
+      body.start,
+      body.end
+    );
 
     const values = [
       [
@@ -55,8 +65,7 @@ async function createSheetData(body) {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const result = await createSheetData(body);
-
+    const result = await updateSheetData(body);
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
     console.error("Error: " + error.message);
