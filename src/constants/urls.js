@@ -5,6 +5,7 @@ export const labURL = "/lab";
 export const schedulesURL = "/classSchedules";
 export const studentPanelURL = "/student-panel";
 export const professorPanelURL = "/professor-panel";
+export const reservationsURL = "/reservations";
 
 //NOTE - Google Form Links
 export const spacesAndEquipmentForm =

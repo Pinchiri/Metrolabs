@@ -4,7 +4,12 @@ import MenuBookIcon from "@mui/icons-material/MenuBook";
 import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
 import ScienceIcon from "@mui/icons-material/Science";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
-import { reagentsForm, spacesAndEquipmentForm } from "@/constants/urls";
+import {
+  guidesURL,
+  reagentsForm,
+  reservationsURL,
+  spacesAndEquipmentForm,
+} from "@/constants/urls";
 import StudentRoute from "@/StudentRoute/StudentRoute";
 import Footer from "@/components/Footer/Footer";
 import { getStudentFooterLinks } from "@/utils/footerUtils/hooks/useStudentFooterLinks";
@@ -41,10 +46,10 @@ const StudentPanelView = ({ name, email, footerLinks }) => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 bg-[#283C7C] p-5 mt-4 mb-8 rounded-lg lg:mr-12 ">
-            <Link href="/guides">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 bg-[#283C7C] p-5 mt-4 mb-8 rounded-lg lg:mr-12 pb-8">
+            <Link href={guidesURL}>
               <div
-                className="bg-white p-5 rounded-lg mt-3 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer"
+                className="bg-white px-4 py-20 md:px-5 md:py-10 rounded-lg mt-3 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer"
                 style={{ height: "15vh" }}
               >
                 <p className="font-['B612'] font-bold pt-1 text-xl">
@@ -71,9 +76,21 @@ const StudentPanelView = ({ name, email, footerLinks }) => {
               </div>
             </Link>
 
+            <Link href={{ pathname: reservationsURL, query: { username } }}>
+              <div
+                className="bg-white px-4 py-20 md:px-5 md:py-10 rounded-lg mt-3 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer"
+                style={{ height: "15vh" }}
+              >
+                <p className="font-['B612'] font-bold pt-1 text-xl">
+                  Ver mis reservas de Espacios/Equipos
+                </p>
+                <MeetingRoomIcon style={{ width: "40px", height: "40px" }} />
+              </div>
+            </Link>
+
             <Link href="">
               <div
-                className="bg-white p-5 rounded-lg mt-3 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer"
+                className="bg-white px-4 py-20 md:px-5 md:py-10 rounded-lg mt-3 ml-8 lg:mr-12 gap-2 hidden flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer"
                 style={{ height: "15vh" }}
               >
                 <p className="font-['B612'] font-bold pt-1 text-xl">
@@ -82,18 +99,6 @@ const StudentPanelView = ({ name, email, footerLinks }) => {
                 <HomeRepairServiceIcon
                   style={{ width: "40px", height: "40px" }}
                 />
-              </div>
-            </Link>
-
-            <Link href="">
-              <div
-                className="bg-white p-5 rounded-lg mt-3 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer"
-                style={{ height: "15vh" }}
-              >
-                <p className="font-['B612'] font-bold pt-1 text-xl">
-                  Ver mis reservas de Espacios
-                </p>
-                <MeetingRoomIcon style={{ width: "40px", height: "40px" }} />
               </div>
             </Link>
           </div>

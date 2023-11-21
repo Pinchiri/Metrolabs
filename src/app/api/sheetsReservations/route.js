@@ -11,7 +11,8 @@ const sheets = google.sheets({ version: "v4", auth });
 
 async function getSheetData() {
   try {
-    const range = "Compras requeridas!A4:G";
+    const range =
+      "Uso de equipo o espacio: laboratorio de procesos de separación!A2:O";
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: "1_-0ao8kLOr21E8BmrkSjEBMM3sKJvMp92yK8DYZWkO0",
       range: range,
@@ -26,13 +27,20 @@ async function getSheetData() {
     return rows.map((row) => {
       return {
         // Se ajustan las columnas
-        material: row[0],
-        capacity: row[1],
-        brand: row[2],
-        quantity: row[3],
-        price: row[4],
-        status: row[5],
-        observations: row[6],
+        date: row[0],
+        email: row[1],
+        reason: row[2],
+        studentFullName: row[3],
+        DNI: row[4],
+        studentCarnet: row[5],
+        partnerName: row[6],
+        partnerDNI: row[7],
+        partnerCarnet: row[8],
+        labName: row[9],
+        useDate: row[10],
+        tutorName: row[11],
+        professorName: row[12],
+        professorDepartment: row[13],
       };
     });
   } catch (error) {

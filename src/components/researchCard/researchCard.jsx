@@ -3,18 +3,18 @@ import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Spinner from "../Spinner/spinner";
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const ResearchCard = ({
-    index,
-    students,
-    tesis,
-    startDate,
-    endDate,
-    observations,
-    setEditIndex,
-    setEditData,
-    setDeleteIndex,
+  index,
+  students,
+  tesis,
+  startDate,
+  endDate,
+  observations,
+  setEditIndex,
+  setEditData,
+  setDeleteIndex,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setLoading] = useState(false);
@@ -43,10 +43,10 @@ const ResearchCard = ({
 
   const handleCancel = () => {
     setEditableFields({
-        students,
-        tesis,
-        startDate,
-        endDate,
+      students,
+      tesis,
+      startDate,
+      endDate,
     });
     setIsEditing(false);
   };
@@ -95,24 +95,22 @@ const ResearchCard = ({
             </>
           ) : (
             <>
-            <div
-              onClick={() => setIsEditing(true)}
-              className="cursor-pointer flex flex-col items-center"
-            >
-              <EditIcon />
-              <p>Editar</p>
-            </div>
+              <div
+                onClick={() => setIsEditing(true)}
+                className="cursor-pointer flex flex-col items-center"
+              >
+                <EditIcon />
+                <p>Editar</p>
+              </div>
 
-            <div
-              onClick={handleDelete}
-              className="ml-4 cursor-pointer flex flex-col items-center"
-            >
-              <DeleteForeverIcon />
-              <p>Eliminar</p>
-            </div>
-
+              <div
+                onClick={handleDelete}
+                className="ml-4 cursor-pointer flex flex-col items-center"
+              >
+                <DeleteForeverIcon />
+                <p>Eliminar</p>
+              </div>
             </>
-            
           )}
         </div>
 
@@ -179,7 +177,7 @@ const ResearchCard = ({
 
         {/* Mostrar observaciones*/}
         <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-          <h3 className="font-bold text-lg"> Precio: </h3>
+          <h3 className="font-bold text-lg"> Observaciones: </h3>
           {isEditing ? (
             <input
               className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
@@ -191,7 +189,7 @@ const ResearchCard = ({
             <p> {observations} </p>
           )}
         </div>
-        </div>
+      </div>
     </>
   );
 };
