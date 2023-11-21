@@ -50,6 +50,7 @@ export default function ManageClasses() {
   };
 
   const updateData = async (rowIndex, rowData) => {
+    setLoading(true);
     rowIndex = rowIndex + 4;
     try {
       const response = await fetch("/api/sheetsClassesUpdate", {
@@ -57,22 +58,35 @@ export default function ManageClasses() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ rowIndex, rowData }),
+        body: JSON.stringify({
+          rowIndex,
+          rowData,
+        }),
       });
       if (!response.ok) {
+        await fetchData();
+        setLoading(false);
         throw new Error("Network response was not ok");
       }
       const result = await response.json();
       console.log("result", result);
-      fetchData();
+      await fetchData();
+      setLoading(false);
       setToasterProperties({
         toasterMessage: "Se ha actualizado la clase exitosamente!",
         typeColor: "success",
       });
       showToast();
     } catch (error) {
+      setLoading(false);
       console.error("Failed to update data", error);
+      setToasterProperties({
+        toasterMessage: "No se ha podido actualizar la clase",
+        typeColor: "error",
+      });
+      showToast();
     }
+    setLoading(false);
   };
 
   const deleteData = async (rowIndex) => {
@@ -100,11 +114,11 @@ export default function ManageClasses() {
           throw new Error("Network response was not ok");
         }
         await fetchData();
-        setLoading(false);
         setToasterProperties({
           toasterMessage: "Se ha eliminado la clase exitosamente!",
           typeColor: "success",
         });
+        setLoading(false);
         showToast();
       } catch (error) {
         console.error("Failed to delete data", error);
@@ -124,6 +138,10 @@ export default function ManageClasses() {
       deleteData(deleteIndex);
     }
   }, [deleteIndex]);
+
+  useEffect(() => {
+    fetchData();
+  }, [editData, deleteIndex]);
 
   useEffect(() => {
     fetchData();
@@ -172,7 +190,7 @@ export default function ManageClasses() {
             </h1>
           </div>
 
-          <div className="mt-5 flex flex-col lg:flex-row gap-3 lg:gap-0 justify-between lg:mr-12 ">
+          <div className="mt-5 mb-5 flex flex-col lg:flex-row gap-3 lg:gap-0 justify-between lg:mr-12 ">
             <p className=" font-['B612'] font-bold text-xl">Lista de Clases</p>
 
             <div>
@@ -200,6 +218,8 @@ export default function ManageClasses() {
               setEditIndex={setEditIndex}
               setEditData={setEditData}
               setDeleteIndex={setDeleteIndex}
+              setToasterProperties={setToasterProperties}
+              showToast={showToast}
             />
           </div>
         </div>

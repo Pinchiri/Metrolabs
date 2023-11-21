@@ -25,15 +25,12 @@ const sheets = google.sheets({ version: "v4", auth });
 
 async function updateSheetData(rowIndex, rowData) {
   try {
-    console.log(rowData);
-
-    const range = `Horario de Clases!A${rowIndex}:G${2 + rowIndex}`;
+    console.log(rowIndex, rowData);
+    const range = `Horario de Clases!B${rowIndex}:G${2 + rowIndex}`;
     const valueInputOption = "RAW";
-    const rowBlank = "";
 
     const values = [
       [
-        rowBlank,
         rowData.className,
         rowData.professor,
         rowData.trimester,
@@ -57,15 +54,21 @@ async function updateSheetData(rowIndex, rowData) {
   }
 }
 
-export async function POST(request) {
+export async function PUT(request) {
   try {
     const body = await request.json();
-    const result = await updateSheetData(body);
+
+    const { rowIndex, rowData } = body;
+
+    console.log(rowData);
+    console.log(rowIndex);
+
+    const result = await updateSheetData(rowIndex, rowData);
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
-    console.error("Error: " + error.message);
+    console.error(error);
     return NextResponse.json(
-      { error: "Error processing request: " + error.message },
+      { error: "Error parsing JSON input: " + error.message },
       { status: 400 }
     );
   }

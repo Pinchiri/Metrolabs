@@ -16,6 +16,8 @@ const ClassesCard = ({
   setEditIndex,
   setEditData,
   setDeleteIndex,
+  setToasterProperties,
+  showToast,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setLoading] = useState(false);
@@ -39,7 +41,11 @@ const ClassesCard = ({
 
     for (const [key, value] of Object.entries(editableFields)) {
       if (value === "") {
-        alert(`El campo ${key} no puede estar vacío`);
+        setToasterProperties({
+          toasterMessage: "No puede haber campos vacíos!",
+          typeColor: "error",
+        });
+        showToast();
         setLoading(false);
         return;
       }
@@ -47,6 +53,14 @@ const ClassesCard = ({
 
     setEditIndex(index);
     setEditData(editableFields);
+    setEditableFields({
+      className,
+      professor,
+      trimester,
+      day,
+      start,
+      end,
+    });
     setLoading(false);
   };
 
