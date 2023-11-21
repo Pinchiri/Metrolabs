@@ -11,7 +11,7 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
-import Toaster from "@/components/toast/toaster";
+
 import CloseIcon from "@mui/icons-material/Close";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -46,7 +46,16 @@ const style = {
   p: 4,
 };
 
-export const ModalAddClass = ({ open, setOpen }) => {
+export const ModalAddClass = ({
+  open,
+  setOpen,
+  fetchData,
+  setToasterProperties,
+  showToast,
+  setLoading,
+}) => {
+  const [sendData, setSendData] = useState(false);
+
   const [toasterVisible, setToasterVisible] = useState(false);
   const [minH, setMinH] = useState(
     dayjs().set("hour", 7).startOf("hour").set("minute", 5)
@@ -76,11 +85,20 @@ export const ModalAddClass = ({ open, setOpen }) => {
   };
 
   const handleSubmit = async () => {
-    console.log(formData);
+    handleClose();
+    setLoading(true);
+    // Validar que no haya campos vacíos
+    formData.start = dayjs(formData.start, "HH:mm").format("h:mm A");
+    formData.end = dayjs(formData.end, "HH:mm").format("h:mm A");
 
     for (const key in formData) {
       if (formData[key] === "") {
-        handleClose();
+        setToasterProperties({
+          toasterMessage: "No puede haber campos vacíos",
+          typeColor: "red",
+        });
+        setLoading(false);
+        showToast();
         return;
       }
     }
@@ -97,17 +115,31 @@ export const ModalAddClass = ({ open, setOpen }) => {
       if (response.ok) {
         const result = await response.json();
         console.log("Resultado de Google Sheets:", result);
-        setToasterVisible(true);
-        handleClose();
+        setToasterProperties({
+          toasterMessage: "Se ha añadido la clase exitosamente!",
+          typeColor: "success",
+        });
+        await fetchData();
+        setLoading(false);
+        showToast();
       } else {
         console.error("Error en el servidor al añadir fila");
         console.log(response);
-        handleClose();
-        setToasterVisible(true);
+        setToasterProperties({
+          toasterMessage: "No se ha podido añadir la clase",
+          typeColor: "error",
+        });
+        setLoading(false);
+        showToast();
       }
     } catch (error) {
       console.error("Error al enviar datos al servidor:", error);
-      handleClose();
+      setToasterProperties({
+        toasterMessage: "No se ha podido añadir la clase",
+        typeColor: "error",
+      });
+      setLoading(false);
+      showToast();
     }
     setFormData({
       className: "",
@@ -117,20 +149,17 @@ export const ModalAddClass = ({ open, setOpen }) => {
       start: "",
       end: "",
     });
+    setLoading(false);
   };
 
   useEffect(() => {
-    if (toasterVisible) {
-      const timer = setTimeout(() => {
-        setToasterVisible(false);
-      }, 3000);
-
-      return () => clearTimeout(timer);
+    for (const key in formData) {
+      if (formData[key] === "") {
+        setSendData(false);
+        return;
+      }
     }
-  }, [toasterVisible]);
-
-  useEffect(() => {
-    console.log(formData);
+    setSendData(true);
   }, [formData]);
 
   return (
@@ -335,7 +364,12 @@ export const ModalAddClass = ({ open, setOpen }) => {
           {/* Añadir Botón de enviar */}
           <div className="flex flex-row justify-end">
             <button
-              className="bg-manz-200 text-black font-bold py-2 px-4 rounded text-sm md:text-lg lg:text-xl mt-2"
+              disabled={!sendData}
+              className={`font-bold py-2 px-4 rounded text-sm md:text-lg lg:text-xl mt-2 ${
+                sendData
+                  ? "bg-manz-200 text-black cursor-pointer"
+                  : "bg-gray-500 text-gray-200 cursor-not-allowed"
+              }`}
               onClick={handleSubmit}
             >
               Enviar
@@ -343,13 +377,6 @@ export const ModalAddClass = ({ open, setOpen }) => {
           </div>
         </Box>
       </Modal>
-
-      <div className="mt-20 ml-10 mr-7">
-        <Toaster
-          message="Horario de clases actualizado"
-          isVisible={toasterVisible}
-        />
-      </div>
     </div>
   );
 };

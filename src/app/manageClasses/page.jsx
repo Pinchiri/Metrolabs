@@ -3,7 +3,6 @@
 import "../globals.css";
 import React, { useState, useEffect } from "react";
 import Spinner from "@/components/Spinner/spinner";
-import Toaster from "@/components/toast/toaster";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ClassesList from "@/components/ClassesCard/ClassesList";
 import { ModalAddClass } from "./modalAddClass";
@@ -11,11 +10,15 @@ import { useRouter } from "next/navigation";
 import ProfessorRoute from "@/ProfessorRoute/ProfessorRoute";
 import Footer from "@/components/Footer/Footer";
 import { professorFooterLinks } from "@/utils/footerUtils/professorFooterLinks";
+import Toast from "@/components/Toaster/Toast";
+import { useToaster } from "@/components/Toaster/hooks/useToaster.jsx";
 
 export default function ManageClasses() {
+  const { isVisible, showToast, toasterProperties, setToasterProperties } =
+    useToaster();
+
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
-  const [toasterVisible, setToasterVisible] = useState(false);
 
   const [isLoading, setLoading] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
@@ -25,7 +28,6 @@ export default function ManageClasses() {
   const [open, setOpen] = useState(false);
 
   const fetchData = async () => {
-    setToasterVisible(false);
     setLoading(true);
     try {
       const response = await fetch("/api/sheetsClasses");
@@ -63,10 +65,11 @@ export default function ManageClasses() {
       const result = await response.json();
       console.log("result", result);
       fetchData();
-      setToasterVisible(true);
-      setTimeout(() => {
-        setToasterVisible(false);
-      }, 3000);
+      setToasterProperties({
+        toasterMessage: "Se ha actualizado la clase exitosamente!",
+        typeColor: "success",
+      });
+      showToast();
     } catch (error) {
       console.error("Failed to update data", error);
     }
@@ -76,6 +79,7 @@ export default function ManageClasses() {
     rowIndex = rowIndex + 4;
     const confirmDelete = window.confirm("¿Seguro que desea eliminar el ítem?");
     if (confirmDelete) {
+      setLoading(true);
       try {
         const response = await fetch("/api/sheetsClassesDelete", {
           method: "POST",
@@ -87,15 +91,24 @@ export default function ManageClasses() {
 
         if (!response.ok) {
           console.log(response);
+          setLoading(false);
+          setToasterProperties({
+            toasterMessage: "No se ha podido eliminar la clase",
+            typeColor: "error",
+          });
+          showToast();
           throw new Error("Network response was not ok");
         }
-        fetchData();
-        setToasterVisible(true);
-        setTimeout(() => {
-          setToasterVisible(false);
-        }, 3000);
+        await fetchData();
+        setLoading(false);
+        setToasterProperties({
+          toasterMessage: "Se ha eliminado la clase exitosamente!",
+          typeColor: "success",
+        });
+        showToast();
       } catch (error) {
         console.error("Failed to delete data", error);
+        setLoading(false);
       }
     }
   };
@@ -139,6 +152,16 @@ export default function ManageClasses() {
         <Spinner />
       ) : (
         <div className="mt-12 ml-10 mr-7">
+          {isVisible ? (
+            <Toast
+              message={toasterProperties.toasterMessage}
+              typeColor={toasterProperties.typeColor}
+              isVisible={isVisible}
+            />
+          ) : (
+            <></>
+          )}
+
           <div className="flex flex-row gap-3">
             <ArrowBackIcon
               onClick={() => router.back()}
@@ -162,6 +185,10 @@ export default function ManageClasses() {
               <ModalAddClass
                 open={open}
                 setOpen={setOpen}
+                fetchData={fetchData}
+                setToasterProperties={setToasterProperties}
+                showToast={showToast}
+                setLoading={setLoading}
               />
             </div>
           </div>
@@ -175,15 +202,9 @@ export default function ManageClasses() {
               setDeleteIndex={setDeleteIndex}
             />
           </div>
-
-          <div className="mt-20 ml-10 mr-7">
-            <Toaster
-              message="Horario de clases actualizado"
-              isVisible={toasterVisible}
-            />
-          </div>
         </div>
       )}
+
       <Footer
         links={professorFooterLinks}
         footerColor="primary"

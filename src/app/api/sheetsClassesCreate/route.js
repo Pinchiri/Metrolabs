@@ -27,6 +27,7 @@ async function updateSheetData(body) {
   try {
     const range = `Horario de Clases!B:G`;
     body = body.formData;
+    console.log(body);
 
     const values = [
       [

@@ -36,6 +36,15 @@ const ClassesCard = ({
   const handleSave = () => {
     setLoading(true);
     setIsEditing(false);
+
+    for (const [key, value] of Object.entries(editableFields)) {
+      if (value === "") {
+        alert(`El campo ${key} no puede estar vacío`);
+        setLoading(false);
+        return;
+      }
+    }
+
     setEditIndex(index);
     setEditData(editableFields);
     setLoading(false);
