@@ -4,6 +4,29 @@ import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Spinner from "../Spinner/spinner";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import dayjs from "dayjs";
+import {
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  TextField,
+} from "@mui/material";
+
+const trimesterLabels = [
+  { label: "Enero-Marzo", trimester: "Enero-Marzo" },
+  { label: "Abril-Junio", trimester: "Abril-Junio" },
+  { label: "Septiembre-Noviembre", trimester: "Septiembre-Noviembre" },
+];
+
+const daysLabels = [
+  { label: "Lunes-Miércoles", day: "Lunes-Miércoles" },
+  { label: "Miércoles-Viernes", day: "Miércoles-Viernes" },
+  { label: "Martes-Jueves", day: "Martes-Jueves" },
+];
 
 const ClassesCard = ({
   index,
@@ -21,14 +44,18 @@ const ClassesCard = ({
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const [minH, setMinH] = useState(
+    dayjs().set("hour", 7).startOf("hour").set("minute", 5)
+  );
+  const [maxH, setMaxH] = useState(dayjs().set("hour", 19).startOf("hour"));
 
   const [editableFields, setEditableFields] = useState({
-    className,
-    professor,
-    trimester,
-    day,
-    start,
-    end,
+    className: className,
+    professor: professor,
+    trimester: trimester,
+    day: day,
+    start: start,
+    end: end,
   });
 
   const handleChange = (name, value) => {
@@ -51,27 +78,31 @@ const ClassesCard = ({
       }
     }
 
+    editableFields.start = dayjs(editableFields.start, "HH:mm").format(
+      "h:mm A"
+    );
+    editableFields.end = dayjs(editableFields.end, "HH:mm").format("h:mm A");
     setEditIndex(index);
     setEditData(editableFields);
     setEditableFields({
-      className,
-      professor,
-      trimester,
-      day,
-      start,
-      end,
+      className: className,
+      professor: professor,
+      trimester: trimester,
+      day: day,
+      start: start,
+      end: end,
     });
     setLoading(false);
   };
 
   const handleCancel = () => {
     setEditableFields({
-      className,
-      professor,
-      trimester,
-      day,
-      start,
-      end,
+      className: className,
+      professor: professor,
+      trimester: trimester,
+      day: day,
+      start: start,
+      end: end,
     });
     setIsEditing(false);
   };
@@ -157,12 +188,30 @@ const ClassesCard = ({
       <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
         <h3 className="font-bold text-lg "> Trimestre: </h3>
         {isEditing ? (
-          <input
-            className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-            type="text"
-            value={editableFields.trimester}
-            onChange={(e) => handleChange("trimester", e.target.value)}
-          />
+          <FormControl className="rounded-lg p-2 hover:border-2 hover:border-amber-300">
+            <InputLabel id="trimester-label">Trimestre</InputLabel>
+            <Select
+              label="Trimestre"
+              id="trimester"
+              name="trimester"
+              value={editableFields.trimester}
+              onChange={(e) => handleChange("trimester", e.target.value)}
+              sx={{
+                height: "45px",
+                backgroundColor: "white",
+                borderRadius: "8px",
+              }}
+            >
+              {trimesterLabels.map((option) => (
+                <MenuItem
+                  key={option.trimester}
+                  value={option.trimester}
+                >
+                  {option.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         ) : (
           <p> {trimester} </p>
         )}
@@ -172,12 +221,30 @@ const ClassesCard = ({
       <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
         <h3 className="font-bold text-lg "> Día de las clases: </h3>
         {isEditing ? (
-          <input
-            className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-            type="text"
-            value={editableFields.day}
-            onChange={(e) => handleChange("day", e.target.value)}
-          />
+          <FormControl className="rounded-lg p-2 hover:border-2 hover:border-amber-300">
+            <InputLabel id="day-label">Día</InputLabel>
+            <Select
+              label="Día"
+              id="day"
+              name="day"
+              value={editableFields.day}
+              onChange={(e) => handleChange("day", e.target.value)}
+              sx={{
+                height: "45px",
+                backgroundColor: "white",
+                borderRadius: "8px",
+              }}
+            >
+              {daysLabels.map((option) => (
+                <MenuItem
+                  key={option.day}
+                  value={option.day}
+                >
+                  {option.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         ) : (
           <p> {day} </p>
         )}
@@ -187,12 +254,37 @@ const ClassesCard = ({
       <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
         <h3 className="font-bold text-lg"> Hora de Inicio: </h3>
         {isEditing ? (
-          <input
-            className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-            type="text"
-            value={editableFields.start}
-            onChange={(e) => handleChange("start", e.target.value)}
-          />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <TimePicker
+              label="Hora de inicio"
+              value={dayjs(editableFields.start, "HH:mm")}
+              onChange={(newValue) => {
+                const newStartValue = dayjs(newValue);
+                if (newStartValue.isValid() && newStartValue.isBefore(maxH)) {
+                  setEditableFields((prevEditableFields) => ({
+                    ...prevEditableFields,
+                    start: newStartValue.format("HH:mm"),
+                  }));
+                  // Update minH to be 5 minutes after the start time
+                  setMinH(newStartValue.add(5, "minute"));
+                } else {
+                  setEditableFields((prevEditableFields) => ({
+                    ...prevEditableFields,
+                    start: "",
+                  }));
+                }
+              }}
+              renderInput={(params) => <TextField {...params} />}
+              sx={{
+                width: "100%",
+                backgroundColor: "white",
+                borderRadius: "8px",
+              }}
+              minTime={dayjs().set("hour", 7).startOf("hour")}
+              maxTime={maxH}
+              placeholder="Hora de inicio"
+            />
+          </LocalizationProvider>
         ) : (
           <p> {start} </p>
         )}
@@ -202,12 +294,37 @@ const ClassesCard = ({
       <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
         <h3 className="font-bold text-lg"> Hora de Finalización: </h3>
         {isEditing ? (
-          <input
-            className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-            type="text"
-            value={editableFields.end}
-            onChange={(e) => handleChange("end", e.target.value)}
-          />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <TimePicker
+              label="Hora de finalización"
+              value={dayjs(editableFields.end, "HH:mm")}
+              onChange={(newValue) => {
+                const newEndValue = dayjs(newValue);
+                if (newEndValue.isValid() && newEndValue.isAfter(minH)) {
+                  setEditableFields((prevEditableFields) => ({
+                    ...prevEditableFields,
+                    end: newEndValue.format("HH:mm"),
+                  }));
+                  // Update maxH to be 5 minutes before the end time
+                  setMaxH(newEndValue.subtract(5, "minute"));
+                } else {
+                  setEditableFields((prevEditableFields) => ({
+                    ...prevEditableFields,
+                    end: "",
+                  }));
+                }
+              }}
+              renderInput={(params) => <TextField {...params} />}
+              sx={{
+                width: "100%",
+                backgroundColor: "white",
+                borderRadius: "8px",
+              }}
+              minTime={minH}
+              maxTime={dayjs().set("hour", 19).startOf("hour")}
+              placeholder="Hora de finalización"
+            />
+          </LocalizationProvider>
         ) : (
           <p> {end} </p>
         )}

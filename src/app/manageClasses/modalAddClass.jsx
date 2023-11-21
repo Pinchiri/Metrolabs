@@ -56,7 +56,6 @@ export const ModalAddClass = ({
 }) => {
   const [sendData, setSendData] = useState(false);
 
-  const [toasterVisible, setToasterVisible] = useState(false);
   const [minH, setMinH] = useState(
     dayjs().set("hour", 7).startOf("hour").set("minute", 5)
   );

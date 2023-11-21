@@ -11,7 +11,6 @@ const sheets = google.sheets({ version: "v4", auth });
 
 async function updateSheetData(rowIndex, rowData) {
   try {
-    console.log(rowIndex, rowData);
     const range = `Horario de Clases!B${rowIndex}:G${2 + rowIndex}`;
     const valueInputOption = "RAW";
 

@@ -71,19 +71,19 @@ export default function ManageClasses() {
       const result = await response.json();
       console.log("result", result);
       await fetchData();
-      setLoading(false);
       setToasterProperties({
         toasterMessage: "Se ha actualizado la clase exitosamente!",
         typeColor: "success",
       });
+      setLoading(false);
       showToast();
     } catch (error) {
-      setLoading(false);
       console.error("Failed to update data", error);
       setToasterProperties({
         toasterMessage: "No se ha podido actualizar la clase",
         typeColor: "error",
       });
+      setLoading(false);
       showToast();
     }
     setLoading(false);
