@@ -28,10 +28,7 @@ const ProfesorPanelView = ({ name }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-manz-200 p-5 mt-4 mb-8 rounded-lg lg:mr-12">
             <Link href="/manageClasses">
-              <div
-                className="bg-white p-5 rounded-lg mt-3 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer"
-                style={{ height: "15vh" }}
-              >
+              <div className="bg-white h-32 px-4 py-20 md:px-5 md:py-10 rounded-lg mt-3 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer">
                 <p className="font-['B612'] font-bold pt-1 text-xl">
                   Horario de Clases
                 </p>
@@ -40,10 +37,7 @@ const ProfesorPanelView = ({ name }) => {
             </Link>
 
             <Link href="/reagentInventary">
-              <div
-                className="bg-white p-5 rounded-lg mt-4 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer"
-                style={{ height: "15vh" }}
-              >
+              <div className="bg-white h-32 px-4 py-20 md:px-5 md:py-10 rounded-lg mt-3 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer">
                 <p className="font-['B612'] font-bold pt-1 text-xl">
                   Inventario de Reactivos
                 </p>
@@ -52,10 +46,7 @@ const ProfesorPanelView = ({ name }) => {
             </Link>
 
             <Link href="/materialInventary">
-              <div
-                className="bg-white p-5 rounded-lg mt-4 ml-8 lg:mr-12  gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer"
-                style={{ height: "15vh" }}
-              >
+              <div className="bg-white h-32 px-4 py-20 md:px-5 md:py-10 rounded-lg mt-3 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer">
                 <p className="font-['B612'] font-bold pt-1 text-xl">
                   Inventario de Materiales
                 </p>
@@ -64,10 +55,7 @@ const ProfesorPanelView = ({ name }) => {
             </Link>
 
             <Link href="/equipmentInventary">
-              <div
-                className="bg-white p-5 rounded-lg mt-4 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center  text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer"
-                style={{ height: "15vh" }}
-              >
+              <div className="bg-white h-32 px-4 py-20 md:px-5 md:py-10 rounded-lg mt-3 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer">
                 <p className="font-['B612'] font-bold pt-1 text-xl">
                   Inventario de Equipos
                 </p>
@@ -78,46 +66,16 @@ const ProfesorPanelView = ({ name }) => {
             </Link>
 
             <Link href="">
-              <div
-                className="bg-white p-5 rounded-lg mt-4 ml-8 lg:mr-12 gap-2  flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer"
-                style={{ height: "15vh" }}
-              >
+              <div className="bg-white h-32 px-4 py-20 md:px-5 md:py-10 rounded-lg mt-3 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer">
                 <p className="font-['B612'] font-bold pt-1 text-xl">
-                  Solicitudes de Reactivos
-                </p>
-                <ListAltIcon style={{ width: "40px", height: "40px" }} />
-              </div>
-            </Link>
-
-            <Link href="">
-              <div
-                className="bg-white p-5 rounded-lg mt-4 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer"
-                style={{ height: "15vh" }}
-              >
-                <p className="font-['B612'] font-bold pt-1 text-xl">
-                  Equipos en calidad de prestamo.
+                  Equipos en calidad de préstamo
                 </p>
                 <ConstructionIcon style={{ width: "40px", height: "40px" }} />
               </div>
             </Link>
 
-            <Link href="">
-              <div
-                className="bg-white p-5 rounded-lg mt-4 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center  text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer"
-                style={{ height: "15vh" }}
-              >
-                <p className="font-['B612'] font-bold pt-1 text-xl">
-                  Solicitudes equipos/espacio
-                </p>
-                <MeetingRoomIcon style={{ width: "40px", height: "40px" }} />
-              </div>
-            </Link>
-
             <Link href="/require-purchase">
-              <div
-                className="bg-white p-5 rounded-lg mt-4 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer"
-                style={{ height: "15vh" }}
-              >
+              <div className="bg-white h-32 px-4 py-20 md:px-5 md:py-10 rounded-lg mt-3 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer">
                 <p className="font-['B612'] font-bold pt-1 text-xl">
                   Compras Requeridas
                 </p>
@@ -126,14 +84,35 @@ const ProfesorPanelView = ({ name }) => {
             </Link>
 
             <Link href="research-investigations">
-              <div
-                className="bg-white p-5 rounded-lg mt-4 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer"
-                style={{ height: "15vh" }}
-              >
+              <div className="bg-white h-32 px-4 py-20 md:px-5 md:py-10 rounded-lg mt-3 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer">
                 <p className="font-['B612'] font-bold pt-1 text-xl">
                   Trabajos de Investigación en el Laboratorio
                 </p>
                 <AssignmentIcon style={{ width: "40px", height: "40px" }} />
+              </div>
+            </Link>
+
+            <Link href="">
+              <div
+                className="bg-white px-4 py-20 md:px-5 md:py-10 rounded-lg mt-3 ml-8 lg:mr-12 gap-2 hidden flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer"
+                style={{ height: "15vh" }}
+              >
+                <p className="font-['B612'] font-bold pt-1 text-xl">
+                  Solicitudes Equipos/Espacio
+                </p>
+                <MeetingRoomIcon style={{ width: "40px", height: "40px" }} />
+              </div>
+            </Link>
+
+            <Link href="">
+              <div
+                className="bg-white p-5 rounded-lg mt-4 ml-8 lg:mr-12 gap-2 hidden flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer"
+                style={{ height: "15vh" }}
+              >
+                <p className="font-['B612'] font-bold pt-1 text-xl">
+                  Solicitudes de Reactivos
+                </p>
+                <ListAltIcon style={{ width: "40px", height: "40px" }} />
               </div>
             </Link>
           </div>
