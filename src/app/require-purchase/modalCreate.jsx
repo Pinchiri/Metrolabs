@@ -137,6 +137,7 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
                 value={formData.material}
                 onChange={handleChange}
                 className="rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                placeholder="Añadir un material requerido...."
                 type="text"
                 />
           </div>
@@ -149,6 +150,7 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
                  value={formData.capacity}
                  onChange={handleChange}
                 className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                placeholder="Añada la capacidad...."
                 type="text"
                 />
           </div>
@@ -161,6 +163,7 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
                  value={formData.brand}
                  onChange={handleChange}
                 className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                placeholder="Añadir una marca...."
                 type="text"
                 />
           </div>
@@ -173,6 +176,7 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
                  value={formData.quantity}
                  onChange={handleChange}
                 className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                placeholder="Añadir una cantidad...."
                 type="number"
                 />
           </div>
@@ -186,6 +190,7 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
                  value={formData.price}
                  onChange={handleChange}
                 className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                placeholder="Añadir un precio...."
                 type="text"
                 />
           </div>
@@ -202,7 +207,7 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
                     onChange={(event, newValue) => {
                         setFormData({ ...formData, status: newValue ? newValue.status : '' });
                     }}
-                    renderInput={(params) => <TextField {...params}  />}
+                    renderInput={(params) => <TextField {...params} placeholder="Selecciona un estado" />}
                 />
             </div>
 
@@ -214,6 +219,7 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
                  value={formData.observations}
                  onChange={handleChange}
                 className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                placeholder="Añadir una observación...."
                 type="text"
                 />
           </div>

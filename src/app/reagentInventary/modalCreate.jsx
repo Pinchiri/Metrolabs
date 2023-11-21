@@ -119,7 +119,7 @@ export const ModalCreateReagent = ({ open, setOpen }) => {
                     className="text-sm md:text-lg lg:text-xl"
                     style={{ fontWeight: 'bold', fontFamily: 'B612, sans-serif' }}
                     >
-                    Añadir nuevo requerimiento de compra
+                    Añadir nuevo reactivo al inventario
                 </Typography>
 
             <Button onClick={handleClose}> <CloseIcon style={{ color: 'black' }}/> </Button> 
@@ -133,6 +133,7 @@ export const ModalCreateReagent = ({ open, setOpen }) => {
                 value={formData.reactive}
                 onChange={handleChange}
                 className="rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                placeholder="Añadir un reactivo...."
                 type="text"
                 />
           </div>
@@ -145,6 +146,7 @@ export const ModalCreateReagent = ({ open, setOpen }) => {
                  value={formData.formule}
                  onChange={handleChange}
                 className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                placeholder="Añadir una formula...."
                 type="text"
                 />
           </div>
@@ -157,6 +159,7 @@ export const ModalCreateReagent = ({ open, setOpen }) => {
                  value={formData.cas}
                  onChange={handleChange}
                 className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                placeholder="Añadir CAS...."
                 type="text"
                 />
           </div>
@@ -165,16 +168,16 @@ export const ModalCreateReagent = ({ open, setOpen }) => {
           <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
             <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Marca: </h3>
             <Autocomplete
-                    disablePortal
-                    id="status-autocomplete"
-                    options={brandLabels}
-                    sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
-                    getOptionLabel={(option) => option.label}
-                    onChange={(event, newValue) => {
-                        setFormData({ ...formData, status: newValue ? newValue.status : '' });
-                    }}
-                    renderInput={(params) => <TextField {...params}  />}
-                />
+                disablePortal
+                id="status-autocomplete"
+                options={brandLabels}
+                sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
+                getOptionLabel={(option) => option.label}
+                onChange={(event, newValue) => {
+                    setFormData({ ...formData, status: newValue ? newValue.status : '' });
+                }}
+                renderInput={(params) => <TextField {...params} placeholder="Selecciona una marca" />}
+            />
           </div>
 
 
@@ -186,6 +189,7 @@ export const ModalCreateReagent = ({ open, setOpen }) => {
                  value={formData.concentration}
                  onChange={handleChange}
                 className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                placeholder="Añadir una concentración...."
                 type="text"
                 />
           </div>
@@ -198,6 +202,7 @@ export const ModalCreateReagent = ({ open, setOpen }) => {
                  value={formData.quantity}
                  onChange={handleChange}
                 className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                placeholder="Añadir una cantidad...."
                 type="number"
                 />
             </div>
@@ -206,48 +211,49 @@ export const ModalCreateReagent = ({ open, setOpen }) => {
           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
             <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Unidad: </h3>
             <Autocomplete
-                    disablePortal
-                    id="status-autocomplete"
-                    options={unitsLabels}
-                    sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
-                    getOptionLabel={(option) => option.label}
-                    onChange={(event, newValue) => {
-                        setFormData({ ...formData, status: newValue ? newValue.status : '' });
-                    }}
-                    renderInput={(params) => <TextField {...params}  />}
-                />
+                disablePortal
+                id="status-autocomplete"
+                options={unitsLabels}
+                sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
+                getOptionLabel={(option) => option.label}
+                onChange={(event, newValue) => {
+                    setFormData({ ...formData, status: newValue ? newValue.status : '' });
+                }}
+                renderInput={(params) => <TextField {...params} placeholder="Selecciona una unidad" />}
+            />
           </div>
 
           {/* Añadir Riesgo */}
           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
             <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Riesgo: </h3>
             <Autocomplete
-                    disablePortal
-                    id="status-autocomplete"
-                    options={riskLabels}
-                    sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
-                    getOptionLabel={(option) => option.label}
-                    onChange={(event, newValue) => {
-                        setFormData({ ...formData, status: newValue ? newValue.status : '' });
-                    }}
-                    renderInput={(params) => <TextField {...params}  />}
-                />
+                disablePortal
+                id="status-autocomplete"
+                options={riskLabels}
+                sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
+                getOptionLabel={(option) => option.label}
+                onChange={(event, newValue) => {
+                    setFormData({ ...formData, status: newValue ? newValue.status : '' });
+                }}
+                renderInput={(params) => <TextField {...params} placeholder="Selecciona un riesgo" />}
+            />
+
           </div>
 
            {/* Añadir Ubicación */}
            <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
             <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Ubicación: </h3>
             <Autocomplete
-                    disablePortal
-                    id="status-autocomplete"
-                    options={locationLabels}
-                    sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
-                    getOptionLabel={(option) => option.label}
-                    onChange={(event, newValue) => {
-                        setFormData({ ...formData, status: newValue ? newValue.status : '' });
-                    }}
-                    renderInput={(params) => <TextField {...params}  />}
-                />
+                disablePortal
+                id="status-autocomplete"
+                options={locationLabels}
+                sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
+                getOptionLabel={(option) => option.label}
+                onChange={(event, newValue) => {
+                    setFormData({ ...formData, status: newValue ? newValue.status : '' });
+                }}
+                renderInput={(params) => <TextField {...params} placeholder="Selecciona una ubicación" />}
+            />
           </div>
 
            {/* Añadir Observaciones */}
@@ -258,6 +264,7 @@ export const ModalCreateReagent = ({ open, setOpen }) => {
                  value={formData.observations}
                  onChange={handleChange}
                 className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                placeholder="Añadir una observación...."
                 type="text"
                 />
           </div>

@@ -127,6 +127,7 @@ export const ModalCreateMaterial = ({ open, setOpen }) => {
                 value={formData.material}
                 onChange={handleChange}
                 className="rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                placeholder="Añadir un material...."
                 type="text"
                 />
           </div>
@@ -151,16 +152,17 @@ export const ModalCreateMaterial = ({ open, setOpen }) => {
           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
             <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Marca: </h3>
             <Autocomplete
-                    disablePortal
-                    id="status-autocomplete"
-                    options={brandLabels}
-                    sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
-                    getOptionLabel={(option) => option.label}
-                    onChange={(event, newValue) => {
-                        setFormData({ ...formData, status: newValue ? newValue.status : '' });
-                    }}
-                    renderInput={(params) => <TextField {...params}  />}
-                />
+                disablePortal
+                id="status-autocomplete"
+                options={locationLabels}
+                sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
+                getOptionLabel={(option) => option.label}
+                onChange={(event, newValue) => {
+                    setFormData({ ...formData, status: newValue ? newValue.status : '' });
+                }}
+                renderInput={(params) => <TextField {...params} placeholder="Selecciona una ubicación" />}
+            />
+
           </div>
 
           {/* Añadir Quantity */}
@@ -171,6 +173,7 @@ export const ModalCreateMaterial = ({ open, setOpen }) => {
                  value={formData.quantity}
                  onChange={handleChange}
                 className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                placeholder="Añadir una cantidad...."
                 type="number"
                 />
             </div>
@@ -179,16 +182,17 @@ export const ModalCreateMaterial = ({ open, setOpen }) => {
           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
             <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Ubicación: </h3>
             <Autocomplete
-                    disablePortal
-                    id="status-autocomplete"
-                    options={locationLabels}
-                    sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
-                    getOptionLabel={(option) => option.label}
-                    onChange={(event, newValue) => {
-                        setFormData({ ...formData, status: newValue ? newValue.status : '' });
-                    }}
-                    renderInput={(params) => <TextField {...params}  />}
-                />
+                disablePortal
+                id="status-autocomplete"
+                options={locationLabels}
+                sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
+                getOptionLabel={(option) => option.label}
+                onChange={(event, newValue) => {
+                    setFormData({ ...formData, status: newValue ? newValue.status : '' });
+                }}
+                renderInput={(params) => <TextField {...params} placeholder="Selecciona una ubicación" />}
+            />
+
           </div>
 
            {/* Añadir Observaciones */}
@@ -199,6 +203,7 @@ export const ModalCreateMaterial = ({ open, setOpen }) => {
                  value={formData.observations}
                  onChange={handleChange}
                 className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                placeholder="Añadir una observación...."
                 type="text"
                 />
           </div>

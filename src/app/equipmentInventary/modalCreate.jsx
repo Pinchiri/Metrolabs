@@ -133,6 +133,7 @@ export const ModalCreateEquipment = ({ open, setOpen }) => {
                 value={formData.equipment}
                 onChange={handleChange}
                 className="rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                placeholder="Nombre del material..."
                 type="text"
                 />
           </div>
@@ -145,6 +146,7 @@ export const ModalCreateEquipment = ({ open, setOpen }) => {
                 value={formData.brand}
                 onChange={handleChange}
                 className="rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                placeholder="Nombre de la marca..."
                 type="text"
                 />
           </div>
@@ -157,6 +159,7 @@ export const ModalCreateEquipment = ({ open, setOpen }) => {
                 value={formData.model}
                 onChange={handleChange}
                 className="rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                placeholder="Nombre del modelo..."
                 type="text"
                 />
           </div>
@@ -169,6 +172,7 @@ export const ModalCreateEquipment = ({ open, setOpen }) => {
                  value={formData.quantity}
                  onChange={handleChange}
                 className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                placeholder="Cantidad..."
                 type="number"
                 />
             </div>
@@ -180,8 +184,9 @@ export const ModalCreateEquipment = ({ open, setOpen }) => {
                  name="userManual"
                  value={formData.userManual}
                  onChange={handleChange}
-                className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-                type="file"
+                 placeholder="Añada el manual de usario..."
+                 className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                 type="file"
                 />
             
           </div>
@@ -189,17 +194,17 @@ export const ModalCreateEquipment = ({ open, setOpen }) => {
            {/* Añadir Frecuencia */}
            <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
             <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2"> Frecuencia Mant: </h3>
-                <Autocomplete
-                        disablePortal
-                        id="status-autocomplete"
-                        options={frecuencyLabels}
-                        sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
-                        getOptionLabel={(option) => option.label}
-                        onChange={(event, newValue) => {
-                            setFormData({ ...formData, status: newValue ? newValue.status : '' });
-                        }}
-                        renderInput={(params) => <TextField {...params}  />}
-                    />
+            <Autocomplete
+                disablePortal
+                id="status-autocomplete"
+                options={frecuencyLabels}
+                sx={{ height: '50px', width: '100%', backgroundColor: 'white', '& .MuiAutocomplete-inputRoot': { bgcolor: 'white' } }}
+                getOptionLabel={(option) => option.label}
+                onChange={(event, newValue) => {
+                    setFormData({ ...formData, status: newValue ? newValue.status : '' });
+                }}
+                renderInput={(params) => <TextField {...params} placeholder="Selecciona una frecuencia" />}
+            />
           </div>
 
            {/* Añadir último mantenimiento */}
@@ -210,6 +215,7 @@ export const ModalCreateEquipment = ({ open, setOpen }) => {
                  value={formData.date}
                  onChange={handleChange}
                 className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                placeholder="Añada el último mantenimiento"
                 type="date"
                 />
           </div>
@@ -222,6 +228,7 @@ export const ModalCreateEquipment = ({ open, setOpen }) => {
                     value={formData.observations}
                     onChange={handleChange}
                     className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+                    placeholder="Añada las ultimas observaciones"
                     type="text"
                     />
           </div>
