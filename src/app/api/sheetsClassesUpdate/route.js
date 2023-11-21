@@ -57,21 +57,15 @@ async function updateSheetData(rowIndex, rowData) {
   }
 }
 
-export async function PUT(request) {
+export async function POST(request) {
   try {
     const body = await request.json();
-
-    const { rowIndex, rowData } = body;
-
-    console.log(rowData);
-    console.log(rowIndex);
-
-    const result = await updateSheetData(rowIndex, rowData);
+    const result = await updateSheetData(body);
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
-    console.error(error);
+    console.error("Error: " + error.message);
     return NextResponse.json(
-      { error: "Error parsing JSON input: " + error.message },
+      { error: "Error processing request: " + error.message },
       { status: 400 }
     );
   }

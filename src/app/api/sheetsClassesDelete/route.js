@@ -23,33 +23,27 @@ const auth = new google.auth.GoogleAuth({
 
 const sheets = google.sheets({ version: "v4", auth });
 
-async function updateSheetData(body) {
+async function deleteSheetData(rowIndex) {
   try {
-    const range = `Equipos!B:K`;
-    const values = [
-      [
-        body.formData.equipment,
-        body.formData.brand,
-        body.formData.model,
-        body.formData.quantity,
-        body.formData.ubication,
-        body.formData.userManual,
-        body.formData.frecuency,
-        body.formData.date,
-        body.formData.observations,
-      ],
+    const requests = [
+      {
+        deleteDimension: {
+          range: {
+            sheetId: 1878327761,
+            dimension: "ROWS",
+            startIndex: rowIndex - 1,
+            endIndex: rowIndex,
+          },
+        },
+      },
     ];
 
-    const response = await sheets.spreadsheets.values.append({
+    await sheets.spreadsheets.batchUpdate({
       spreadsheetId: "1_-0ao8kLOr21E8BmrkSjEBMM3sKJvMp92yK8DYZWkO0",
-      range: range,
-      valueInputOption: "USER_ENTERED",
-      resource: { values },
+      resource: { requests },
     });
-
-    return response;
   } catch (error) {
-    console.error("The API returned an error: " + error);
+    console.error("Error al eliminar la fila: " + error);
     throw error;
   }
 }
@@ -57,12 +51,18 @@ async function updateSheetData(body) {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const result = await updateSheetData(body);
-    return NextResponse.json(result, { status: 200 });
-  } catch (error) {
-    console.error("Error: " + error.message);
+    const { rowIndex } = body;
+
+    await deleteSheetData(rowIndex);
+
     return NextResponse.json(
-      { error: "Error processing request: " + error.message },
+      { message: "Fila eliminada con éxito" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Error al procesar la solicitud: " + error.message },
       { status: 400 }
     );
   }

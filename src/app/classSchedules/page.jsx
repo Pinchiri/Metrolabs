@@ -4,7 +4,6 @@ import "../globals.css";
 import React, { useState, useEffect } from "react";
 import Schedule from "../../components/Schedule/Schedule";
 import DateFormat from "../../components/Schedule/DateFormat";
-import { handleCalendarFetch } from "./handleCalendarFetch";
 import Spinner from "@/components/Spinner/spinner";
 
 export default function ClassSchedules() {

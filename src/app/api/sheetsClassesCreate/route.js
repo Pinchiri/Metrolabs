@@ -23,20 +23,19 @@ const auth = new google.auth.GoogleAuth({
 
 const sheets = google.sheets({ version: "v4", auth });
 
-async function updateSheetData(body) {
+async function createSheetData(rowData) {
   try {
-    const range = `Equipos!B:K`;
+    const range = `Horario de Clases!A:G`;
+
     const values = [
       [
-        body.formData.equipment,
-        body.formData.brand,
-        body.formData.model,
-        body.formData.quantity,
-        body.formData.ubication,
-        body.formData.userManual,
-        body.formData.frecuency,
-        body.formData.date,
-        body.formData.observations,
+        rowBlank,
+        rowData.className,
+        rowData.professor,
+        rowData.trimester,
+        rowData.day,
+        rowData.start,
+        rowData.end,
       ],
     ];
 
@@ -57,7 +56,8 @@ async function updateSheetData(body) {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const result = await updateSheetData(body);
+    const result = await createSheetData(body);
+
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
     console.error("Error: " + error.message);

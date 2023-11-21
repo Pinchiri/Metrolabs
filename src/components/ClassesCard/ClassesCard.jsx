@@ -3,6 +3,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Spinner from "../Spinner/spinner";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const ClassesCard = ({
   index,
@@ -14,6 +15,7 @@ const ClassesCard = ({
   end,
   setEditIndex,
   setEditData,
+  setDeleteIndex,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setLoading] = useState(false);
@@ -50,6 +52,10 @@ const ClassesCard = ({
     setIsEditing(false);
   };
 
+  const handleDelete = () => {
+    setDeleteIndex(index);
+  };
+
   if (isLoading)
     return (
       <div
@@ -72,7 +78,6 @@ const ClassesCard = ({
 
   return (
     <div className="bg-white rounded-lg mt-1 mb-3 p-3">
-      {/* Selector de opción para ejecutar */}
       <div className="flex justify-end p-3 gap-2">
         {isEditing ? (
           <>
@@ -92,13 +97,23 @@ const ClassesCard = ({
             </div>
           </>
         ) : (
-          <div
-            onClick={() => setIsEditing(true)}
-            className="cursor-pointer flex flex-col items-center"
-          >
-            <EditIcon />
-            <p>Editar</p>
-          </div>
+          <>
+            <div
+              onClick={() => setIsEditing(true)}
+              className="cursor-pointer flex flex-col items-center"
+            >
+              <EditIcon />
+              <p>Editar</p>
+            </div>
+
+            <div
+              onClick={handleDelete}
+              className="ml-4 cursor-pointer flex flex-col items-center"
+            >
+              <DeleteForeverIcon />
+              <p>Eliminar</p>
+            </div>
+          </>
         )}
       </div>
 

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import ClassesCard from "./ClassesCard";
 
-const ClassesList = ({ data, setEditIndex, setEditData }) => {
+const ClassesList = ({ data, setEditIndex, setEditData, setDeleteIndex }) => {
   return (
     <>
       {data.map((item, index) => (
@@ -18,6 +18,7 @@ const ClassesList = ({ data, setEditIndex, setEditData }) => {
           end={item.end}
           setEditIndex={setEditIndex}
           setEditData={setEditData}
+          setDeleteIndex={setDeleteIndex}
         />
       ))}
     </>
