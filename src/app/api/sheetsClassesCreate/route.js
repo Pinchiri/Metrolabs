@@ -23,19 +23,18 @@ const auth = new google.auth.GoogleAuth({
 
 const sheets = google.sheets({ version: "v4", auth });
 
-async function createSheetData(rowData) {
+async function createSheetData(body) {
   try {
-    const range = `Horario de Clases!A:G`;
+    const range = `Horario de Clases!B:G`;
 
     const values = [
       [
-        rowBlank,
-        rowData.className,
-        rowData.professor,
-        rowData.trimester,
-        rowData.day,
-        rowData.start,
-        rowData.end,
+        body.className,
+        body.professor,
+        body.trimester,
+        body.day,
+        body.start,
+        body.end,
       ],
     ];
 

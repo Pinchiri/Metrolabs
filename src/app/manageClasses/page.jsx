@@ -4,17 +4,19 @@ import "../globals.css";
 import React, { useState, useEffect } from "react";
 import Spinner from "@/components/Spinner/spinner";
 import Toaster from "@/components/toast/toaster";
-import PrivateRoute from "@/privateRoute/privateRoute";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ClassesList from "@/components/ClassesCard/ClassesList";
 import { ModalAddClass } from "./modalAddClass";
 import { useRouter } from "next/navigation";
+import ProfessorRoute from "@/ProfessorRoute/ProfessorRoute";
+import Footer from "@/components/Footer/Footer";
+import { professorFooterLinks } from "@/utils/footerUtils/professorFooterLinks";
 
 export default function ManageClasses() {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [toasterVisible, setToasterVisible] = useState(false);
-  const [message, setMessage] = useState("");
+
   const [isLoading, setLoading] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [editData, setEditData] = useState(null);
@@ -114,16 +116,6 @@ export default function ManageClasses() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    if (message !== "") {
-      setToasterVisible(true);
-      console.log(toasterVisible);
-      setTimeout(() => {
-        setToasterVisible(false);
-      }, 3000);
-    }
-  }, [toasterVisible]);
-
   if (isLoading)
     return (
       <>
@@ -142,7 +134,7 @@ export default function ManageClasses() {
   if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
 
   return (
-    <PrivateRoute>
+    <ProfessorRoute>
       {isLoading ? (
         <Spinner />
       ) : (
@@ -170,8 +162,6 @@ export default function ManageClasses() {
               <ModalAddClass
                 open={open}
                 setOpen={setOpen}
-                isVisible={setToasterVisible}
-                message={setMessage}
               />
             </div>
           </div>
@@ -194,6 +184,10 @@ export default function ManageClasses() {
           </div>
         </div>
       )}
-    </PrivateRoute>
+      <Footer
+        links={professorFooterLinks}
+        footerColor="primary"
+      />
+    </ProfessorRoute>
   );
 }

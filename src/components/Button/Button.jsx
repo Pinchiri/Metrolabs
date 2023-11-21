@@ -17,7 +17,7 @@ const Button = ({ color, size, text, extraStyles = "", onClick }) => {
 
   return (
     <button
-      className={`btn ${colors[color]} ${sizes[size]} rounded-full normal-case font-sans font-medium ${extraStyles}`}
+      className={`btn ${colors[color]} ${sizes[size]} rounded-full normal-case font-sans font-semibold ${extraStyles}`}
       onClick={onClick}
     >
       {text}

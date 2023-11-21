@@ -8,9 +8,10 @@ import {
   TextField,
   Select,
   MenuItem,
+  InputLabel,
+  FormControl,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import Toaster from "@/components/toast/toaster";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
@@ -44,12 +45,7 @@ const style = {
   p: 4,
 };
 
-export const ModalAddClass = ({
-  open,
-  setOpen,
-  isVisible = { setToasterVisible },
-  message = { setMessage },
-}) => {
+export const ModalAddClass = ({ open, setOpen }) => {
   const [minH, setMinH] = useState(
     dayjs().set("hour", 7).startOf("hour").set("minute", 5)
   );
@@ -81,15 +77,12 @@ export const ModalAddClass = ({
     // primero validamos que ningun dato este vacio
     for (const key in formData) {
       if (formData[key] === "") {
-        message("Por favor, rellene todos los campos");
-        isVisible(true);
         handleClose();
         return;
       }
     }
 
     try {
-      console.log(formData);
       const response = await fetch("/api/sheetsClassesCreate", {
         method: "POST",
         headers: {
@@ -101,15 +94,12 @@ export const ModalAddClass = ({
       if (response.ok) {
         const result = await response.json();
         console.log("Resultado de Google Sheets:", result);
-        message("Horario de clases actualizado");
-        isVisible(true);
+
         handleClose();
       } else {
         console.error("Error en el servidor al añadir fila");
         console.log(response);
         handleClose();
-        message("Error al enviar datos al servidor");
-        isVisible(true);
       }
     } catch (error) {
       console.error("Error al enviar datos al servidor:", error);
@@ -178,10 +168,11 @@ export const ModalAddClass = ({
             </h3>
             <input
               name="className"
-              value={formData.material}
+              value={formData.className}
               onChange={handleChange}
               className="rounded-lg p-2 hover:border-2 hover:border-amber-300"
               type="text"
+              placeholder="Ej. Procesos de Separación"
             />
           </div>
 
@@ -195,8 +186,9 @@ export const ModalAddClass = ({
               name="professor"
               value={formData.professor}
               onChange={handleChange}
-              className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+              className="rounded-lg p-2 hover:border-2 hover:border-amber-300"
               type="text"
+              placeholder="Ej. Dr. Juan Pérez"
             />
           </div>
 
@@ -206,24 +198,30 @@ export const ModalAddClass = ({
               {" "}
               Trimestre:{" "}
             </h3>
-            <Select
-              labelId="trimester-label"
-              id="trimester"
-              name="trimester"
-              value={formData.trimester}
-              onChange={handleChange}
-              className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-              sx={{ height: "50px", width: "100%", backgroundColor: "white" }}
-            >
-              {trimesterLabels.map((option) => (
-                <MenuItem
-                  key={option.trimester}
-                  value={option.trimester}
-                >
-                  {option.label}
-                </MenuItem>
-              ))}
-            </Select>
+            <FormControl className="rounded-lg p-2 hover:border-2 hover:border-amber-300">
+              <InputLabel id="trimester-label">Trimestre</InputLabel>
+              <Select
+                label="Trimestre"
+                id="trimester"
+                name="trimester"
+                value={formData.trimester}
+                onChange={handleChange}
+                sx={{
+                  height: "45px",
+                  backgroundColor: "white",
+                  borderRadius: "8px",
+                }}
+              >
+                {trimesterLabels.map((option) => (
+                  <MenuItem
+                    key={option.trimester}
+                    value={option.trimester}
+                  >
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
 
           {/* Añadir dias */}
@@ -232,24 +230,30 @@ export const ModalAddClass = ({
               {" "}
               Días de clases:{" "}
             </h3>
-            <Select
-              labelId="day-label"
-              id="day"
-              name="day"
-              value={formData.day}
-              onChange={handleChange}
-              className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-              sx={{ height: "50px", width: "100%", backgroundColor: "white" }}
-            >
-              {daysLabels.map((option) => (
-                <MenuItem
-                  key={option.day}
-                  value={option.day}
-                >
-                  {option.label}
-                </MenuItem>
-              ))}
-            </Select>
+            <FormControl className="rounded-lg p-2 hover:border-2 hover:border-amber-300">
+              <InputLabel id="day-label">Día</InputLabel>
+              <Select
+                label="Día"
+                id="day"
+                name="day"
+                value={formData.day}
+                onChange={handleChange}
+                sx={{
+                  height: "45px",
+                  backgroundColor: "white",
+                  borderRadius: "8px",
+                }}
+              >
+                {daysLabels.map((option) => (
+                  <MenuItem
+                    key={option.day}
+                    value={option.day}
+                  >
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
 
           {/* Añadir hora */}
@@ -260,6 +264,7 @@ export const ModalAddClass = ({
             </h3>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
+                label="Hora de inicio"
                 value={formData.start}
                 onChange={(newValue) => {
                   const newStartValue = dayjs(newValue);
@@ -278,9 +283,14 @@ export const ModalAddClass = ({
                   }
                 }}
                 renderInput={(params) => <TextField {...params} />}
-                sx={{ height: "100%", width: "100%", backgroundColor: "white" }}
+                sx={{
+                  width: "100%",
+                  backgroundColor: "white",
+                  borderRadius: "8px",
+                }}
                 minTime={dayjs().set("hour", 7).startOf("hour")}
                 maxTime={maxH}
+                placeholder="Hora de inicio"
               />
             </LocalizationProvider>
           </div>
@@ -292,6 +302,7 @@ export const ModalAddClass = ({
             </h3>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
+                label="Hora de finalización"
                 value={formData.end}
                 onChange={(newValue) => {
                   const newEndValue = dayjs(newValue);
@@ -307,13 +318,17 @@ export const ModalAddClass = ({
                       ...prevFormData,
                       end: "",
                     }));
-                    set;
                   }
                 }}
                 renderInput={(params) => <TextField {...params} />}
-                sx={{ height: "100%", width: "100%", backgroundColor: "white" }}
+                sx={{
+                  width: "100%",
+                  backgroundColor: "white",
+                  borderRadius: "8px",
+                }}
                 minTime={minH}
-                maxTime={dayjs().set("hour", 19).startOf("hour")} // Consider using maxH if it should be dynamic
+                maxTime={dayjs().set("hour", 19).startOf("hour")}
+                placeholder="Hora de finalización"
               />
             </LocalizationProvider>
           </div>
@@ -329,6 +344,7 @@ export const ModalAddClass = ({
           </div>
         </Box>
       </Modal>
+
       {/* 
             <div className="mt-20 ml-10 mr-7">
                 <Toaster

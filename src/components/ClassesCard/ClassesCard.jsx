@@ -38,6 +38,7 @@ const ClassesCard = ({
     setIsEditing(false);
     setEditIndex(index);
     setEditData(editableFields);
+    setLoading(false);
   };
 
   const handleCancel = () => {
@@ -58,22 +59,22 @@ const ClassesCard = ({
 
   if (isLoading)
     return (
-      <div
-        style={{
-          position: "fixed",
-          top: 195,
-          left: 0,
-          width: "100%",
-          height: "90%",
-          zIndex: 1000,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          background: "white",
-        }}
-      >
-        <Spinner />
-      </div>
+      // <div
+      //   style={{
+      //     position: "fixed",
+      //     top: 195,
+      //     left: 0,
+      //     width: "100%",
+      //     height: "90%",
+      //     zIndex: 1000,
+      //     display: "flex",
+      //     justifyContent: "center",
+      //     alignItems: "center",
+      //     background: "white",
+      //   }}
+      //   >
+      // </div>
+      <Spinner />
     );
 
   return (

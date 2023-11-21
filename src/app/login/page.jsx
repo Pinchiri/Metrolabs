@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getDoc } from "firebase/firestore";
 import { UserContext } from "@/context/userContext";
@@ -9,10 +9,13 @@ import {
   createUserDocumentFromAuth,
 } from "../../../firebase.js";
 import LoginView from "./loginView";
+import { useToaster } from "@/components/Toaster/hooks/useToaster.jsx";
 
 const Login = () => {
   const { setCurrentUser } = useContext(UserContext);
   const router = useRouter();
+  const { isVisible, showToast, toasterProperties, setToasterProperties } =
+    useToaster();
 
   const logGoogleUser = async () => {
     try {
@@ -21,18 +24,28 @@ const Login = () => {
         user.email.endsWith("@correo.unimet.edu.ve") ||
         user.email.endsWith("@unimet.edu.ve");
       if (!isUnimetEmail) {
-        alert("El correo electrónico no es un correo válido de la Unimet.");
-        return;
-      }
-      setCurrentUser(user);
-      const userDocRef = await createUserDocumentFromAuth(user);
-      const docSnapshot = await getDoc(userDocRef);
-      if (docSnapshot.exists()) {
-        const userData = docSnapshot.data();
-        if (userData.email.endsWith("@correo.unimet.edu.ve")) {
-          router.push("/profesorPanel");
-        } else {
-          router.push("/studentPanel");
+        setToasterProperties({
+          toasterMessage: "No se puede ingresar sin un correo UNIMET",
+          typeColor: "error",
+        });
+        showToast();
+        setCurrentUser(null);
+        console.log("user seteado como null");
+      } else {
+        setCurrentUser(user);
+        console.log("user seteado bien");
+        const userDocRef = await createUserDocumentFromAuth(user);
+        const docSnapshot = await getDoc(userDocRef);
+        if (docSnapshot.exists()) {
+          const userData = docSnapshot.data();
+          if (
+            userData.email.endsWith("@correo.unimet.edu.ve") &&
+            userData.email != "erika.hernandez@correo.unimet.edu.ve"
+          ) {
+            router.push("/student-panel");
+          } else {
+            router.push("/profesorPanel");
+          }
         }
       }
     } catch (error) {
@@ -42,7 +55,11 @@ const Login = () => {
 
   return (
     <>
-      <LoginView logGoogleUser={logGoogleUser} />
+      <LoginView
+        logGoogleUser={logGoogleUser}
+        isToasterVisible={isVisible}
+        toasterProperties={toasterProperties}
+      />
     </>
   );
 };

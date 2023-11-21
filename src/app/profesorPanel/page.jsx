@@ -18,7 +18,7 @@ const ProfesorPanel = () => {
       }
     });
     return () => unsubscribe();
-  }, []);
+  }, [router]);
 
   return (
     <>
