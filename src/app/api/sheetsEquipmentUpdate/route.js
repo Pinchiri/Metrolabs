@@ -1,6 +1,6 @@
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
-import { credentials } from "../googleConfig";
+import { credentials, spreadsheetId } from "../googleConfig";
 
 const auth = new google.auth.GoogleAuth({
   credentials: credentials,
@@ -33,7 +33,7 @@ async function updateSheetData(rowIndex, rowData) {
     ];
 
     const response = await sheets.spreadsheets.values.update({
-      spreadsheetId: "1_-0ao8kLOr21E8BmrkSjEBMM3sKJvMp92yK8DYZWkO0",
+      spreadsheetId: spreadsheetId,
       range: range,
       valueInputOption: valueInputOption,
       resource: { values },

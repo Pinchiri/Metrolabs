@@ -14,3 +14,5 @@ export const credentials = {
     "https://www.googleapis.com/robot/v1/metadata/x509/service-laboratorio-unimet%40laboratoro-quimica-unimet.iam.gserviceaccount.com",
   universe_domain: "googleapis.com",
 };
+
+export const spreadsheetId = "1_-0ao8kLOr21E8BmrkSjEBMM3sKJvMp92yK8DYZWkO0";

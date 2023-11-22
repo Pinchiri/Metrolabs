@@ -1,6 +1,6 @@
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
-import { credentials } from "../googleConfig";
+import { credentials, spreadsheetId } from "../googleConfig";
 import { revalidatePath } from "next/cache";
 import { sheetsReservationsURL } from "../routesURLs";
 import { NextRequest } from "next/server";
@@ -17,7 +17,7 @@ async function getSheetData() {
     const range =
       "Uso de equipo o espacio: laboratorio de procesos de separación!A2:O";
     const response = await sheets.spreadsheets.values.get({
-      spreadsheetId: "1_-0ao8kLOr21E8BmrkSjEBMM3sKJvMp92yK8DYZWkO0",
+      spreadsheetId: spreadsheetId,
       range: range,
     });
 

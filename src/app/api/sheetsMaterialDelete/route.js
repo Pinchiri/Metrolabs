@@ -1,6 +1,6 @@
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
-import { credentials } from "../googleConfig";
+import { credentials, spreadsheetId } from "../googleConfig";
 
 // Configuración de autenticación
 const auth = new google.auth.GoogleAuth({
@@ -27,7 +27,7 @@ async function deleteRow(rowIndex) {
     ];
 
     await sheets.spreadsheets.batchUpdate({
-      spreadsheetId: "1_-0ao8kLOr21E8BmrkSjEBMM3sKJvMp92yK8DYZWkO0",
+      spreadsheetId: spreadsheetId,
       resource: { requests },
     });
   } catch (error) {
