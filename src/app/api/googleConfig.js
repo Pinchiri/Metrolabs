@@ -1,17 +1,15 @@
 export const credentials = {
   type: "service_account",
-  project_id: "laboratoro-quimica-unimet",
-  private_key_id: "341761f75a46a00fe1b0efba264016e8dd691c2e",
-  private_key:
-    "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDCC8SJWbcF2FHr\nP3Brf6KVYnxNi1RaAEjOyeEjY5xJqZvqU7hECTrIYhNALG1hgvS6gMoHWMXqUMBu\nVdssEj58QdFXoSgS8h9im3LREVuUdnfpwQCjw+m4wZVludgGJo6GWgJl3ab1vZWY\n9fJYVAHhrrBdLDRTXUfr4T5lJGFuu918VjfrlWoVUnuFpwM60juN8sLGBIlzQ4hA\nKh0NACn/LFN5mrTpkv0v/KWYLKS3526HEr8IpADemkdnbeRlTwbiL3Hll/VspcSP\nDrjBdhGetxZPC8AB1vAOVY4qShHrFJR3IGKdKlrOvCBtQOF44kAzhX+I/BADOzXP\nznadAAYRAgMBAAECggEAK9lP6L/CuYnn/RKBW3FksoAmWbmN7qaYzU3WV9JnG0g+\nCOYxQgKZ63UqJ3rCnuHiXpDC1oUreCcWTPiOxfc7coXHAhfTP/DBwd0hxXe4K6TX\ntRVdiSQ42Py5v1qPI9irpVWKrC050NcuCnotcONO54o7pVpbWqk+GuHz4RQnBkf9\nUASTGRB4mhb8v5kOzovFzEeQ4CUZ5YqyquyjV0blLDMU078F6WotTUc/WHB1uUXT\nWi/gitdNvoF1T5PRg746UfspEOm8W5EhkOlhv5ubVKjM2IG49YAyoVid9WzD/Kak\n/nQnifUb9qnZCjVrhV6LpEuu1mSIBKrA0Gjn8ciMrwKBgQD4oJ8ckdqLbW0vb/wX\n5qw9S18QQJCFIvcAdTthTfdHXojX4ZWY4dwJj/gmRjfPqSXQd/WFVuzBr9YMwZDJ\nrPJKtR0rXTT/0csxfw9bsn6KCgvasS0j/KuK4jUEFTqyS7llEUWS4cwKZ7+QhACz\ntdy3mtmNDmbWWwfDcHUbomXwawKBgQDHzM7QF7Z3sIUcZjCsQhmpha8wORDcy4E0\n3mIE5O49TPXZ4DFDrVdCmQzlc9LK/AIyTicpNUIAba0YPTX2Zppb+YhtByHl6ZWB\nUUVniLmK193hoMf3EkdEViMO0oEZ2SIPdbz5wLLaheFZo9+Lf/ega2S8AARyOQLs\nuuJiuEiScwKBgQDSoyoKB1uzEkMVlHdsPGaiC0//seN+mA/RWIC1QFuGIIYo95pJ\nCtjjVRC0RHsWOMSrqGXe0LUGpxTee8NRyW8Acg7DZVT4guH2DiKR2lgwVLCUV9TZ\nj0A6CslFq0KuOU9ZW9eoyBmYmysFoYACwMm817kGMzRW2IpsPsNIZT6d/wKBgQC6\nfI1kaV2kZZw4n6E6hw/QzLhxuDHnBAN7Rz4R92Puz5CBZeJVmsthm90PpYXQdFvQ\nfGXM7qrGH5h6kVd2vtnAky4lJY0cPWOQKj0vn8werdGpsRozoFnojMV4Jj7d028Z\nIvnZ22SU1nU559zVJgIJN3P0jceYnWH/d4eqQPtrxQKBgDKVjKo025Riz12zCi08\nQt6RIoUGm8ZvIldhmS3wQnWET/c1lRMYdRlVRiUXBDDIM88orkbMmn1RMLqvrwJv\n89VztEQylYubOxee2BoXsVOI8fOX1XwyVfIbFgIcNaWHu+pIrMrNX2g+h6E2VBBF\n7yGv8Qg58pxufLDbu/1966+v\n-----END PRIVATE KEY-----\n",
-  client_email:
-    "service-laboratorio-unimet@laboratoro-quimica-unimet.iam.gserviceaccount.com",
-  client_id: "116811674597550422612",
-  auth_uri: "https://accounts.google.com/o/oauth2/auth",
-  token_uri: "https://oauth2.googleapis.com/token",
-  auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-  client_x509_cert_url:
-    "https://www.googleapis.com/robot/v1/metadata/x509/service-laboratorio-unimet%40laboratoro-quimica-unimet.iam.gserviceaccount.com",
+  project_id: process.env.NEXT_PUBLIC_DRIVE_PROJECT_ID,
+  private_key_id: process.env.NEXT_PUBLIC_DRIVE_PRIVATE_KEY_ID,
+  private_key: process.env.NEXT_PUBLIC_DRIVE_PRIVATE_KEY,
+  client_email: process.env.NEXT_PUBLIC_DRIVE_CLIENT_EMAIL,
+  client_id: process.env.NEXT_PUBLIC_DRIVE_CLIENT_ID,
+  auth_uri: process.env.NEXT_PUBLIC_DRIVE_AUTH_URI,
+  token_uri: process.env.NEXT_PUBLIC_DRIVE_TOKEN_URI,
+  auth_provider_x509_cert_url:
+    process.env.NEXT_PUBLIC_DRIVE_AUTH_PROVIDER_CERT_URL,
+  client_x509_cert_url: process.env.NEXT_PUBLIC_DRIVE_CLIENT_CERT_URL,
   universe_domain: "googleapis.com",
 };
 
