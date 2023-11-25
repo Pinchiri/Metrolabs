@@ -1,11 +1,8 @@
-import { google } from "googleapis";
 import { NextResponse } from "next/server";
-import { credentials, spreadsheetId } from "../../googleConfig";
 import { deleteSheetRow } from "../../sheetsFunctions";
 
 const sheetId = 2066205311;
 
-// Función para manejar la solicitud DELETE
 export async function POST(request) {
   try {
     const body = await request.json();

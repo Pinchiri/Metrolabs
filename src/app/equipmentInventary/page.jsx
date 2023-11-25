@@ -13,6 +13,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import Footer from "@/components/Footer/Footer";
 import { professorFooterLinks } from "@/utils/footerUtils/professorFooterLinks";
+import { equipmentDeleteURL } from "../api/routesURLs";
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
@@ -57,7 +58,7 @@ const SheetComponent = () => {
     const confirmDelete = window.confirm("¿Seguro que desea eliminar el ítem?");
     if (confirmDelete) {
       try {
-        const response = await fetch(`/api/sheetsEquipmentDelete`, {
+        const response = await fetch(equipmentDeleteURL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

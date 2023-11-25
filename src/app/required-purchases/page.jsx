@@ -15,6 +15,7 @@ import Footer from "@/components/Footer/Footer";
 import { professorFooterLinks } from "@/utils/footerUtils/professorFooterLinks";
 import {
   getRequiredPurchasesURL,
+  requiredPurchasesDeleteURL,
   requiredPurchasesURL,
 } from "../api/routesURLs";
 
@@ -85,7 +86,7 @@ const SheetComponent = () => {
     const confirmDelete = window.confirm("¿Seguro que desea eliminar el ítem?");
     if (confirmDelete) {
       try {
-        const response = await fetch(`/api/sheetsRequirePurchaseDelete`, {
+        const response = await fetch(requiredPurchasesDeleteURL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

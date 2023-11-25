@@ -12,6 +12,7 @@ import Footer from "@/components/Footer/Footer";
 import { professorFooterLinks } from "@/utils/footerUtils/professorFooterLinks";
 import Toast from "@/components/Toaster/Toast";
 import { useToaster } from "@/components/Toaster/hooks/useToaster.jsx";
+import { classesDeleteURL } from "../api/routesURLs";
 
 export default function ManageClasses() {
   const { isVisible, showToast, toasterProperties, setToasterProperties } =
@@ -95,7 +96,7 @@ export default function ManageClasses() {
     if (confirmDelete) {
       setLoading(true);
       try {
-        const response = await fetch("/api/sheetsClassesDelete", {
+        const response = await fetch(classesDeleteURL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
