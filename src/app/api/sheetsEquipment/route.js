@@ -1,53 +1,27 @@
-import { google } from "googleapis";
 import { NextResponse } from "next/server";
-import { credentials, spreadsheetId } from "../googleConfig";
 import { revalidatePath } from "next/cache";
 import { NextRequest } from "next/server";
+import { getSheetData } from "../sheetsFunctions";
 
-const auth = new google.auth.GoogleAuth({
-  credentials: credentials,
-  scopes: ["https://www.googleapis.com/auth/drive.readonly"],
-});
+const range = "Equipos!A4:K";
 
-const sheets = google.sheets({ version: "v4", auth });
+const endpointAttributes = [
+  "equipment",
+  "brand",
+  "model",
+  "quantity",
+  "ubication",
+  "userManual",
+  "frequency",
+  "date",
+  "observations",
+];
 
-async function getSheetData() {
-  try {
-    const range = "Equipos!A4:K"; // Ajusta según tu rango necesario
-    const response = await sheets.spreadsheets.values.get({
-      spreadsheetId: spreadsheetId,
-      range: range,
-    });
-
-    const rows = response.data.values;
-    if (!rows || rows.length === 0) {
-      throw new Error("No data found.");
-    }
-
-    // Procesa y devuelve los datos según sea necesario
-    return rows.map((row) => {
-      return {
-        // Ajusta de acuerdo a tus columnas
-        equipment: row[1],
-        brand: row[2],
-        model: row[3],
-        quantity: row[4],
-        ubication: row[5],
-        userManual: row[6],
-        frequency: row[7],
-        date: row[8],
-        observations: row[9],
-      };
-    });
-  } catch (error) {
-    console.error("The API returned an error: " + error);
-    throw error;
-  }
-}
+const rowStart = 1;
 
 export async function GET(request) {
   try {
-    const data = await getSheetData();
+    const data = await getSheetData(range, endpointAttributes, rowStart);
     const path = request.nextUrl.searchParams.get("path");
     if (path) {
       revalidatePath(path);

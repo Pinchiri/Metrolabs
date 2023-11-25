@@ -1,18 +1,9 @@
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
-import { credentials, spreadsheetId } from "../googleConfig";
-
-const auth = new google.auth.GoogleAuth({
-  credentials: credentials,
-  scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-});
-
-const sheets = google.sheets({ version: "v4", auth });
+import { credentials, googleSheets, spreadsheetId } from "../../googleConfig";
 
 async function updateSheetData(rowIndex, rowData) {
   try {
-    console.log(rowData);
-
     const range = `Materiales!A${rowIndex}:K${2 + rowIndex}`;
     const valueInputOption = "RAW";
     const rowBlank = "";
@@ -29,7 +20,7 @@ async function updateSheetData(rowIndex, rowData) {
       ],
     ];
 
-    const response = await sheets.spreadsheets.values.update({
+    const response = await googleSheets.spreadsheets.values.update({
       spreadsheetId: spreadsheetId,
       range: range,
       valueInputOption: valueInputOption,

@@ -1,3 +1,5 @@
+import { google } from "googleapis";
+
 export const credentials = {
   type: "service_account",
   project_id: process.env.NEXT_PUBLIC_DRIVE_PROJECT_ID,
@@ -14,3 +16,23 @@ export const credentials = {
 };
 
 export const spreadsheetId = "1_-0ao8kLOr21E8BmrkSjEBMM3sKJvMp92yK8DYZWkO0";
+
+export const googleSheetsAuth = new google.auth.GoogleAuth({
+  credentials: credentials,
+  scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+});
+
+export const googleSheets = google.sheets({
+  version: "v4",
+  auth: googleSheetsAuth,
+});
+
+export const googleDriveAuth = new google.auth.GoogleAuth({
+  credentials: credentials,
+  scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+});
+
+export const googleDrive = google.drive({
+  version: "v3",
+  auth: googleDriveAuth,
+});

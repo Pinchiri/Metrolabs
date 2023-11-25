@@ -13,6 +13,11 @@ import { ModalCreateMaterial } from "./modalCreate";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import Footer from "@/components/Footer/Footer";
 import { professorFooterLinks } from "@/utils/footerUtils/professorFooterLinks";
+import {
+  materialDeleteURL,
+  materialURL,
+  materialUpdateURL,
+} from "../api/routesURLs";
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
@@ -30,7 +35,7 @@ const SheetComponent = () => {
   const updateData = async (rowIndex, rowData) => {
     rowIndex = rowIndex + 4;
     try {
-      const response = await fetch("/api/sheetsMaterialUpdate", {
+      const response = await fetch(materialUpdateURL, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -57,7 +62,7 @@ const SheetComponent = () => {
     const confirmDelete = window.confirm("¿Seguro que desea eliminar el ítem?");
     if (confirmDelete) {
       try {
-        const response = await fetch(`/api/sheetsMaterialDelete`, {
+        const response = await fetch(materialDeleteURL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -85,7 +90,7 @@ const SheetComponent = () => {
     setToasterVisible(false);
     setLoading(true);
     try {
-      const response = await fetch("/api/sheetsMaterial");
+      const response = await fetch(materialURL);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }

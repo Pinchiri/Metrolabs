@@ -1,50 +1,24 @@
-import { google } from "googleapis";
 import { NextResponse } from "next/server";
-import { credentials, spreadsheetId } from "../googleConfig";
 import { revalidatePath } from "next/cache";
 import { NextRequest } from "next/server";
+import { getSheetData } from "../sheetsFunctions";
 
-const auth = new google.auth.GoogleAuth({
-  credentials: credentials,
-  scopes: ["https://www.googleapis.com/auth/drive.readonly"],
-});
+const range = "Horario de Clases!A4:G";
 
-const sheets = google.sheets({ version: "v4", auth });
+const endpointAttributes = [
+  "className",
+  "professor",
+  "trimester",
+  "day",
+  "start",
+  "end",
+];
 
-async function getSheetData() {
+const rowStart = 1;
+
+export async function GET(request) {
   try {
-    const range = "Horario de Clases!A4:G"; // Ajusta según tu rango necesario
-    const response = await sheets.spreadsheets.values.get({
-      spreadsheetId: spreadsheetId,
-      range: range,
-    });
-
-    const rows = response.data.values;
-    if (!rows || rows.length === 0) {
-      throw new Error("No data found.");
-    }
-
-    // Procesa y devuelve los datos según sea necesario
-    return rows.map((row) => {
-      return {
-        // Ajusta de acuerdo a tus columnas
-        className: row[1],
-        professor: row[2],
-        trimester: row[3],
-        day: row[4],
-        start: row[5],
-        end: row[6],
-      };
-    });
-  } catch (error) {
-    console.error("The API returned an error: " + error);
-    throw error;
-  }
-}
-
-export async function GET(req) {
-  try {
-    const data = await getSheetData();
+    const data = await getSheetData(range, endpointAttributes, rowStart);
     const path = request.nextUrl.searchParams.get("path");
     if (path) {
       revalidatePath(path);

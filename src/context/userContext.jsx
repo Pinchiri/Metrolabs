@@ -23,7 +23,7 @@ export const UserProvider = ({ children }) => {
         const isProfessor =
           user.email.endsWith("@unimet.edu.ve") ||
           user.email == "erika.hernandez@correo.unimet.edu.ve" ||
-          user.email == "angel.granado@correo.unimet.edu.ve";
+          user.email == "rolando.sorrentino@correo.unimet.edu.ve";
         setCurrentUser({ ...user, isProfessor });
       }
       setIsUserLoading(false);

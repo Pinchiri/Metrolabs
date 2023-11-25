@@ -1,6 +1,6 @@
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
-import { credentials, spreadsheetId } from "../googleConfig";
+import { credentials, spreadsheetId } from "../../googleConfig";
 
 // Configuración de autenticación
 const auth = new google.auth.GoogleAuth({

@@ -14,6 +14,7 @@ import StudentRoute from "@/StudentRoute/StudentRoute";
 import Footer from "@/components/Footer/Footer";
 import useStudentFooterLinks from "@/utils/footerUtils/hooks/useStudentFooterLinks";
 import ReservationCard from "@/components/ReservationCard/ReservationCard";
+import { sheetsReservationsURL } from "../api/routesURLs";
 
 const Reservations = () => {
   const router = useRouter();
@@ -37,7 +38,7 @@ const Reservations = () => {
     setToasterVisible(false);
     setLoading(true);
     try {
-      const response = await fetch("/api/sheetsReservations");
+      const response = await fetch(sheetsReservationsURL);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }

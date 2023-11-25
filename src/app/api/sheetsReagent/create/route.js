@@ -1,6 +1,6 @@
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
-import { credentials, spreadsheetId } from "../googleConfig";
+import { credentials, spreadsheetId } from "../../googleConfig";
 
 const auth = new google.auth.GoogleAuth({
   credentials: credentials,
@@ -11,13 +11,16 @@ const sheets = google.sheets({ version: "v4", auth });
 
 async function updateSheetData(body) {
   try {
-    const range = `Materiales!B:G`;
+    const range = `Reactivos!B:K`;
     const values = [
       [
-        body.formData.material,
-        body.formData.capacity,
+        body.formData.reactive,
+        body.formData.formule,
+        body.formData.cas,
         body.formData.brand,
+        body.formData.concentration,
         body.formData.quantity,
+        body.formData.risk,
         body.formData.ubication,
         body.formData.observations,
       ],
@@ -30,7 +33,7 @@ async function updateSheetData(body) {
       resource: { values },
     });
 
-    return response;
+    return responses;
   } catch (error) {
     console.error("The API returned an error: " + error);
     throw error;

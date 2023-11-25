@@ -1,51 +1,23 @@
-import { google } from "googleapis";
 import { NextResponse } from "next/server";
-import { credentials, spreadsheetId } from "../googleConfig";
 import { revalidatePath } from "next/cache";
 import { NextRequest } from "next/server";
+import { getSheetData } from "../sheetsFunctions";
 
-const auth = new google.auth.GoogleAuth({
-  credentials: credentials,
-  scopes: ["https://www.googleapis.com/auth/drive.readonly"],
-});
+const range = "Compras requeridas!A4:G";
 
-const sheets = google.sheets({ version: "v4", auth });
-
-async function getSheetData() {
-  try {
-    const range = "Compras requeridas!A4:G";
-    const response = await sheets.spreadsheets.values.get({
-      spreadsheetId: spreadsheetId,
-      range: range,
-    });
-
-    const rows = response.data.values;
-    if (!rows || rows.length === 0) {
-      throw new Error("No data found.");
-    }
-
-    // Se Procesan y se devuelven los datos según sea necesario
-    return rows.map((row) => {
-      return {
-        // Se ajustan las columnas
-        material: row[0],
-        capacity: row[1],
-        brand: row[2],
-        quantity: row[3],
-        price: row[4],
-        status: row[5],
-        observations: row[6],
-      };
-    });
-  } catch (error) {
-    console.error("The API returned an error: " + error);
-    throw error;
-  }
-}
+const endpointAttributes = [
+  "material",
+  "capacity",
+  "brand",
+  "quantity",
+  "price",
+  "status",
+  "observations",
+];
 
 export async function GET(request) {
   try {
-    const data = await getSheetData();
+    const data = await getSheetData(range, endpointAttributes);
     const path = request.nextUrl.searchParams.get("path");
     if (path) {
       revalidatePath(path);

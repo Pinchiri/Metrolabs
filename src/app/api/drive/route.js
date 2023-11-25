@@ -1,20 +1,13 @@
 import { google } from "googleapis";
 import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
-import { credentials } from "../googleConfig";
+import { googleDrive } from "../googleConfig";
 import { revalidatePath } from "next/cache";
 import { NextRequest } from "next/server";
 
-const auth = new google.auth.GoogleAuth({
-  credentials: credentials,
-  scopes: ["https://www.googleapis.com/auth/drive.readonly"],
-});
-
-const drive = google.drive({ version: "v3", auth });
-
 export async function GET(request) {
   try {
-    const fileList = await drive.files.list({
+    const fileList = await googleDrive.files.list({
       q: "mimeType='application/pdf' and name contains 'Manual'",
     });
 
