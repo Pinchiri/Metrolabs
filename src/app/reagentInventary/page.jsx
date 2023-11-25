@@ -13,7 +13,11 @@ import { ModalCreateReagent } from "./modalCreate";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import Footer from "@/components/Footer/Footer";
 import { professorFooterLinks } from "@/utils/footerUtils/professorFooterLinks";
-import { reagentDeleteURL } from "../api/routesURLs";
+import {
+  reagentDeleteURL,
+  reagentURL,
+  reagentUpdateURL,
+} from "../api/routesURLs";
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
@@ -31,7 +35,7 @@ const SheetComponent = () => {
   const updateData = async (rowIndex, rowData) => {
     rowIndex = rowIndex + 4;
     try {
-      const response = await fetch("/api/sheetsReagentUpdate", {
+      const response = await fetch(reagentUpdateURL, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -57,7 +61,7 @@ const SheetComponent = () => {
     setToasterVisible(false);
     setLoading(true);
     try {
-      const response = await fetch("/api/sheetsReagent");
+      const response = await fetch(reagentURL);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }

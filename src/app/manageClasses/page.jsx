@@ -12,7 +12,11 @@ import Footer from "@/components/Footer/Footer";
 import { professorFooterLinks } from "@/utils/footerUtils/professorFooterLinks";
 import Toast from "@/components/Toaster/Toast";
 import { useToaster } from "@/components/Toaster/hooks/useToaster.jsx";
-import { classesDeleteURL } from "../api/routesURLs";
+import {
+  classesDeleteURL,
+  classesURL,
+  classesUpdateURL,
+} from "../api/routesURLs";
 
 export default function ManageClasses() {
   const { isVisible, showToast, toasterProperties, setToasterProperties } =
@@ -31,7 +35,7 @@ export default function ManageClasses() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/sheetsClasses");
+      const response = await fetch(classesURL);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -54,7 +58,7 @@ export default function ManageClasses() {
     setLoading(true);
     rowIndex = rowIndex + 4;
     try {
-      const response = await fetch("/api/sheetsClassesUpdate", {
+      const response = await fetch(classesUpdateURL, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

@@ -13,7 +13,11 @@ import { ModalCreatePurchase } from "./modalCreate";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import Footer from "@/components/Footer/Footer";
 import { professorFooterLinks } from "@/utils/footerUtils/professorFooterLinks";
-import { researchDeleteURL } from "../api/routesURLs";
+import {
+  researchDeleteURL,
+  researchURL,
+  researchUpdateURL,
+} from "../api/routesURLs";
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
@@ -32,7 +36,7 @@ const SheetComponent = () => {
     setToasterVisible(false);
     setLoading(true);
     try {
-      const response = await fetch("/api/sheetsResearch");
+      const response = await fetch(researchURL);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -55,7 +59,7 @@ const SheetComponent = () => {
   const updateData = async (rowIndex, rowData) => {
     rowIndex = rowIndex + 4;
     try {
-      const response = await fetch("/api/sheetsResearchUpdate", {
+      const response = await fetch(researchUpdateURL, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

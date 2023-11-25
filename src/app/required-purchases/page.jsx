@@ -17,6 +17,7 @@ import {
   getRequiredPurchasesURL,
   requiredPurchasesDeleteURL,
   requiredPurchasesURL,
+  requiredPurchasesUpdateURL,
 } from "../api/routesURLs";
 
 const SheetComponent = () => {
@@ -59,7 +60,7 @@ const SheetComponent = () => {
   const updateData = async (rowIndex, rowData) => {
     rowIndex = rowIndex + 4;
     try {
-      const response = await fetch("/api/sheetsRequirePurchaseUpdate", {
+      const response = await fetch(requiredPurchasesUpdateURL, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
