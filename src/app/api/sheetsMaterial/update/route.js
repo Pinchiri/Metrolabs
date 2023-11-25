@@ -1,16 +1,22 @@
-import { google } from "googleapis";
 import { NextResponse } from "next/server";
-import { credentials, googleSheets, spreadsheetId } from "../../googleConfig";
+import { updateSheetData } from "../../sheetsFunctions";
 
-async function updateSheetData(rowIndex, rowData) {
+const sheetName = "Materiales";
+
+const startColumn = "B";
+
+const endColumn = "G";
+
+const valueInputOption = "RAW";
+
+export async function PUT(request) {
   try {
-    const range = `Materiales!A${rowIndex}:K${2 + rowIndex}`;
-    const valueInputOption = "RAW";
-    const rowBlank = "";
+    const body = await request.json();
+
+    const { rowIndex, rowData } = body;
 
     const values = [
       [
-        rowBlank,
         rowData.material,
         rowData.capacity,
         rowData.brand,
@@ -20,30 +26,14 @@ async function updateSheetData(rowIndex, rowData) {
       ],
     ];
 
-    const response = await googleSheets.spreadsheets.values.update({
-      spreadsheetId: spreadsheetId,
-      range: range,
-      valueInputOption: valueInputOption,
-      resource: { values },
-    });
-
-    return response.data;
-  } catch (error) {
-    console.error("The API returned an error: " + error);
-    throw error;
-  }
-}
-
-export async function PUT(request) {
-  try {
-    const body = await request.json();
-
-    const { rowIndex, rowData } = body;
-
-    console.log(rowData);
-    console.log(rowIndex);
-
-    const result = await updateSheetData(rowIndex, rowData);
+    const result = await updateSheetData(
+      rowIndex,
+      values,
+      sheetName,
+      valueInputOption,
+      startColumn,
+      endColumn
+    );
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
     console.error(error);

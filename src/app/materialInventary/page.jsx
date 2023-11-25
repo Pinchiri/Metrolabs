@@ -229,7 +229,7 @@ const SheetComponent = () => {
                   material={item.material}
                   capacity={item.capacity}
                   brand={item.brand}
-                  quantity={item.brand}
+                  quantity={item.quantity}
                   ubication={item.ubication}
                   observations={item.observations}
                   setEditIndex={setEditIndex}

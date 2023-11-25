@@ -10,7 +10,6 @@ const auth = new google.auth.GoogleAuth({
 
 const sheets = google.sheets({ version: "v4", auth });
 
-// Función para eliminar una fila
 async function deleteRow(rowIndex) {
   try {
     const requests = [
@@ -36,7 +35,6 @@ async function deleteRow(rowIndex) {
   }
 }
 
-// Función para manejar la solicitud DELETE
 export async function POST(request) {
   try {
     const body = await request.json();

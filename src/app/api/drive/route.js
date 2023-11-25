@@ -1,5 +1,3 @@
-import { google } from "googleapis";
-import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 import { googleDrive } from "../googleConfig";
 import { revalidatePath } from "next/cache";

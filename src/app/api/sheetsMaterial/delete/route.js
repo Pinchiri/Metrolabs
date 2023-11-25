@@ -1,40 +1,9 @@
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
 import { credentials, spreadsheetId } from "../../googleConfig";
+import { deleteSheetRow } from "../../sheetsFunctions";
 
-// Configuración de autenticación
-const auth = new google.auth.GoogleAuth({
-  credentials: credentials,
-  scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-});
-
-const sheets = google.sheets({ version: "v4", auth });
-
-// Función para eliminar una fila
-async function deleteRow(rowIndex) {
-  try {
-    const requests = [
-      {
-        deleteDimension: {
-          range: {
-            sheetId: 2066205311,
-            dimension: "ROWS",
-            startIndex: rowIndex - 1,
-            endIndex: rowIndex,
-          },
-        },
-      },
-    ];
-
-    await sheets.spreadsheets.batchUpdate({
-      spreadsheetId: spreadsheetId,
-      resource: { requests },
-    });
-  } catch (error) {
-    console.error("Error al eliminar la fila: " + error);
-    throw error;
-  }
-}
+const sheetId = 2066205311;
 
 // Función para manejar la solicitud DELETE
 export async function POST(request) {
@@ -42,7 +11,7 @@ export async function POST(request) {
     const body = await request.json();
     const { rowIndex } = body;
 
-    await deleteRow(rowIndex);
+    await deleteSheetRow(rowIndex, sheetId);
 
     return NextResponse.json(
       { message: "Fila eliminada con éxito" },

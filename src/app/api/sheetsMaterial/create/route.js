@@ -1,6 +1,5 @@
-import { google } from "googleapis";
 import { NextResponse } from "next/server";
-import { updateSheetData } from "../../sheetsFunctions";
+import { appendSheetData } from "../../sheetsFunctions";
 
 const range = `Materiales!B:G`;
 
@@ -9,15 +8,15 @@ export async function POST(request) {
     const body = await request.json();
     const values = [
       [
-        body.formData?.material,
-        body.formData?.capacity,
-        body.formData?.brand,
-        body.formData?.quantity,
-        body.formData?.ubication,
-        body.formData?.observations,
+        body.formData.material,
+        body.formData.capacity,
+        body.formData.brand,
+        body.formData.quantity,
+        body.formData.ubication,
+        body.formData.observations,
       ],
     ];
-    const result = await updateSheetData(range, values);
+    const result = await appendSheetData(range, values);
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
     console.error("Error: " + error.message);
