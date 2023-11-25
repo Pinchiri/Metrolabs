@@ -13,6 +13,10 @@ import { ModalCreatePurchase } from "./modalCreate";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import Footer from "@/components/Footer/Footer";
 import { professorFooterLinks } from "@/utils/footerUtils/professorFooterLinks";
+import {
+  getRequiredPurchasesURL,
+  requiredPurchasesURL,
+} from "../api/routesURLs";
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
@@ -31,7 +35,7 @@ const SheetComponent = () => {
     setToasterVisible(false);
     setLoading(true);
     try {
-      const response = await fetch("/api/sheetsRequirePurchase");
+      const response = await fetch(getRequiredPurchasesURL);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -81,7 +85,7 @@ const SheetComponent = () => {
     const confirmDelete = window.confirm("¿Seguro que desea eliminar el ítem?");
     if (confirmDelete) {
       try {
-        const response = await fetch(`/api/sheetsResearchDelete`, {
+        const response = await fetch(`/api/sheetsRequirePurchaseDelete`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

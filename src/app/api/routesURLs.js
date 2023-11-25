@@ -32,7 +32,7 @@ export const equipmentUpdateURL = "/api/sheetsEquipment/update";
 export const equipmentDeleteURL = "/api/sheetsEquipment/delete";
 
 // Required Purchases
-export const requiredPurchasesURL = "/api/sheetsRequiredPurchases";
+export const getRequiredPurchasesURL = "/api/sheetsRequiredPurchases";
 export const requiredPurchasesCreateURL = "/api/sheetsRequiredPurchases/create";
 export const requiredPurchasesUpdateURL = "/api/sheetsRequiredPurchases/update";
 export const requiredPurchasesDeleteURL = "/api/sheetsRequiredPurchases/delete";

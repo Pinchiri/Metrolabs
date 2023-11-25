@@ -10,8 +10,14 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import Toaster from "@/components/toast/toaster";
-import { frecuencyLabels } from "./comboBoxData";
-import { equipmentCreateURL } from "../api/routesURLs";
+import { requiredPurchasesCreateURL } from "../api/routesURLs";
+
+// Valores del comboBox de status
+const statusLabels = [
+  { label: "Pendiente", status: "Pediente" },
+  { label: "Solicitado", status: "Solicitado" },
+  { label: "Comprado", status: "Comprado" },
+];
 
 // Estilos de la ventana Modal
 const style = {
@@ -29,19 +35,17 @@ const style = {
 };
 
 // Componente de la ventana Modal PPD
-export const ModalCreateEquipment = ({ open, setOpen }) => {
+export const ModalCreatePurchase = ({ open, setOpen }) => {
   const [toasterVisible, setToasterVisible] = useState(false);
 
   // Valores del formulario
   const [formData, setFormData] = useState({
-    equipment: "",
+    material: "",
+    capacity: "",
     brand: "",
-    model: "",
     quantity: "",
-    ubication: "",
-    userManual: "",
-    frecuency: "",
-    date: "",
+    price: "",
+    status: "",
     observations: "",
   });
 
@@ -62,7 +66,7 @@ export const ModalCreateEquipment = ({ open, setOpen }) => {
   // Manejador de envío de datos al servidor
   const handleSubmit = async () => {
     try {
-      const response = await fetch(equipmentCreateURL, {
+      const response = await fetch(requiredPurchasesCreateURL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -85,14 +89,12 @@ export const ModalCreateEquipment = ({ open, setOpen }) => {
       handleClose();
     }
     setFormData({
-      equipment: "",
+      material: "",
+      capacity: "",
       brand: "",
-      model: "",
       quantity: "",
-      ubication: "",
-      userManual: "",
-      frecuency: "",
-      date: "",
+      price: "",
+      status: "",
       observations: "",
     });
   };
@@ -124,7 +126,7 @@ export const ModalCreateEquipment = ({ open, setOpen }) => {
               className="text-sm md:text-lg lg:text-xl"
               style={{ fontWeight: "bold", fontFamily: "B612, sans-serif" }}
             >
-              Añadir nuevo Equipo al inventario
+              Añadir nuevo requerimiento de compra
             </Typography>
 
             <Button onClick={handleClose}>
@@ -133,24 +135,40 @@ export const ModalCreateEquipment = ({ open, setOpen }) => {
             </Button>
           </div>
 
-          {/* Añadir Material */}
+          {/* Añadir material */}
           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3 mt-4">
             <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2">
               {" "}
-              Equipo:{" "}
+              Material:{" "}
             </h3>
             <input
-              name="equipment"
-              value={formData.equipment}
+              name="material"
+              value={formData.material}
               onChange={handleChange}
               className="rounded-lg p-2 hover:border-2 hover:border-amber-300"
-              placeholder="Nombre del material..."
+              placeholder="Añadir un material requerido...."
               type="text"
             />
           </div>
 
-          {/* Añadir Marca */}
+          {/* Añadir capacidad */}
           <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
+            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2">
+              {" "}
+              Capacidad:{" "}
+            </h3>
+            <input
+              name="capacity"
+              value={formData.capacity}
+              onChange={handleChange}
+              className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+              placeholder="Añada la capacidad...."
+              type="text"
+            />
+          </div>
+
+          {/* Añadir marca */}
+          <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
             <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2">
               {" "}
               Marca:{" "}
@@ -159,29 +177,13 @@ export const ModalCreateEquipment = ({ open, setOpen }) => {
               name="brand"
               value={formData.brand}
               onChange={handleChange}
-              className="rounded-lg p-2 hover:border-2 hover:border-amber-300"
-              placeholder="Nombre de la marca..."
+              className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
+              placeholder="Añadir una marca...."
               type="text"
             />
           </div>
 
-          {/* Añadir Modelo */}
-          <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
-            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2">
-              {" "}
-              Modelo:{" "}
-            </h3>
-            <input
-              name="model"
-              value={formData.model}
-              onChange={handleChange}
-              className="rounded-lg p-2 hover:border-2 hover:border-amber-300"
-              placeholder="Nombre del modelo..."
-              type="text"
-            />
-          </div>
-
-          {/* Añadir Quantity */}
+          {/* Añadir cantidad */}
           <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
             <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2">
               {" "}
@@ -192,37 +194,37 @@ export const ModalCreateEquipment = ({ open, setOpen }) => {
               value={formData.quantity}
               onChange={handleChange}
               className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-              placeholder="Cantidad..."
+              placeholder="Añadir una cantidad...."
               type="number"
             />
           </div>
 
-          {/* Añadir Manual de Usuario */}
+          {/* Añadir precio */}
           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
             <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2">
               {" "}
-              Manual de Usuario:{" "}
+              Precio:{" "}
             </h3>
             <input
-              name="userManual"
-              value={formData.userManual}
+              name="price"
+              value={formData.price}
               onChange={handleChange}
-              placeholder="Añada el manual de usario..."
               className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-              type="file"
+              placeholder="Añadir un precio...."
+              type="text"
             />
           </div>
 
-          {/* Añadir Frecuencia */}
+          {/* Añadir Status */}
           <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
             <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2">
               {" "}
-              Frecuencia Mant:{" "}
+              Status:{" "}
             </h3>
             <Autocomplete
               disablePortal
               id="status-autocomplete"
-              options={frecuencyLabels}
+              options={statusLabels}
               sx={{
                 height: "50px",
                 width: "100%",
@@ -239,40 +241,24 @@ export const ModalCreateEquipment = ({ open, setOpen }) => {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  placeholder="Selecciona una frecuencia"
+                  placeholder="Selecciona un estado"
                 />
               )}
             />
           </div>
 
-          {/* Añadir último mantenimiento */}
+          {/* Añadir Comentarios */}
           <div className="grid grid-cols-2 bg-[#F7F6F5] rounded-lg p-3 mb-3">
             <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2">
               {" "}
-              Fecha último Mant:{" "}
-            </h3>
-            <input
-              name="date"
-              value={formData.date}
-              onChange={handleChange}
-              className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-              placeholder="Añada el último mantenimiento"
-              type="date"
-            />
-          </div>
-
-          {/* Añadir Observaciones */}
-          <div className="grid grid-cols-2 bg-[#FFF8E4] rounded-lg p-3 mb-3">
-            <h3 className="font-bold text-sm md:text-lg lg:text-xl mt-2">
-              {" "}
-              Observaciones:{" "}
+              Comentarios:{" "}
             </h3>
             <input
               name="observations"
               value={formData.observations}
               onChange={handleChange}
               className=" rounded-lg p-2 hover:border-2 hover:border-amber-300"
-              placeholder="Añada las ultimas observaciones"
+              placeholder="Añadir una observación...."
               type="text"
             />
           </div>

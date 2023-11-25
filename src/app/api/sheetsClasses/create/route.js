@@ -1,19 +1,20 @@
 import { NextResponse } from "next/server";
 import { appendSheetData } from "../../sheetsFunctions";
 
-const range = `Horario de Clases!B:G`;
+const range = "Horario de Clases!B:G";
 
 export async function POST(request) {
   try {
     const body = await request.json();
+
     const values = [
       [
-        body.className,
-        body.professor,
-        body.trimester,
-        body.day,
-        body.start,
-        body.end,
+        body.formData.className,
+        body.formData.professor,
+        body.formData.trimester,
+        body.formData.day,
+        body.formData.start,
+        body.formData.end,
       ],
     ];
     const result = await appendSheetData(range, values);

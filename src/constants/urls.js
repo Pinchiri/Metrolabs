@@ -1,11 +1,14 @@
 //NOTE - Page URLs
 export const homeURL = "/";
+export const loginURL = "/login";
 export const guidesURL = "/guides";
 export const labURL = "/lab";
 export const schedulesURL = "/classSchedules";
 export const studentPanelURL = "/student-panel";
 export const professorPanelURL = "/professor-panel";
 export const reservationsURL = "/reservations";
+export const requiredPurchasesURL = "/required-purchases";
+export const researchInvestigationsURL = "/research-investigations";
 
 //NOTE - Google Form Links
 export const spacesAndEquipmentForm =

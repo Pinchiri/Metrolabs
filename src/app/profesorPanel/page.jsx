@@ -4,6 +4,7 @@ import { auth } from "../../../firebase.js";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import ProfesorPanelView from "./profesorPanelView.jsx";
+import { loginURL } from "@/constants/urls.js";
 
 const ProfesorPanel = () => {
   const [name, setName] = useState("");
@@ -14,7 +15,7 @@ const ProfesorPanel = () => {
       if (firebaseUser) {
         setName(firebaseUser.displayName);
       } else {
-        router.push("/login");
+        router.push(loginURL);
       }
     });
     return () => unsubscribe();

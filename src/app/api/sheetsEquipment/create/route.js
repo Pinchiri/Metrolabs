@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { appendSheetData } from "../../sheetsFunctions";
 
-const range = `Reactivos!B:K`;
+const range = `Equipos!B:K`;
 
 export async function POST(request) {
   try {
@@ -9,18 +9,17 @@ export async function POST(request) {
 
     const values = [
       [
-        body.formData.reactive,
-        body.formData.formule,
-        body.formData.cas,
+        body.formData.equipment,
         body.formData.brand,
-        body.formData.concentration,
+        body.formData.model,
         body.formData.quantity,
-        body.formData.risk,
         body.formData.ubication,
+        body.formData.userManual,
+        body.formData.frecuency,
+        body.formData.date,
         body.formData.observations,
       ],
     ];
-
     const result = await appendSheetData(range, values);
     return NextResponse.json(result, { status: 200 });
   } catch (error) {

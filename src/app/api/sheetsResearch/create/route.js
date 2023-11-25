@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { appendSheetData } from "../../sheetsFunctions";
 
-const range = `Reactivos!B:K`;
+const range = `Investigación!B:F`;
 
 export async function POST(request) {
   try {
@@ -9,14 +9,10 @@ export async function POST(request) {
 
     const values = [
       [
-        body.formData.reactive,
-        body.formData.formule,
-        body.formData.cas,
-        body.formData.brand,
-        body.formData.concentration,
-        body.formData.quantity,
-        body.formData.risk,
-        body.formData.ubication,
+        body.formData.students,
+        body.formData.tesis,
+        body.formData.startDate,
+        body.formData.endDate,
         body.formData.observations,
       ],
     ];

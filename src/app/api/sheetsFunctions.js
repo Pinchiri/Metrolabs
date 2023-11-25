@@ -7,7 +7,7 @@ export async function appendSheetData(range, values) {
       spreadsheetId: spreadsheetId,
       range: range,
       valueInputOption: "USER_ENTERED",
-      resource: { values },
+      resource: { values: values },
     });
 
     return response;
