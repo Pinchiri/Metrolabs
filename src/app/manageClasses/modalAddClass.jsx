@@ -17,6 +17,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import dayjs from "dayjs";
+import { classesCreateURL } from "../api/routesURLs";
 
 // Valores del comboBox de status
 const trimesterLabels = [
@@ -103,7 +104,7 @@ export const ModalAddClass = ({
     }
 
     try {
-      const response = await fetch("/api/sheetsClassesCreate", {
+      const response = await fetch(classesCreateURL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
