@@ -19,6 +19,8 @@ import {
   requiredPurchasesURL,
   requiredPurchasesUpdateURL,
 } from "../api/routesURLs";
+import { useToaster } from "@/components/Toaster/hooks/useToaster";
+import Toast from "@/components/Toaster/Toast";
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
@@ -28,13 +30,15 @@ const SheetComponent = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [editData, setEditData] = useState(null);
-  const [deleteIndex, setDeleteIndex] = useState(null);
+  const [deleteIndex, setDeleteIndex] = useState(-1);
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
+  const { isVisible, showToast, toasterProperties, setToasterProperties } =
+    useToaster();
+
   //Función para traer la data en GoogleSheets
   const fetchData = async () => {
-    setToasterVisible(false);
     setLoading(true);
     try {
       const response = await fetch(getRequiredPurchasesURL);
@@ -43,10 +47,12 @@ const SheetComponent = () => {
       }
       const data = await response.json();
 
-      const dataWithIndex = data.map((item, index) => ({
-        ...item,
-        originalIndex: index,
-      }));
+      const dataWithIndex = data
+        .map((item, index) => ({
+          ...item,
+          originalIndex: index,
+        }))
+        .reverse();
 
       setData(dataWithIndex);
     } catch (error) {
@@ -71,14 +77,18 @@ const SheetComponent = () => {
         throw new Error("Network response was not ok");
       }
       const result = await response.json();
-      fetchData();
-      setToasterVisible(true);
-      setTimeout(() => {
-        setToasterVisible(false);
-      }, 3000);
+      setToasterProperties({
+        toasterMessage: "Se ha editado la compra requerida",
+        typeColor: "success",
+      });
     } catch (error) {
+      setToasterProperties({
+        toasterMessage: "No se ha podido editar la compra requerida",
+        typeColor: "error",
+      });
       console.error("Failed to update data", error);
     }
+    showToast();
   };
 
   //Función para eliminar la data en GoogleSheets
@@ -94,36 +104,40 @@ const SheetComponent = () => {
           },
           body: JSON.stringify({ rowIndex }),
         });
+        setToasterProperties({
+          toasterMessage: "Se ha borrado la compra requerida",
+          typeColor: "success",
+        });
         if (!response.ok) {
-          console.log(response);
           throw new Error("Network response was not ok");
         }
-        fetchData();
-        setToasterVisible(true);
-        setTimeout(() => {
-          setToasterVisible(false);
-        }, 3000);
       } catch (error) {
+        setToasterProperties({
+          toasterMessage: "No se ha podido borrar la compra requerida",
+          typeColor: "error",
+        });
         console.error("Failed to delete data", error);
       }
     }
+    showToast();
+    setDeleteIndex(-1);
   };
 
   useEffect(() => {
     if (editIndex != null && editData != null) {
       updateData(editIndex, editData);
     }
-  }, [editIndex, editData]);
+  }, [editData]);
 
   useEffect(() => {
-    if (deleteIndex !== null) {
+    if (deleteIndex > -1) {
       deleteData(deleteIndex);
     }
   }, [deleteIndex]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [toasterProperties]);
 
   // Condicional para mostrar SPINNER de carga u error
   if (isLoading)
@@ -133,6 +147,7 @@ const SheetComponent = () => {
           <ArrowBackIcon
             onClick={() => router.back()}
             style={{ marginTop: "25px" }}
+            className="cursor-pointer hover:scale-110 transform-all"
           />
           <h1 className="font-['B612'] font-bold pt-5 text-3xl">
             Compras Requeridas
@@ -161,7 +176,14 @@ const SheetComponent = () => {
   return (
     <>
       <ProfessorRoute>
-        <div className="mt-20 ml-10 mr-7">
+        {isVisible && (
+          <Toast
+            message={toasterProperties.toasterMessage}
+            isVisible={isVisible}
+            typeColor={toasterProperties.typeColor}
+          />
+        )}
+        <div className="mt-20 ml-10 mr-7 mb-10">
           <div className="flex flex-row gap-3">
             <ArrowBackIcon
               onClick={() => router.back()}
@@ -183,7 +205,7 @@ const SheetComponent = () => {
             <input
               className="w-11/12 pl-11 mt-5 bg-[#FFF8E4] p-3 rounded-xl ml-2 "
               type="text"
-              placeholder="Buscar un reactivo...."
+              placeholder="Ingrese el Nombre del Material de una Compra Requerida"
               value={searchTerm}
               onChange={handleSearchChange}
             />
@@ -202,16 +224,18 @@ const SheetComponent = () => {
             <p className=" font-['B612'] font-bold text-xl">
               Lista de Materiales/ Equipos requeridos
             </p>
-            <div>
+            <div className="mb-20">
               <button
                 className="bg-manz-200 text-black font-bold py-2 px-4 rounded"
                 onClick={() => setOpen(true)}
               >
-                Agregar material
+                Agregar Compra requerida
               </button>
               <ModalCreatePurchase
                 open={open}
                 setOpen={setOpen}
+                setToasterProperties={setToasterProperties}
+                showToast={showToast}
               />
             </div>
           </div>
@@ -244,13 +268,6 @@ const SheetComponent = () => {
                 />
               ))
             )}
-          </div>
-          {/* Para Mostrar mensaje de exito */}
-          <div className="mt-20 ml-10 mr-7">
-            <Toaster
-              message="Lista actualizada"
-              isVisible={toasterVisible}
-            />
           </div>
 
           {/* Para mostrar no coincidencia en resultados */}

@@ -35,7 +35,12 @@ const style = {
 };
 
 // Componente de la ventana Modal PPD
-export const ModalCreatePurchase = ({ open, setOpen }) => {
+export const ModalCreatePurchase = ({
+  open,
+  setOpen,
+  setToasterProperties,
+  showToast,
+}) => {
   const [toasterVisible, setToasterVisible] = useState(false);
 
   // Valores del formulario
@@ -77,14 +82,24 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
       if (response.ok) {
         const result = await response.json();
         console.log("Resultado de Google Sheets:", result);
+        setToasterProperties({
+          toasterMessage: "Se ha agregado la compra requerida",
+          typeColor: "success",
+        });
         handleClose();
       } else {
         console.error("Error en el servidor al añadir fila");
-        console.log(response);
+        setToasterProperties({
+          toasterMessage: "No se ha podido agregar la compra requerida",
+          typeColor: "error",
+        });
         handleClose();
-        setToasterVisible(true);
       }
     } catch (error) {
+      setToasterProperties({
+        toasterMessage: "No se ha podido agregar la compra requerida",
+        typeColor: "error",
+      });
       console.error("Error al enviar datos al servidor:", error);
       handleClose();
     }
@@ -97,17 +112,8 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
       status: "",
       observations: "",
     });
+    showToast();
   };
-
-  useEffect(() => {
-    if (toasterVisible) {
-      const timer = setTimeout(() => {
-        setToasterVisible(false);
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [toasterVisible]);
 
   return (
     <div>
@@ -275,13 +281,6 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
           </div>
         </Box>
       </Modal>
-
-      <div className="mt-20 ml-10 mr-7">
-        <Toaster
-          message="Inventario actualizado"
-          isVisible={toasterVisible}
-        />
-      </div>
     </div>
   );
 };
