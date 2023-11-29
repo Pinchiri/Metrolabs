@@ -9,7 +9,7 @@ import Spinner from "@/components/Spinner/spinner";
 import Toaster from "@/components/toast/toaster";
 import ProfessorRoute from "@/ProfessorRoute/ProfessorRoute";
 import { useRouter } from "next/navigation";
-import { ModalCreatePurchase } from "./modalCreate";
+import { ModalCreateResearch } from "./modalCreate";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import Footer from "@/components/Footer/Footer";
 import { professorFooterLinks } from "@/utils/footerUtils/professorFooterLinks";
@@ -19,16 +19,16 @@ import {
   researchUpdateURL,
 } from "../api/routesURLs";
 import { useToaster } from "@/components/Toaster/hooks/useToaster";
+import Toast from "@/components/Toaster/Toast";
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
-  const [toasterVisible, setToasterVisible] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [editData, setEditData] = useState(null);
-  const [deleteIndex, setDeleteIndex] = useState(null);
+  const [deleteIndex, setDeleteIndex] = useState(-1);
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
@@ -37,7 +37,6 @@ const SheetComponent = () => {
 
   //Función para traer la data en GoogleSheets
   const fetchData = async () => {
-    setToasterVisible(false);
     setLoading(true);
     try {
       const response = await fetch(researchURL);
@@ -46,10 +45,12 @@ const SheetComponent = () => {
       }
       const data = await response.json();
 
-      const dataWithIndex = data.map((item, index) => ({
-        ...item,
-        originalIndex: index,
-      }));
+      const dataWithIndex = data
+        .map((item, index) => ({
+          ...item,
+          originalIndex: index,
+        }))
+        .reverse();
 
       setData(dataWithIndex);
     } catch (error) {
@@ -74,14 +75,18 @@ const SheetComponent = () => {
         throw new Error("Network response was not ok");
       }
       const result = await response.json();
-      fetchData();
-      setToasterVisible(true);
-      setTimeout(() => {
-        setToasterVisible(false);
-      }, 3000);
+      setToasterProperties({
+        toasterMessage: "Se ha editado el trabajo de investigación",
+        typeColor: "success",
+      });
     } catch (error) {
+      setToasterProperties({
+        toasterMessage: "No se ha podido editar el trabajo de investigación",
+        typeColor: "error",
+      });
       console.error("Failed to update data", error);
     }
+    showToast();
   };
 
   //Función para eliminar la data en GoogleSheets
@@ -101,20 +106,26 @@ const SheetComponent = () => {
           console.log(response);
           throw new Error("Network response was not ok");
         }
-        fetchData();
-        setToasterVisible(true);
-        setTimeout(() => {
-          setToasterVisible(false);
-        }, 3000);
+        setToasterProperties({
+          toasterMessage: "Se ha borrado el trabajo de investigación",
+          typeColor: "success",
+        });
       } catch (error) {
-        console.error("Failed to delete data", error);
+        setToasterProperties({
+          toasterMessage: "No se ha podido borrar el trabajo de investigación",
+          typeColor: "error",
+        });
+
+        console.error("Failed to update data", error);
       }
     }
+    showToast();
+    setDeleteIndex(-1);
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [toasterProperties]);
 
   useEffect(() => {
     if (editIndex !== null && editData !== null) {
@@ -123,7 +134,7 @@ const SheetComponent = () => {
   }, [editIndex, editData]);
 
   useEffect(() => {
-    if (deleteIndex !== null) {
+    if (deleteIndex > -1) {
       deleteData(deleteIndex);
     }
   }, [deleteIndex]);
@@ -164,11 +175,19 @@ const SheetComponent = () => {
   return (
     <>
       <ProfessorRoute>
-        <div className="mt-20 ml-10 mr-7">
+        {isVisible && (
+          <Toast
+            message={toasterProperties.toasterMessage}
+            isVisible={isVisible}
+            typeColor={toasterProperties.typeColor}
+          />
+        )}
+        <div className="mt-20 ml-10 mr-7 mb-10">
           <div className="flex flex-row gap-3">
             <ArrowBackIcon
               onClick={() => router.back()}
               style={{ marginTop: "25px" }}
+              className="cursor-pointer hover:scale-110 transform-all"
             />
             <h1 className="font-['B612'] font-bold pt-5 text-3xl">
               Trabajos de Investigación desarrollados en el Laboratorio
@@ -186,7 +205,7 @@ const SheetComponent = () => {
             <input
               className="w-11/12 pl-11 mt-5 bg-[#FFF8E4] p-3 rounded-xl ml-2 "
               type="text"
-              placeholder="Buscar un trabajo de investigación...."
+              placeholder="Ingrese el nombre del trabajo de investigación"
               value={searchTerm}
               onChange={handleSearchChange}
             />
@@ -205,16 +224,18 @@ const SheetComponent = () => {
             <p className=" font-['B612'] font-bold text-xl">
               Lista de Trabajos de investigación en el Laboratorio
             </p>
-            <div>
+            <div className="mb-20">
               <button
                 className="bg-manz-200 text-black font-bold py-2 px-4 rounded"
                 onClick={() => setOpen(true)}
               >
                 Agregar Trabajo
               </button>
-              <ModalCreatePurchase
+              <ModalCreateResearch
                 open={open}
                 setOpen={setOpen}
+                setToasterProperties={setToasterProperties}
+                showToast={showToast}
               />
             </div>
           </div>
@@ -245,13 +266,6 @@ const SheetComponent = () => {
                 />
               ))
             )}
-          </div>
-          {/* Para Mostrar mensaje de exito */}
-          <div className="mt-20 ml-10 mr-7">
-            <Toaster
-              message="Lista actualizada"
-              isVisible={toasterVisible}
-            />
           </div>
         </div>
         <Footer

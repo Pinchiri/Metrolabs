@@ -105,7 +105,6 @@ const SheetComponent = () => {
   //Función para traer la data de GoogleSheets
 
   const fetchData = async () => {
-    setToasterVisible(false);
     setLoading(true);
     try {
       const response = await fetch(materialURL);
