@@ -35,9 +35,12 @@ const style = {
 };
 
 // Componente de la ventana Modal PPD
-export const ModalCreatePurchase = ({ open, setOpen }) => {
-  const [toasterVisible, setToasterVisible] = useState(false);
-
+export const ModalCreateResearch = ({
+  open,
+  setOpen,
+  setToasterProperties,
+  showToast,
+}) => {
   // Valores del formulario
   const [formData, setFormData] = useState({
     students: " ",
@@ -75,15 +78,25 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
       if (response.ok) {
         const result = await response.json();
         console.log("Resultado de Google Sheets:", result);
+        setToasterProperties({
+          toasterMessage: "Se ha agregado el trabajo de investigación",
+          typeColor: "success",
+        });
         handleClose();
       } else {
         console.error("Error en el servidor al añadir fila");
-        console.log(response);
+        setToasterProperties({
+          toasterMessage: "No se ha agregado el trabajo de investigación",
+          typeColor: "error",
+        });
         handleClose();
-        setToasterVisible(true);
       }
     } catch (error) {
       console.error("Error al enviar datos al servidor:", error);
+      setToasterProperties({
+        toasterMessage: "No se ha agregado el trabajo de investigación",
+        typeColor: "error",
+      });
       handleClose();
     }
     setFormData({
@@ -93,17 +106,8 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
       endDate: " ",
       observations: " ",
     });
+    showToast();
   };
-
-  useEffect(() => {
-    if (toasterVisible) {
-      const timer = setTimeout(() => {
-        setToasterVisible(false);
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [toasterVisible]);
 
   return (
     <div>
@@ -218,13 +222,6 @@ export const ModalCreatePurchase = ({ open, setOpen }) => {
           </div>
         </Box>
       </Modal>
-
-      <div className="mt-20 ml-10 mr-7">
-        <Toaster
-          message="Inventario actualizado"
-          isVisible={toasterVisible}
-        />
-      </div>
     </div>
   );
 };

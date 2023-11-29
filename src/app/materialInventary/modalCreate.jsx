@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Modal,
   Button,
@@ -9,9 +9,9 @@ import {
   TextField,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import Toaster from "@/components/toast/toaster";
 import { locationLabels, brandLabels, capacityLabels } from "./comboBoxData";
 import { materialCreateURL } from "../api/routesURLs";
+import Toaster from "@/components/toast/toaster";
 
 // Estilos de la ventana Modal
 const style = {
@@ -29,9 +29,12 @@ const style = {
 };
 
 // Componente de la ventana Modal PPD
-export const ModalCreateMaterial = ({ open, setOpen }) => {
-  const [toasterVisible, setToasterVisible] = useState(false);
-
+export const ModalCreateMaterial = ({
+  open,
+  setOpen,
+  setToasterProperties,
+  showToast,
+}) => {
   // Valores del formulario
   const [formData, setFormData] = useState({
     material: "",
@@ -59,7 +62,6 @@ export const ModalCreateMaterial = ({ open, setOpen }) => {
   // Manejador de envío de datos al servidor
   const handleSubmit = async () => {
     try {
-      console.log(formData);
       const response = await fetch(materialCreateURL, {
         method: "POST",
         headers: {
@@ -76,9 +78,18 @@ export const ModalCreateMaterial = ({ open, setOpen }) => {
         console.error("Error en el servidor al añadir fila");
         console.log(response);
         handleClose();
-        setToasterVisible(true);
       }
+      setToasterProperties({
+        toasterMessage: "Se ha agregado el material",
+        typeColor: "success",
+      });
+      showToast();
     } catch (error) {
+      setToasterProperties({
+        toasterMessage: "No se ha podido agregar el material",
+        typeColor: "error",
+      });
+      showToast();
       console.error("Error al enviar datos al servidor:", error);
       handleClose();
     }
@@ -92,18 +103,8 @@ export const ModalCreateMaterial = ({ open, setOpen }) => {
     });
   };
 
-  useEffect(() => {
-    if (toasterVisible) {
-      const timer = setTimeout(() => {
-        setToasterVisible(false);
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [toasterVisible]);
-
   return (
-    <div>
+    <div className="">
       <Modal
         open={open}
         onClose={handleClose}
@@ -279,13 +280,6 @@ export const ModalCreateMaterial = ({ open, setOpen }) => {
           </div>
         </Box>
       </Modal>
-
-      <div className="mt-20 ml-10 mr-7">
-        <Toaster
-          message="Inventario actualizado"
-          isVisible={toasterVisible}
-        />
-      </div>
     </div>
   );
 };

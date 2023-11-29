@@ -18,6 +18,8 @@ import {
   reagentURL,
   reagentUpdateURL,
 } from "../api/routesURLs";
+import { useToaster } from "@/components/Toaster/hooks/useToaster";
+import Toast from "@/components/Toaster/Toast";
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
@@ -27,9 +29,12 @@ const SheetComponent = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [editData, setEditData] = useState(null);
-  const [deleteIndex, setDeleteIndex] = useState(null);
+  const [deleteIndex, setDeleteIndex] = useState(-1);
   const router = useRouter();
   const [open, setOpen] = useState(false);
+
+  const { isVisible, showToast, toasterProperties, setToasterProperties } =
+    useToaster();
 
   //Función para actualizar la data en GoogleSheets
   const updateData = async (rowIndex, rowData) => {
@@ -47,18 +52,23 @@ const SheetComponent = () => {
       }
       const result = await response.json();
       fetchData();
-      setToasterVisible(true);
-      setTimeout(() => {
-        setToasterVisible(false);
-      }, 3000);
+      setToasterProperties({
+        toasterMessage: "Se ha editado el reactivo",
+        typeColor: "success",
+      });
+      showToast();
     } catch (error) {
+      setToasterProperties({
+        toasterMessage: "No se ha podido editar el reactivo",
+        typeColor: "error",
+      });
+      showToast();
       console.error("Failed to update data", error);
     }
   };
 
   //Función para traer la data de GoogleSheets
   const fetchData = async () => {
-    setToasterVisible(false);
     setLoading(true);
     try {
       const response = await fetch(reagentURL);
@@ -67,10 +77,12 @@ const SheetComponent = () => {
       }
       const data = await response.json();
 
-      const dataWithIndex = data.map((item, index) => ({
-        ...item,
-        originalIndex: index,
-      }));
+      const dataWithIndex = data
+        .map((item, index) => ({
+          ...item,
+          originalIndex: index,
+        }))
+        .reverse();
 
       setData(dataWithIndex);
     } catch (error) {
@@ -98,19 +110,26 @@ const SheetComponent = () => {
           throw new Error("Network response was not ok");
         }
         fetchData();
-        setToasterVisible(true);
-        setTimeout(() => {
-          setToasterVisible(false);
-        }, 3000);
+        setToasterProperties({
+          toasterMessage: "Se ha borrado el reactivo",
+          typeColor: "success",
+        });
+        showToast();
       } catch (error) {
+        setToasterProperties({
+          toasterMessage: "No se ha podido borrar el reactivo",
+          typeColor: "error",
+        });
+        showToast();
         console.error("Failed to delete data", error);
       }
+      setDeleteIndex(-1);
     }
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [toasterProperties]);
 
   useEffect(() => {
     if (editIndex != null && editData != null) {
@@ -119,7 +138,7 @@ const SheetComponent = () => {
   }, [editIndex, editData]);
 
   useEffect(() => {
-    if (deleteIndex != null) {
+    if (deleteIndex > -1) {
       deleteData(deleteIndex);
     }
   }, [deleteIndex]);
@@ -155,11 +174,19 @@ const SheetComponent = () => {
   return (
     <>
       <ProfessorRoute>
+        {isVisible && (
+          <Toast
+            message={toasterProperties.toasterMessage}
+            isVisible={isVisible}
+            typeColor={toasterProperties.typeColor}
+          />
+        )}
         <div className="mt-12 ml-10 mr-7">
           <div className="flex flex-row gap-3">
             <ArrowBackIcon
               onClick={() => router.back()}
               style={{ marginTop: "25px" }}
+              className="cursor-pointer hover:scale-110 transform-all"
             />
             <h1 className="font-['B612'] font-bold pt-5 text-3xl">
               Inventario de Reactivos
@@ -196,7 +223,7 @@ const SheetComponent = () => {
             <p className=" font-['B612'] font-bold text-xl">
               Lista de Reactivos
             </p>
-            <div>
+            <div className="mb-20">
               <button
                 className="bg-manz-200 text-black font-bold py-2 px-4 rounded"
                 onClick={() => setOpen(true)}
@@ -206,6 +233,8 @@ const SheetComponent = () => {
               <ModalCreateReagent
                 open={open}
                 setOpen={setOpen}
+                setToasterProperties={setToasterProperties}
+                showToast={showToast}
               />
             </div>
           </div>

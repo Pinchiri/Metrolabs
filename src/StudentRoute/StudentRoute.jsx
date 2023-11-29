@@ -5,6 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase";
 import Spinner from "@/components/Spinner/spinner";
 import { useUserData } from "@/context/userContext";
+import { loginURL, professorPanelURL } from "@/constants/urls";
 
 const StudentRoute = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,17 +15,14 @@ const StudentRoute = ({ children }) => {
   useEffect(() => {
     if (!isUserLoading) {
       const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-        setIsLoading(true);
         if (firebaseUser && currentUser) {
           if (currentUser.isProfessor) {
-            setIsLoading(false);
-            router.push("/profesorPanel");
+            router.push(professorPanelURL);
           } else {
             setIsLoading(false);
           }
         } else {
-          setIsLoading(false);
-          router.push("/login");
+          router.push(loginURL);
         }
       });
       return () => {

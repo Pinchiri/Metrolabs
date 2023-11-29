@@ -38,7 +38,6 @@ const Login = () => {
         });
         showToast();
         setCurrentUser(null);
-        console.log("user seteado como null");
       } else {
         const userDocRef = await createUserDocumentFromAuth(user);
         const docSnapshot = await getDoc(userDocRef);

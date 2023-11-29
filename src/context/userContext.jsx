@@ -11,7 +11,6 @@ export const UserContext = createContext({
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [isUserLoading, setIsUserLoading] = useState(true);
-  const [isProfessor, setIsProfessor] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener(async (user) => {
@@ -23,6 +22,14 @@ export const UserProvider = ({ children }) => {
       ) {
         console.log(user);
       }
+      const whitelist = [
+        process.env.NEXT_PUBLIC_REACT_ADMIN_EMAIL_1,
+        process.env.NEXT_PUBLIC_REACT_ADMIN_EMAIL_2,
+        process.env.NEXT_PUBLIC_REACT_ADMIN_EMAIL_3,
+      ];
+      const isProfessor =
+        whitelist.includes(user.email) || user.email.endsWith("@unimet.edu.ve");
+      setCurrentUser({ ...user, isProfessor });
       setIsUserLoading(false);
     });
 
