@@ -20,16 +20,16 @@ export const UserProvider = ({ children }) => {
         (user.email.endsWith("@unimet.edu.ve") ||
           user.email.endsWith("@correo.unimet.edu.ve"))
       ) {
-        console.log(user);
+        const whitelist = [
+          process.env.NEXT_PUBLIC_REACT_ADMIN_EMAIL_1,
+          process.env.NEXT_PUBLIC_REACT_ADMIN_EMAIL_2,
+          process.env.NEXT_PUBLIC_REACT_ADMIN_EMAIL_3,
+        ];
+        const isProfessor =
+          whitelist.includes(user.email) ||
+          user.email.endsWith("@unimet.edu.ve");
+        setCurrentUser({ ...user, isProfessor });
       }
-      const whitelist = [
-        process.env.NEXT_PUBLIC_REACT_ADMIN_EMAIL_1,
-        process.env.NEXT_PUBLIC_REACT_ADMIN_EMAIL_2,
-        process.env.NEXT_PUBLIC_REACT_ADMIN_EMAIL_3,
-      ];
-      const isProfessor =
-        whitelist.includes(user.email) || user.email.endsWith("@unimet.edu.ve");
-      setCurrentUser({ ...user, isProfessor });
       setIsUserLoading(false);
     });
 

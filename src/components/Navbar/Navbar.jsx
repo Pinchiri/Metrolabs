@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import NavbarView from "./NavbarView";
-import { guidesURL, labURL, schedulesURL } from "@/constants/urls";
+import { guidesURL, labURL, loginURL, schedulesURL } from "@/constants/urls";
 import { useUserData } from "@/context/userContext";
 import { auth } from "../../../firebase";
 import { signOut } from "firebase/auth";
@@ -38,7 +38,7 @@ const Navbar = () => {
         console.error("Error during logout", error);
       }
     } else {
-      router.push("/login");
+      router.push(loginURL);
     }
   };
 

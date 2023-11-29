@@ -31,11 +31,8 @@ const LoginView = ({ logGoogleUser, isToasterVisible, toasterProperties }) => {
           className="w-[220px] h-12 self-center rounded-full mt-1"
           alt="Metrolabs Logo"
         />
-        <h1 className="font-['B612'] font-bold pt-5 text-3xl">
-          Ingeniería Química.
-        </h1>
         <h1 className="font-['B612'] font-bold pt-5 text-3xl text-center">
-          Lab.Procesos de Separación.
+          Laboratorio de Procesos de Separación
         </h1>
 
         <button
