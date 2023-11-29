@@ -29,7 +29,12 @@ const style = {
 };
 
 // Componente de la ventana Modal PPD
-export const ModalCreateMaterial = ({ open, setOpen }) => {
+export const ModalCreateMaterial = ({
+  open,
+  setOpen,
+  setToasterProperties,
+  showToast,
+}) => {
   const [toasterVisible, setToasterVisible] = useState(false);
 
   // Valores del formulario
@@ -59,7 +64,6 @@ export const ModalCreateMaterial = ({ open, setOpen }) => {
   // Manejador de envío de datos al servidor
   const handleSubmit = async () => {
     try {
-      console.log(formData);
       const response = await fetch(materialCreateURL, {
         method: "POST",
         headers: {
@@ -76,9 +80,18 @@ export const ModalCreateMaterial = ({ open, setOpen }) => {
         console.error("Error en el servidor al añadir fila");
         console.log(response);
         handleClose();
-        setToasterVisible(true);
       }
+      setToasterProperties({
+        toasterMessage: "Se ha agregado el material",
+        typeColor: "success",
+      });
+      showToast();
     } catch (error) {
+      setToasterProperties({
+        toasterMessage: "No se ha podido agregar el material",
+        typeColor: "error",
+      });
+      showToast();
       console.error("Error al enviar datos al servidor:", error);
       handleClose();
     }

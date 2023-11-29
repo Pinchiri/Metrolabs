@@ -18,6 +18,8 @@ import {
   materialURL,
   materialUpdateURL,
 } from "../api/routesURLs";
+import { useToaster } from "@/components/Toaster/hooks/useToaster";
+import Toast from "@/components/Toaster/Toast";
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
@@ -27,9 +29,12 @@ const SheetComponent = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [editData, setEditData] = useState(null);
-  const [deleteIndex, setDeleteIndex] = useState(null);
+  const [deleteIndex, setDeleteIndex] = useState(-1);
   const router = useRouter();
   const [open, setOpen] = useState(false);
+
+  const { isVisible, showToast, toasterProperties, setToasterProperties } =
+    useToaster();
 
   //Función para actualizar la data en GoogleSheets
   const updateData = async (rowIndex, rowData) => {
@@ -47,11 +52,17 @@ const SheetComponent = () => {
       }
       const result = await response.json();
       fetchData();
-      setToasterVisible(true);
-      setTimeout(() => {
-        setToasterVisible(false);
-      }, 3000);
+      setToasterProperties({
+        toasterMessage: "Se ha editado el material",
+        typeColor: "success",
+      });
+      showToast();
     } catch (error) {
+      setToasterProperties({
+        toasterMessage: "No se ha podido editar el material",
+        typeColor: "error",
+      });
+      showToast();
       console.error("Failed to update data", error);
     }
   };
@@ -74,14 +85,21 @@ const SheetComponent = () => {
           throw new Error("Network response was not ok");
         }
         fetchData();
-        setToasterVisible(true);
-        setTimeout(() => {
-          setToasterVisible(false);
-        }, 3000);
+        setToasterProperties({
+          toasterMessage: "Se ha borrado el material",
+          typeColor: "success",
+        });
+        showToast();
       } catch (error) {
+        setToasterProperties({
+          toasterMessage: "No se ha podido borrar el material",
+          typeColor: "error",
+        });
+        showToast();
         console.error("Failed to delete data", error);
       }
     }
+    setDeleteIndex(-1);
   };
 
   //Función para traer la data de GoogleSheets
@@ -101,7 +119,7 @@ const SheetComponent = () => {
         originalIndex: index,
       }));
 
-      setData(dataWithIndex);
+      setData(dataWithIndex.reverse());
     } catch (error) {
       setError(error);
     } finally {
@@ -111,16 +129,16 @@ const SheetComponent = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [toasterProperties]);
 
   useEffect(() => {
     if (editIndex != null && editData != null) {
       updateData(editIndex, editData);
     }
-  }, [editIndex, editData]);
+  }, [editData]);
 
   useEffect(() => {
-    if (deleteIndex != null) {
+    if (deleteIndex > -1) {
       deleteData(deleteIndex);
     }
   }, [deleteIndex]);
@@ -157,6 +175,13 @@ const SheetComponent = () => {
     <>
       <ProfessorRoute>
         <div className="mt-20 ml-10 mr-7">
+          {isVisible && (
+            <Toast
+              message={toasterProperties.toasterMessage}
+              isVisible={isVisible}
+              typeColor={toasterProperties.typeColor}
+            />
+          )}
           <div className="flex flex-row gap-3">
             <ArrowBackIcon
               onClick={() => router.back()}
@@ -178,7 +203,7 @@ const SheetComponent = () => {
             <input
               className="w-11/12 pl-11 mt-5 bg-[#FFF8E4] p-3 rounded-xl ml-2 "
               type="text"
-              placeholder="Buscar un material...."
+              placeholder="Ingrese el nombre del material"
               value={searchTerm}
               onChange={handleSearchChange}
             />
@@ -207,6 +232,8 @@ const SheetComponent = () => {
               <ModalCreateMaterial
                 open={open}
                 setOpen={setOpen}
+                setToasterProperties={setToasterProperties}
+                showToast={showToast}
               />
             </div>
           </div>

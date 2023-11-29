@@ -30,10 +30,8 @@ const Login = () => {
         });
         showToast();
         setCurrentUser(null);
-        console.log("user seteado como null");
       } else {
         setCurrentUser(user);
-        console.log("user seteado bien");
         const userDocRef = await createUserDocumentFromAuth(user);
         const docSnapshot = await getDoc(userDocRef);
         if (docSnapshot.exists()) {
