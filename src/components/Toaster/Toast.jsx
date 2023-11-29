@@ -15,7 +15,7 @@ const Toast = ({ message, typeColor, isVisible }) => {
   return (
     <div className="toast toast-top toast-end mt-20 z-40">
       <div
-        className={`alert ${type[typeColor]} shadow-md text-white font-semibold animate-fade-left`}
+        className={`alert ${type[typeColor]} shadow-md text-white font-semibold`}
       >
         <span>{message}</span>
       </div>

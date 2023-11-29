@@ -29,9 +29,12 @@ const style = {
 };
 
 // Componente de la ventana Modal PPD
-export const ModalCreateEquipment = ({ open, setOpen }) => {
-  const [toasterVisible, setToasterVisible] = useState(false);
-
+export const ModalCreateEquipment = ({
+  open,
+  setOpen,
+  setToasterProperties,
+  showToast,
+}) => {
   // Valores del formulario
   const [formData, setFormData] = useState({
     equipment: "",
@@ -73,14 +76,25 @@ export const ModalCreateEquipment = ({ open, setOpen }) => {
       if (response.ok) {
         const result = await response.json();
         console.log("Resultado de Google Sheets:", result);
+        setToasterProperties({
+          toasterMessage: "Se ha agregado el equipo",
+          typeColor: "success",
+        });
         handleClose();
       } else {
+        setToasterProperties({
+          toasterMessage: "No se ha podido agregar el equipo",
+          typeColor: "error",
+        });
         console.error("Error en el servidor al añadir fila");
         console.log(response);
         handleClose();
-        setToasterVisible(true);
       }
     } catch (error) {
+      setToasterProperties({
+        toasterMessage: "No se ha podido agregar el equipo",
+        typeColor: "error",
+      });
       console.error("Error al enviar datos al servidor:", error);
       handleClose();
     }
@@ -95,17 +109,8 @@ export const ModalCreateEquipment = ({ open, setOpen }) => {
       date: "",
       observations: "",
     });
+    showToast();
   };
-
-  useEffect(() => {
-    if (toasterVisible) {
-      const timer = setTimeout(() => {
-        setToasterVisible(false);
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [toasterVisible]);
 
   return (
     <div>
@@ -289,13 +294,6 @@ export const ModalCreateEquipment = ({ open, setOpen }) => {
           </div>
         </Box>
       </Modal>
-
-      <div className="mt-20 ml-10 mr-7">
-        <Toaster
-          message="Inventario actualizado"
-          isVisible={toasterVisible}
-        />
-      </div>
     </div>
   );
 };

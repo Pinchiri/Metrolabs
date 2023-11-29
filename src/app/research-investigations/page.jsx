@@ -147,6 +147,7 @@ const SheetComponent = () => {
           <ArrowBackIcon
             onClick={() => router.back()}
             style={{ marginTop: "25px" }}
+            className="cursor-pointer hover:scale-110 transform-all"
           />
           <h1 className="font-['B612'] font-bold pt-5 text-3xl">
             Trabajo de Investigación

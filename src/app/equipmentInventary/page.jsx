@@ -19,16 +19,16 @@ import {
   equipmentUpdateURL,
 } from "../api/routesURLs";
 import { useToaster } from "@/components/Toaster/hooks/useToaster";
+import Toast from "@/components/Toaster/Toast";
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
-  const [toasterVisible, setToasterVisible] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [editData, setEditData] = useState(null);
-  const [deleteIndex, setDeleteIndex] = useState(null);
+  const [deleteIndex, setDeleteIndex] = useState(-1);
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
@@ -50,14 +50,19 @@ const SheetComponent = () => {
         throw new Error("Network response was not ok");
       }
       const result = await response.json();
-      fetchData();
-      setToasterVisible(true);
-      setTimeout(() => {
-        setToasterVisible(false);
-      }, 3000);
+      setToasterProperties({
+        toasterMessage: "Se ha editado el equipo",
+        typeColor: "success",
+      });
     } catch (error) {
+      setToasterProperties({
+        toasterMessage: "No se ha podido editar el equipo",
+        typeColor: "error",
+      });
+
       console.error("Failed to update data", error);
     }
+    showToast();
   };
 
   //Función para eliminar la data en GoogleSheets
@@ -73,24 +78,32 @@ const SheetComponent = () => {
           },
           body: JSON.stringify({ rowIndex }),
         });
+        setToasterProperties({
+          toasterMessage: "Se ha borrado el equipo",
+          typeColor: "success",
+        });
         if (!response.ok) {
           console.log(response);
+          setToasterProperties({
+            toasterMessage: "No se ha podido editar el equipo",
+            typeColor: "error",
+          });
           throw new Error("Network response was not ok");
         }
-        fetchData();
-        setToasterVisible(true);
-        setTimeout(() => {
-          setToasterVisible(false);
-        }, 3000);
       } catch (error) {
+        setToasterProperties({
+          toasterMessage: "No se ha podido editar el equipo",
+          typeColor: "error",
+        });
         console.error("Failed to delete data", error);
       }
     }
+    showToast();
+    setDeleteIndex(-1);
   };
 
   //Función para traer la data de GoogleSheets
   const fetchData = async () => {
-    setToasterVisible(false);
     setLoading(true);
     try {
       const response = await fetch(equipmentURL);
@@ -99,10 +112,12 @@ const SheetComponent = () => {
       }
       const data = await response.json();
 
-      const dataWithIndex = data.map((item, index) => ({
-        ...item,
-        originalIndex: index,
-      }));
+      const dataWithIndex = data
+        .map((item, index) => ({
+          ...item,
+          originalIndex: index,
+        }))
+        .reverse();
 
       setData(dataWithIndex);
     } catch (error) {
@@ -114,10 +129,10 @@ const SheetComponent = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [toasterProperties]);
 
   useEffect(() => {
-    if (deleteIndex !== null) {
+    if (deleteIndex > -1) {
       deleteData(deleteIndex);
     }
   }, [deleteIndex]);
@@ -126,7 +141,7 @@ const SheetComponent = () => {
     if (editIndex !== null && editData !== null) {
       updateData(editIndex, editData);
     }
-  }, [editIndex, editData]);
+  }, [editData]);
 
   //Condicional para mostrar SPINNER si se está cargando
   if (isLoading)
@@ -159,11 +174,19 @@ const SheetComponent = () => {
   return (
     <>
       <ProfessorRoute>
+        {isVisible && (
+          <Toast
+            message={toasterProperties.toasterMessage}
+            isVisible={isVisible}
+            typeColor={toasterProperties.typeColor}
+          />
+        )}
         <div className="mt-12 ml-10 mr-7">
           <div className="flex flex-row gap-3">
             <ArrowBackIcon
               onClick={() => router.back()}
               style={{ marginTop: "25px" }}
+              className="cursor-pointer hover:scale-110 transform-all"
             />
             <h1 className="font-['B612'] font-bold pt-5 text-3xl">
               Inventario de Equipos
@@ -181,7 +204,7 @@ const SheetComponent = () => {
             <input
               className="w-11/12 pl-11 mt-5 bg-[#FFF8E4] p-3 rounded-xl ml-2 "
               type="text"
-              placeholder="Buscar un reactivo...."
+              placeholder="Ingrese el nombre de un Equipo"
               value={searchTerm}
               onChange={handleSearchChange}
             />
@@ -198,7 +221,7 @@ const SheetComponent = () => {
 
           <div className="mt-5 flex flex-col lg:flex-row gap-3 lg:gap-0 justify-between lg:mr-12 ">
             <p className=" font-['B612'] font-bold text-xl">Lista de Equipos</p>
-            <div>
+            <div className="mb-20">
               <button
                 className="bg-manz-200 text-black font-bold py-2 px-4 rounded"
                 onClick={() => setOpen(true)}
@@ -208,6 +231,8 @@ const SheetComponent = () => {
               <ModalCreateEquipment
                 open={open}
                 setOpen={setOpen}
+                setToasterProperties={setToasterProperties}
+                showToast={showToast}
               />
             </div>
           </div>
@@ -242,13 +267,6 @@ const SheetComponent = () => {
                 />
               ))
             )}
-          </div>
-
-          <div className="mt-20 ml-10 mr-7">
-            <Toaster
-              message="Inventario actualizado"
-              isVisible={toasterVisible}
-            />
           </div>
         </div>
         <Footer
