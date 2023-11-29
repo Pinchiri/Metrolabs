@@ -11,6 +11,7 @@ export const UserContext = createContext({
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [isUserLoading, setIsUserLoading] = useState(true);
+  const [isProfessor, setIsProfessor] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener(async (user) => {
@@ -20,11 +21,7 @@ export const UserProvider = ({ children }) => {
         (user.email.endsWith("@unimet.edu.ve") ||
           user.email.endsWith("@correo.unimet.edu.ve"))
       ) {
-        const isProfessor =
-          user.email.endsWith("@unimet.edu.ve") ||
-          user.email == "erika.hernandez@correo.unimet.edu.ve" ||
-          user.email == "rolando.sorrentino@correo.unimet.edu.ve";
-        setCurrentUser({ ...user, isProfessor });
+        console.log(user);
       }
       setIsUserLoading(false);
     });
