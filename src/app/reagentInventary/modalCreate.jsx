@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Modal,
   Button,
@@ -9,7 +9,6 @@ import {
   TextField,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import Toaster from "@/components/toast/toaster";
 import {
   riskLabels,
   locationLabels,
@@ -34,9 +33,12 @@ const style = {
 };
 
 // Componente de la ventana Modal PPD
-export const ModalCreateReagent = ({ open, setOpen }) => {
-  const [toasterVisible, setToasterVisible] = useState(false);
-
+export const ModalCreateReagent = ({
+  open,
+  setOpen,
+  setToasterProperties,
+  showToast,
+}) => {
   // Valores del formulario
   const [formData, setFormData] = useState({
     reactive: "",
@@ -78,14 +80,27 @@ export const ModalCreateReagent = ({ open, setOpen }) => {
       if (response.ok) {
         const result = await response.json();
         console.log("Resultado de Google Sheets:", result);
+        setToasterProperties({
+          toasterMessage: "Se ha agregado el reactivo",
+          typeColor: "success",
+        });
+        showToast();
         handleClose();
       } else {
         console.error("Error en el servidor al añadir fila");
-        console.log(response);
+        setToasterProperties({
+          toasterMessage: "No se ha podido agregar el reactivo",
+          typeColor: "error",
+        });
+        showToast();
         handleClose();
-        setToasterVisible(true);
       }
     } catch (error) {
+      setToasterProperties({
+        toasterMessage: "No se ha podido agregar el reactivo",
+        typeColor: "error",
+      });
+      showToast();
       console.error("Error al enviar datos al servidor:", error);
       handleClose();
     }
@@ -101,16 +116,6 @@ export const ModalCreateReagent = ({ open, setOpen }) => {
       observations: "",
     });
   };
-
-  useEffect(() => {
-    if (toasterVisible) {
-      const timer = setTimeout(() => {
-        setToasterVisible(false);
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [toasterVisible]);
 
   return (
     <div>
@@ -374,13 +379,6 @@ export const ModalCreateReagent = ({ open, setOpen }) => {
           </div>
         </Box>
       </Modal>
-
-      <div className="mt-20 ml-10 mr-7">
-        <Toaster
-          message="Inventario actualizado"
-          isVisible={toasterVisible}
-        />
-      </div>
     </div>
   );
 };

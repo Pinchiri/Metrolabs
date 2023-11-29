@@ -114,12 +114,14 @@ const SheetComponent = () => {
       }
       const data = await response.json();
 
-      const dataWithIndex = data.map((item, index) => ({
-        ...item,
-        originalIndex: index,
-      }));
+      const dataWithIndex = data
+        .map((item, index) => ({
+          ...item,
+          originalIndex: index,
+        }))
+        .reverse();
 
-      setData(dataWithIndex.reverse());
+      setData(dataWithIndex);
     } catch (error) {
       setError(error);
     } finally {
@@ -222,7 +224,7 @@ const SheetComponent = () => {
             <p className=" font-['B612'] font-bold text-xl">
               Lista de Materiales
             </p>
-            <div>
+            <div className="mb-20">
               <button
                 className="bg-manz-200 text-black font-bold py-2 px-4 rounded"
                 onClick={() => setOpen(true)}
@@ -265,13 +267,6 @@ const SheetComponent = () => {
                 />
               ))
             )}
-          </div>
-
-          <div className="mt-20 ml-10 mr-7">
-            <Toaster
-              message="Inventario actualizado"
-              isVisible={toasterVisible}
-            />
           </div>
         </div>
         <Footer

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Modal,
   Button,
@@ -9,9 +9,9 @@ import {
   TextField,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import Toaster from "@/components/toast/toaster";
 import { locationLabels, brandLabels, capacityLabels } from "./comboBoxData";
 import { materialCreateURL } from "../api/routesURLs";
+import Toaster from "@/components/toast/toaster";
 
 // Estilos de la ventana Modal
 const style = {
@@ -35,8 +35,6 @@ export const ModalCreateMaterial = ({
   setToasterProperties,
   showToast,
 }) => {
-  const [toasterVisible, setToasterVisible] = useState(false);
-
   // Valores del formulario
   const [formData, setFormData] = useState({
     material: "",
@@ -105,18 +103,8 @@ export const ModalCreateMaterial = ({
     });
   };
 
-  useEffect(() => {
-    if (toasterVisible) {
-      const timer = setTimeout(() => {
-        setToasterVisible(false);
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [toasterVisible]);
-
   return (
-    <div>
+    <div className="">
       <Modal
         open={open}
         onClose={handleClose}
@@ -292,13 +280,6 @@ export const ModalCreateMaterial = ({
           </div>
         </Box>
       </Modal>
-
-      <div className="mt-20 ml-10 mr-7">
-        <Toaster
-          message="Inventario actualizado"
-          isVisible={toasterVisible}
-        />
-      </div>
     </div>
   );
 };

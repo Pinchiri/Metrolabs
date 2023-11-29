@@ -18,6 +18,7 @@ import {
   researchURL,
   researchUpdateURL,
 } from "../api/routesURLs";
+import { useToaster } from "@/components/Toaster/hooks/useToaster";
 
 const SheetComponent = () => {
   const [data, setData] = useState([]);
@@ -30,6 +31,9 @@ const SheetComponent = () => {
   const [deleteIndex, setDeleteIndex] = useState(null);
   const router = useRouter();
   const [open, setOpen] = useState(false);
+
+  const { isVisible, showToast, toasterProperties, setToasterProperties } =
+    useToaster();
 
   //Función para traer la data en GoogleSheets
   const fetchData = async () => {

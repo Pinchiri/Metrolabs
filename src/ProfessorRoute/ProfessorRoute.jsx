@@ -5,7 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase";
 import Spinner from "@/components/Spinner/spinner";
 import { useUserData } from "@/context/userContext";
-import { studentPanelURL } from "@/constants/urls";
+import { loginURL, studentPanelURL } from "@/constants/urls";
 
 const ProfessorRoute = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,7 +22,7 @@ const ProfessorRoute = ({ children }) => {
             setIsLoading(false);
           }
         } else {
-          router.push("/login");
+          router.push(loginURL);
         }
       });
       return () => {
