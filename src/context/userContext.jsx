@@ -23,7 +23,6 @@ export const UserProvider = ({ children }) => {
         const whitelist = [
           process.env.NEXT_PUBLIC_REACT_ADMIN_EMAIL_1,
           process.env.NEXT_PUBLIC_REACT_ADMIN_EMAIL_2,
-          process.env.NEXT_PUBLIC_REACT_ADMIN_EMAIL_3,
         ];
         const isProfessor =
           whitelist.includes(user.email) ||
