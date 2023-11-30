@@ -64,9 +64,13 @@ const Reservations = () => {
     }
   }, [email]);
 
-  const filteredData = data.filter((item) =>
-    item.labName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredData =
+    data &&
+    data
+      .filter((item) =>
+        item.labName.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      .reverse();
 
   const noResults = filteredData.length === 0 && searchTerm;
 
@@ -139,6 +143,7 @@ const Reservations = () => {
                 </p>
               </div>
             ) : (
+              filteredData &&
               filteredData.map((item, index) => (
                 <div
                   className="px-4 mb-2"

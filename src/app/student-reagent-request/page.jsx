@@ -56,9 +56,11 @@ const SheetComponent = () => {
     }
   }, [email]);
 
-  const filteredData = data.filter((item) =>
-    item.email.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredData = data
+    .filter((item) =>
+      item.email.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .reverse();
 
   const noResults = filteredData.length === 0 && searchTerm;
 
@@ -70,16 +72,19 @@ const SheetComponent = () => {
     setSearchTerm("");
   };
 
+  console.log(filteredData);
+
   return (
     <>
       <StudentRoute>
-        <div className="flex flex-col justify-between min-h-screen">
+        <div className="flex flex-col justify-between mb-10">
           <div className="mt-20 ml-10 mr-7 ">
             {/* Título principal */}
             <div className="flex flex-row gap-3">
               <ArrowBackIcon
                 onClick={() => router.back()}
                 style={{ marginTop: "25px" }}
+                className="cursor-pointer hover:scale-110 transform-all"
               />
 
               <h1 className="font-['B612'] font-bold pt-5 text-3xl">
@@ -116,7 +121,7 @@ const SheetComponent = () => {
           </div>
 
           {/* Mapeo de la información de la reserva del estudiante */}
-          <div className="px-5 rounded-lg lg:mr-12 mt-2">
+          <div className="px-5 rounded-lg lg:mr-12 mt-8">
             {noResults ? (
               <div
                 className={`flex flex-col justify-center items-center bg-[#283C7C] p-10 rounded-md`}
@@ -154,7 +159,7 @@ const SheetComponent = () => {
                     tutorName={item.tutorName}
                     profesorName={item.profesorName}
                     profesorDepartment={item.profesorDepartment}
-                    status="Aprobado"
+                    status={item.status}
                     setEditIndex={setEditIndex}
                     setEditData={setEditData}
                     setDeleteIndex={setDeleteIndex}
