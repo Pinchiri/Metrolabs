@@ -139,6 +139,21 @@ const SheetComponent = () => {
     }
   }, [deleteIndex]);
 
+  // Para filtrar la data por el input de búsqueda
+  const filteredData = data.filter((item) =>
+    item.tesis.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const noResults = filteredData.length === 0 && searchTerm;
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const clearSearch = () => {
+    setSearchTerm("");
+  };
+
   // Para mostrar el spinner de carga
   if (isLoading)
     return (
@@ -156,22 +171,102 @@ const SheetComponent = () => {
         <Spinner />
       </>
     );
-  if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
+  if (error) {
+    if (isLoading) {
+      return (
+        <>
+          <div className="flex flex-row gap-3 mt-20 ml-8">
+            <ArrowBackIcon
+              onClick={() => router.back()}
+              style={{ marginTop: "25px" }}
+              className="cursor-pointer hover:scale-110 transform-all"
+            />
+            <h1 className="font-['B612'] font-bold pt-5 text-3xl">
+              Trabajo de Investigación
+            </h1>
+          </div>
+          <Spinner />
+        </>
+      );
+    }
 
-  // Para filtrar la data por el input de búsqueda
-  const filteredData = data.filter((item) =>
-    item.tesis.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+    return (
+      <ProfessorRoute>
+        {isVisible && (
+          <Toast
+            message={toasterProperties.toasterMessage}
+            isVisible={isVisible}
+            typeColor={toasterProperties.typeColor}
+          />
+        )}
+        <div className="mt-20 ml-10 mr-7 mb-10">
+          <div className="flex flex-row gap-3">
+            <ArrowBackIcon
+              onClick={() => router.back()}
+              style={{ marginTop: "25px" }}
+              className="cursor-pointer hover:scale-110 transform-all"
+            />
+            <h1 className="font-['B612'] font-bold pt-5 text-3xl">
+              Trabajos de Investigación desarrollados en el Laboratorio
+            </h1>
+          </div>
 
-  const noResults = filteredData.length === 0 && searchTerm;
+          <div>
+            <SearchIcon
+              style={{
+                position: "absolute",
+                marginLeft: "20px",
+                marginTop: "32px",
+              }}
+            />
+            <input
+              className="w-11/12 pl-11 mt-5 bg-[#FFF8E4] p-3 rounded-xl ml-2 "
+              type="text"
+              placeholder="Ingrese el nombre del trabajo de investigación"
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+            {searchTerm && (
+              <button
+                onClick={clearSearch}
+                className="ml-2"
+              >
+                <ClearIcon style={{ marginLeft: "-70px" }} />
+              </button>
+            )}
+          </div>
 
-  const clearSearch = () => {
-    setSearchTerm("");
-  };
+          <div className="mt-5 flex flex-col lg:flex-row gap-3 lg:gap-0 justify-between lg:mr-12 ">
+            <p className=" font-['B612'] font-bold text-xl">
+              Lista de Trabajos de investigación en el Laboratorio
+            </p>
+            <div className="mb-20">
+              <button
+                className="bg-manz-200 text-black font-bold py-2 px-4 rounded"
+                onClick={() => setOpen(true)}
+              >
+                Agregar Trabajo
+              </button>
+              <ModalCreateResearch
+                open={open}
+                setOpen={setOpen}
+                setToasterProperties={setToasterProperties}
+                showToast={showToast}
+              />
+            </div>
+          </div>
+
+          <div className="w-full bg-white rounded-lg ml-8 lg:mr-12 flex flex-col justify-center items-center text-center">
+            <h3 className="font-['B612'] font-bold pt-1 text-xl">
+              No hay trabajos de investigación registrados. Empieza agregando
+              uno!
+            </h3>
+          </div>
+        </div>
+      </ProfessorRoute>
+    );
+  }
 
   return (
     <>
