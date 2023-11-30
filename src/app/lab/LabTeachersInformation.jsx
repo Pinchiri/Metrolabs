@@ -1,7 +1,27 @@
+"use client"
+import React, { useState, useEffect } from 'react';
 import TeacherCard from "@/components/teachersCard/teachersCard";
-import TeachersInformation from "@/components/teachersCard/teachersInformation";
+import { fetchInformation } from "./FirebaseFetch";
+import Spinner from '@/components/Spinner/spinner';
 
 const LabTeachersInformation = () => {
+  const [teachersInformation, setTeachersInformation] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadProfessors = async () => {
+      setIsLoading(true); 
+      const professorsData = await fetchInformation("professors");
+      setTeachersInformation(professorsData);
+      setIsLoading(false); 
+    };
+    loadProfessors();
+  }, []); 
+
+  if (isLoading) {
+    return <Spinner/>
+  }
+
   return (
     <>
       <p
@@ -11,11 +31,11 @@ const LabTeachersInformation = () => {
         Nuestros Profesores
       </p>
       <div className="lg:grid lg:grid-cols-2 lg:gap-4">
-        {TeachersInformation.map((teacher, index) => (
+        {teachersInformation.map((teacher, index) => (
           <TeacherCard
             key={index}
             name={teacher.name}
-            imageURL={teacher.imageURL || "URL_de_imagen_predeterminada"}
+            imageURL={teacher.imgURL}
             education={teacher.education}
             email={teacher.email}
             interestAreas={teacher.interestAreas}
