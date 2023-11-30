@@ -24,11 +24,11 @@ export default function ManageClasses() {
 
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
-
   const [isLoading, setLoading] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [editData, setEditData] = useState(null);
   const [deleteIndex, setDeleteIndex] = useState(null);
+  const [reloadData, setReloadData] = useState(false);
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
@@ -40,13 +40,7 @@ export default function ManageClasses() {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-
-      const dataWithIndex = data.map((item, index) => ({
-        ...item,
-        originalIndex: index,
-      }));
-
-      setData(dataWithIndex);
+      setData(data.map((item, index) => ({ ...item, originalIndex: index })));
     } catch (error) {
       setError(error);
     } finally {
@@ -80,17 +74,19 @@ export default function ManageClasses() {
         toasterMessage: "Se ha actualizado la clase exitosamente!",
         typeColor: "success",
       });
-      setLoading(false);
-      showToast();
     } catch (error) {
       console.error("Failed to update data", error);
       setToasterProperties({
         toasterMessage: "No se ha podido actualizar la clase",
         typeColor: "error",
       });
-      setLoading(false);
+      setEditIndex(null);
       showToast();
+      setLoading(false);
     }
+
+    setEditIndex(null);
+    showToast();
     setLoading(false);
   };
 
@@ -123,14 +119,27 @@ export default function ManageClasses() {
           toasterMessage: "Se ha eliminado la clase exitosamente!",
           typeColor: "success",
         });
-        setLoading(false);
-        showToast();
       } catch (error) {
         console.error("Failed to delete data", error);
+        setToasterProperties({
+          toasterMessage: "No se ha podido eliminar la clase",
+          typeColor: "error",
+        });
+        setDeleteIndex(null);
         setLoading(false);
       }
+      setDeleteIndex(null); //para que no se quede en el estado de eliminado
+      setLoading(false);
+      showToast();
     }
   };
+
+  useEffect(() => {
+    if (reloadData || editIndex !== null || deleteIndex !== null) {
+      fetchData();
+      setReloadData(false);
+    }
+  }, [reloadData, editIndex, deleteIndex]);
 
   useEffect(() => {
     if (editIndex !== null && editData !== null) {
@@ -152,46 +161,34 @@ export default function ManageClasses() {
     fetchData();
   }, []);
 
-  if (isLoading)
-    return (
-      <>
-        <div className="flex flex-row gap-3 mt-20 ml-8">
-          <ArrowBackIcon
-            onClick={() => router.back()}
-            style={{ marginTop: "25px" }}
-          />
-          <h1 className="font-['B612'] font-bold pt-5 text-3xl">
-            Horarios de Clases
-          </h1>
-        </div>
-        <Spinner />
-      </>
-    );
-  if (error) return <div>Fallo al cargar los datos: {error.message}</div>;
-
-  return (
-    <ProfessorRoute>
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <div className="mt-12 ml-10 mr-7">
-          {isVisible ? (
-            <Toast
-              message={toasterProperties.toasterMessage}
-              typeColor={toasterProperties.typeColor}
-              isVisible={isVisible}
-            />
-          ) : (
-            <></>
-          )}
-
-          <div className="flex flex-row gap-3">
+  if (error) {
+    if (isLoading) {
+      return (
+        <>
+          <div className="flex flex-row gap-3 mt-20 ml-8">
             <ArrowBackIcon
               onClick={() => router.back()}
               style={{ marginTop: "25px" }}
             />
             <h1 className="font-['B612'] font-bold pt-5 text-3xl">
-              Horario de Clases
+              Horarios de Clases
+            </h1>
+          </div>
+          <Spinner />
+        </>
+      );
+    }
+
+    return (
+      <ProfessorRoute>
+        <div className=" gap-3 p-8">
+          <div className="flex flex-row gap-3 ">
+            <ArrowBackIcon
+              onClick={() => router.back()}
+              style={{ marginTop: "25px" }}
+            />
+            <h1 className="font-['B612'] font-bold pt-5 text-3xl">
+              Horarios de Clases
             </h1>
           </div>
 
@@ -212,6 +209,93 @@ export default function ManageClasses() {
                 setToasterProperties={setToasterProperties}
                 showToast={showToast}
                 setLoading={setLoading}
+                data={data}
+                onClassAdded={() => setReloadData(true)}
+              />
+            </div>
+          </div>
+
+          {/* Este div ha sido movido fuera de la estructura flex anterior y se le ha quitado la clase hover */}
+          <div className="w-full h-96 bg-white rounded-lg ml-8 lg:mr-12 flex flex-col justify-center items-center text-center">
+            <h3 className="font-['B612'] font-bold pt-1 text-xl">
+              No hay clases creadas. Empieza a crear clases ahora!
+            </h3>
+          </div>
+        </div>
+        <Footer
+          links={professorFooterLinks}
+          footerColor="primary"
+        />
+      </ProfessorRoute>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <>
+        <div className="flex flex-row gap-3 mt-20 ml-8">
+          <ArrowBackIcon
+            onClick={() => router.back()}
+            style={{ marginTop: "25px" }}
+          />
+          <h1 className="font-['B612'] font-bold pt-5 text-3xl">
+            Horarios de Clases
+          </h1>
+        </div>
+        <Spinner />
+
+        <Footer
+          links={professorFooterLinks}
+          footerColor="primary"
+        />
+      </>
+    );
+  }
+
+  return (
+    <ProfessorRoute>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <div className="mt-12 ml-10 mr-7">
+          {isVisible ? (
+            <Toast
+              message={toasterProperties.toasterMessage}
+              typeColor={toasterProperties.typeColor}
+              isVisible={isVisible}
+            />
+          ) : (
+            <></>
+          )}
+          <div className="flex flex-row gap-3">
+            <ArrowBackIcon
+              onClick={() => router.back()}
+              style={{ marginTop: "25px" }}
+            />
+            <h1 className="font-['B612'] font-bold pt-5 text-3xl">
+              Horarios de Clases
+            </h1>
+          </div>
+
+          <div className="mt-5 mb-5 flex flex-col lg:flex-row gap-3 lg:gap-0 justify-between lg:mr-12 ">
+            <p className=" font-['B612'] font-bold text-xl">Lista de Clases</p>
+
+            <div>
+              <button
+                className="bg-manz-200 text-black font-bold py-2 px-4 rounded"
+                onClick={() => setOpen(true)}
+              >
+                Agregar clase
+              </button>
+              <ModalAddClass
+                open={open}
+                setOpen={setOpen}
+                fetchData={fetchData}
+                setToasterProperties={setToasterProperties}
+                showToast={showToast}
+                setLoading={setLoading}
+                data={data}
+                onClassAdded={() => setReloadData(true)}
               />
             </div>
           </div>
