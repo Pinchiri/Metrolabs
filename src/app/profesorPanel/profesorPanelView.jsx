@@ -121,10 +121,6 @@ const ProfesorPanelView = ({ name }) => {
             </Link>
           </div>
         </div>
-        <Footer
-          links={professorFooterLinks}
-          footerColor="primary"
-        />
       </ProfessorRoute>
     </>
   );

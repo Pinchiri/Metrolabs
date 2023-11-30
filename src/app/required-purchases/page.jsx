@@ -272,10 +272,6 @@ const SheetComponent = () => {
 
           {/* Para mostrar no coincidencia en resultados */}
         </div>
-        <Footer
-          links={professorFooterLinks}
-          footerColor="primary"
-        />
       </ProfessorRoute>
     </>
   );

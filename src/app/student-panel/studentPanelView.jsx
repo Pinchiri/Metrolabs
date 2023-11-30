@@ -11,10 +11,8 @@ import {
   spacesAndEquipmentForm,
 } from "@/constants/urls";
 import StudentRoute from "@/StudentRoute/StudentRoute";
-import Footer from "@/components/Footer/Footer";
-import { getStudentFooterLinks } from "@/utils/footerUtils/hooks/useStudentFooterLinks";
 
-const StudentPanelView = ({ name, email, footerLinks }) => {
+const StudentPanelView = ({ name, email }) => {
   const username = email.split("@")[0];
   return (
     <>
@@ -103,10 +101,6 @@ const StudentPanelView = ({ name, email, footerLinks }) => {
             </Link>
           </div>
         </div>
-        <Footer
-          links={footerLinks}
-          footerColor="blue"
-        />
       </StudentRoute>
     </>
   );

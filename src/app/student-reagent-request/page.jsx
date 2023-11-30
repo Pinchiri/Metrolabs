@@ -1,23 +1,17 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import ResearchCard from "@/components/researchCard/researchCard";
 import SearchIcon from "@mui/icons-material/Search";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ClearIcon from "@mui/icons-material/Clear";
-import Spinner from "@/components/Spinner/spinner";
-import Toaster from "@/components/toast/toaster";
 import { useRouter, useSearchParams } from "next/navigation";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import StudentReagentCard from "@/components/studentReagentCard/studentReagentCard";
 import StudentRoute from "@/StudentRoute/StudentRoute";
-import Footer from "@/components/Footer/Footer";
-import useStudentFooterLinks from "@/utils/footerUtils/hooks/useStudentFooterLinks";
 
 const SheetComponent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const studentFooterLinks = useStudentFooterLinks();
 
   const email = searchParams.get("username") + "@correo.unimet.edu.ve";
   const username = email.split("@")[0];
@@ -169,10 +163,6 @@ const SheetComponent = () => {
               ))
             )}
           </div>
-          <Footer
-            links={studentFooterLinks}
-            footerColor="blue"
-          />
         </div>
       </StudentRoute>
     </>
