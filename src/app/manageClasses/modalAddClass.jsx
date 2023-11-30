@@ -177,10 +177,6 @@ export const ModalAddClass = ({
           toasterMessage: "Se ha añadido la clase exitosamente!",
           typeColor: "success",
         });
-        await fetchData();
-        onClassAdded();
-        setLoading(false);
-        showToast();
       } else {
         console.error("Error en el servidor al añadir fila");
         console.log(response);
@@ -188,8 +184,6 @@ export const ModalAddClass = ({
           toasterMessage: "No se ha podido añadir la clase",
           typeColor: "error",
         });
-        setLoading(false);
-        showToast();
       }
     } catch (error) {
       console.error("Error al enviar datos al servidor:", error);
@@ -208,6 +202,10 @@ export const ModalAddClass = ({
       start: "",
       end: "",
     });
+
+    fetchData();
+    onClassAdded();
+    showToast();
     setLoading(false);
   };
 

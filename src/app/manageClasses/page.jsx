@@ -8,8 +8,6 @@ import ClassesList from "@/components/ClassesCard/ClassesList";
 import { ModalAddClass } from "./modalAddClass";
 import { useRouter } from "next/navigation";
 import ProfessorRoute from "@/ProfessorRoute/ProfessorRoute";
-import Footer from "@/components/Footer/Footer";
-import { professorFooterLinks } from "@/utils/footerUtils/professorFooterLinks";
 import Toast from "@/components/Toaster/Toast";
 import { useToaster } from "@/components/Toaster/hooks/useToaster.jsx";
 import {
@@ -135,21 +133,23 @@ export default function ManageClasses() {
   };
 
   useEffect(() => {
-    if (reloadData || editIndex !== null || deleteIndex !== null) {
+    if (reloadData) {
       fetchData();
       setReloadData(false);
     }
-  }, [reloadData, editIndex, deleteIndex]);
+  }, [reloadData]);
 
   useEffect(() => {
     if (editIndex !== null && editData !== null) {
       updateData(editIndex, editData);
+      setReloadData(false);
     }
   }, [editIndex, editData]);
 
   useEffect(() => {
     if (deleteIndex !== null) {
       deleteData(deleteIndex);
+      setReloadData(false);
     }
   }, [deleteIndex]);
 
@@ -164,7 +164,14 @@ export default function ManageClasses() {
   if (error) {
     if (isLoading) {
       return (
-        <>
+        <ProfessorRoute>
+          {isVisible && (
+            <Toast
+              message={toasterProperties.toasterMessage}
+              typeColor={toasterProperties.typeColor}
+              isVisible={isVisible}
+            />
+          )}
           <div className="flex flex-row gap-3 mt-20 ml-8">
             <ArrowBackIcon
               onClick={() => router.back()}
@@ -174,13 +181,21 @@ export default function ManageClasses() {
               Horarios de Clases
             </h1>
           </div>
+
           <Spinner />
-        </>
+        </ProfessorRoute>
       );
     }
 
     return (
       <ProfessorRoute>
+        {isVisible && (
+          <Toast
+            message={toasterProperties.toasterMessage}
+            typeColor={toasterProperties.typeColor}
+            isVisible={isVisible}
+          />
+        )}
         <div className=" gap-3 p-8">
           <div className="flex flex-row gap-3 ">
             <ArrowBackIcon
@@ -215,17 +230,12 @@ export default function ManageClasses() {
             </div>
           </div>
 
-          {/* Este div ha sido movido fuera de la estructura flex anterior y se le ha quitado la clase hover */}
           <div className="w-full h-96 bg-white rounded-lg ml-8 lg:mr-12 flex flex-col justify-center items-center text-center">
             <h3 className="font-['B612'] font-bold pt-1 text-xl">
               No hay clases creadas. Empieza a crear clases ahora!
             </h3>
           </div>
         </div>
-        <Footer
-          links={professorFooterLinks}
-          footerColor="primary"
-        />
       </ProfessorRoute>
     );
   }
@@ -233,6 +243,13 @@ export default function ManageClasses() {
   if (isLoading) {
     return (
       <>
+        {isVisible && (
+          <Toast
+            message={toasterProperties.toasterMessage}
+            typeColor={toasterProperties.typeColor}
+            isVisible={isVisible}
+          />
+        )}
         <div className="flex flex-row gap-3 mt-20 ml-8">
           <ArrowBackIcon
             onClick={() => router.back()}
@@ -243,11 +260,6 @@ export default function ManageClasses() {
           </h1>
         </div>
         <Spinner />
-
-        <Footer
-          links={professorFooterLinks}
-          footerColor="primary"
-        />
       </>
     );
   }
@@ -258,14 +270,12 @@ export default function ManageClasses() {
         <Spinner />
       ) : (
         <div className="mt-12 ml-10 mr-7">
-          {isVisible ? (
+          {isVisible && (
             <Toast
               message={toasterProperties.toasterMessage}
               typeColor={toasterProperties.typeColor}
               isVisible={isVisible}
             />
-          ) : (
-            <></>
           )}
           <div className="flex flex-row gap-3">
             <ArrowBackIcon
