@@ -6,7 +6,7 @@ import { getSheetData } from "../sheetsFunctions";
 const range = "Investigación!B4:F";
 
 const endpointAttributes = [
-  "student",
+  "students",
   "tesis",
   "startDate",
   "endDate",

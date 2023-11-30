@@ -11,8 +11,6 @@ import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
-import Footer from "@/components/Footer/Footer";
-import { professorFooterLinks } from "@/utils/footerUtils/professorFooterLinks";
 import {
   requiredPurchasesURL,
   researchInvestigationsURL,
@@ -69,15 +67,6 @@ const ProfesorPanelView = ({ name }) => {
               </div>
             </Link>
 
-            <Link href="">
-              <div className="bg-white h-32 px-4 py-20 md:px-5 md:py-10 rounded-lg mt-3 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer">
-                <p className="font-['B612'] font-bold pt-1 text-xl">
-                  Equipos en calidad de préstamo
-                </p>
-                <ConstructionIcon style={{ width: "40px", height: "40px" }} />
-              </div>
-            </Link>
-
             <Link href={requiredPurchasesURL}>
               <div className="bg-white h-32 px-4 py-20 md:px-5 md:py-10 rounded-lg mt-3 ml-8 lg:mr-12 gap-2 flex flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer">
                 <p className="font-['B612'] font-bold pt-1 text-xl">
@@ -93,6 +82,15 @@ const ProfesorPanelView = ({ name }) => {
                   Trabajos de Investigación en el Laboratorio
                 </p>
                 <AssignmentIcon style={{ width: "40px", height: "40px" }} />
+              </div>
+            </Link>
+
+            <Link href="">
+              <div className="bg-white h-32 px-4 py-20 md:px-5 md:py-10 rounded-lg mt-3 ml-8 lg:mr-12 gap-2 hidden flex-col justify-center items-center text-center transition-transform hover:scale-105 hover:bg-gray-100 cursor-pointer">
+                <p className="font-['B612'] font-bold pt-1 text-xl">
+                  Equipos en calidad de préstamo
+                </p>
+                <ConstructionIcon style={{ width: "40px", height: "40px" }} />
               </div>
             </Link>
 
