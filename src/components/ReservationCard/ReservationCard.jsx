@@ -24,11 +24,13 @@ const ReservationCard = ({
 }) => {
   const checkValue = (value) => (value ? value : "No especificado");
   const statusColor =
-    status === "Aprobado"
+    status == "Aprobado"
       ? "bg-green-500"
-      : status === "Rechazado"
+      : status == "Rechazado"
       ? "bg-red-500"
-      : status === "En proceso"
+      : status == "Pendiente"
+      ? "bg-yellow-500"
+      : status == null
       ? "bg-yellow-500"
       : "bg-gray-500";
 
@@ -48,6 +50,7 @@ const ReservationCard = ({
           {/* Casilla de estado con color */}
           <div className={`${statusColor} text-white p-2 rounded-lg mr-2`}>
             {status}
+            {status == null && "Pendiente"}
           </div>
         </div>
       </AccordionSummary>

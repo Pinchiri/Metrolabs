@@ -3,8 +3,7 @@ import { revalidatePath } from "next/cache";
 import { NextRequest } from "next/server";
 import { getSheetData } from "../sheetsFunctions";
 
-const range =
-  "Solicitud de reactivo: laboratorio de procesos de separación!A2:P";
+const range = "Copia Solicitud de Reactivos!A2:Q";
 
 const endpointAttributes = [
   "date",
@@ -23,6 +22,7 @@ const endpointAttributes = [
   "tutorName",
   "profesorName",
   "profesorDepartment",
+  "status",
 ];
 
 export async function GET(request) {

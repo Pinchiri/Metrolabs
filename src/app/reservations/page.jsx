@@ -64,9 +64,13 @@ const Reservations = () => {
     }
   }, [email]);
 
-  const filteredData = data.filter((item) =>
-    item.email.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredData =
+    data &&
+    data
+      .filter((item) =>
+        item.labName.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      .reverse();
 
   const noResults = filteredData.length === 0 && searchTerm;
 
@@ -81,13 +85,14 @@ const Reservations = () => {
   return (
     <>
       <StudentRoute>
-        <div className="flex flex-col justify-between min-h-screen">
+        <div className="flex flex-col justify-between mb-10">
           <div className="mt-20 ml-10 mr-7 ">
             {/* Título principal */}
             <div className="flex flex-row gap-3">
               <ArrowBackIcon
                 onClick={() => router.back()}
                 style={{ marginTop: "25px" }}
+                className="cursor-pointer hover:scale-110 transform-all"
               />
 
               <h1 className="font-['B612'] font-bold pt-5 text-3xl">
@@ -107,7 +112,7 @@ const Reservations = () => {
               <input
                 className="w-11/12 pl-11 mt-5 bg-[#C0CCF0] p-3 rounded-xl ml-2 placeholder-black "
                 type="text"
-                placeholder="Buscar una reserva"
+                placeholder="Ingrese el Nombre del Espacio/Equipo reservado"
                 value={searchTerm}
                 onChange={handleSearchChange}
               />
@@ -124,7 +129,7 @@ const Reservations = () => {
           </div>
 
           {/* Mapeo de la información de la reserva del estudiante */}
-          <div className="px-5 rounded-lg lg:mr-12 mt-2">
+          <div className="px-5 rounded-lg lg:mr-12 mt-8">
             {noResults ? (
               <div
                 className={`flex flex-col justify-center items-center bg-[#283C7C] p-10 rounded-md`}
@@ -138,6 +143,7 @@ const Reservations = () => {
                 </p>
               </div>
             ) : (
+              filteredData &&
               filteredData.map((item, index) => (
                 <div
                   className="px-4 mb-2"
@@ -145,6 +151,7 @@ const Reservations = () => {
                 >
                   <ReservationCard
                     key={item.originalIndex}
+                    status={item.status}
                     index={item.originalIndex}
                     date={item.date}
                     email={item.email}
@@ -160,7 +167,6 @@ const Reservations = () => {
                     tutorName={item.tutorName}
                     profesorName={item.professorName}
                     profesorDepartment={item.professorDepartment}
-                    status="Aprobado"
                     setEditIndex={setEditIndex}
                     setEditData={setEditData}
                     setDeleteIndex={setDeleteIndex}
