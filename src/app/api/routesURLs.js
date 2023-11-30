@@ -36,3 +36,6 @@ export const getRequiredPurchasesURL = "/api/sheetsRequiredPurchases";
 export const requiredPurchasesCreateURL = "/api/sheetsRequiredPurchases/create";
 export const requiredPurchasesUpdateURL = "/api/sheetsRequiredPurchases/update";
 export const requiredPurchasesDeleteURL = "/api/sheetsRequiredPurchases/delete";
+
+// Drive
+export const driveURL = "/api/drive";
