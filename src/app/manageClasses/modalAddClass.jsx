@@ -54,6 +54,8 @@ export const ModalAddClass = ({
   setToasterProperties,
   showToast,
   setLoading,
+  data,
+  onClassAdded,
 }) => {
   const [sendData, setSendData] = useState(false);
 
@@ -87,7 +89,6 @@ export const ModalAddClass = ({
   const handleSubmit = async () => {
     handleClose();
     setLoading(true);
-    // Validar que no haya campos vacíos
     formData.start = dayjs(formData.start, "HH:mm").format("h:mm A");
     formData.end = dayjs(formData.end, "HH:mm").format("h:mm A");
 
@@ -95,12 +96,69 @@ export const ModalAddClass = ({
       if (formData[key] === "") {
         setToasterProperties({
           toasterMessage: "No puede haber campos vacíos",
-          typeColor: "red",
+          typeColor: "error",
         });
         setLoading(false);
         showToast();
         return;
       }
+    }
+
+    // Validamos que no se agregue una clase existente
+    const classExists = data.some(
+      (item) =>
+        item.className === formData.className &&
+        item.professor === formData.professor &&
+        item.trimester === formData.trimester &&
+        item.day === formData.day &&
+        item.start === formData.start &&
+        item.end === formData.end
+    );
+
+    if (classExists) {
+      setToasterProperties({
+        toasterMessage: "Esta clase ya existe",
+        typeColor: "red",
+      });
+      setLoading(false);
+      showToast();
+      return;
+    }
+
+    //Verificar de que no haya choque de horarios
+    const possibleConflicts = data.filter(
+      (item) =>
+        item.day === formData.day && item.trimester === formData.trimester
+    );
+    const start = dayjs(formData.start, "h:mm A");
+    const end = dayjs(formData.end, "h:mm A");
+    const newClassTime = { start, end };
+    const conflicts = possibleConflicts.some((item) => {
+      const itemStart = dayjs(item.start, "h:mm A");
+      const itemEnd = dayjs(item.end, "h:mm A");
+
+      return (
+        ((newClassTime.start.isSame(itemStart) ||
+          newClassTime.start.isBefore(itemEnd)) &&
+          (newClassTime.start.isAfter(itemStart) ||
+            newClassTime.start.isSame(itemStart))) ||
+        ((newClassTime.end.isSame(itemEnd) ||
+          newClassTime.end.isAfter(itemStart)) &&
+          (newClassTime.end.isBefore(itemEnd) ||
+            newClassTime.end.isSame(itemEnd))) ||
+        (newClassTime.start.isBefore(itemStart) &&
+          newClassTime.end.isAfter(itemEnd))
+      );
+    });
+
+    if (conflicts) {
+      setToasterProperties({
+        toasterMessage: "Esta clase choca con otra clase existente",
+        typeColor: "error",
+      });
+      setLoading(false);
+      showToast();
+      return;
     }
 
     try {
@@ -114,12 +172,13 @@ export const ModalAddClass = ({
 
       if (response.ok) {
         const result = await response.json();
-        console.log("Resultado de Google Sheets:", result);
+
         setToasterProperties({
           toasterMessage: "Se ha añadido la clase exitosamente!",
           typeColor: "success",
         });
         await fetchData();
+        onClassAdded();
         setLoading(false);
         showToast();
       } else {
