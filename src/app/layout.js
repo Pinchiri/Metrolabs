@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer/Footer";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import Toast from "@/components/Toaster/Toast";
@@ -16,10 +17,9 @@ export default function RootLayout({ children }) {
       <body>
         <UserProvider>
           <div className="flex flex-col font-sans">
-            <div className="w-full max-w-screen mb-14">
-              <Navbar />
-            </div>
-            <div className="z-0">{children}</div>
+            <Navbar />
+            <div className="z-0 mt-20">{children}</div>
+            <Footer />
           </div>
         </UserProvider>
       </body>

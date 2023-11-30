@@ -16,7 +16,7 @@ const LoginView = ({ logGoogleUser, isToasterVisible, toasterProperties }) => {
           typeColor={toasterProperties.typeColor}
         />
       )}
-      <div className="ml-6  mt-20 lg:pt-8 flex flex-col items-center justify-center gap-6">
+      <div className="ml-6  mt-20 lg:pt-8 flex flex-col items-center justify-center gap-6 mb-20">
         <Image
           src={Unimet.src}
           width={524}

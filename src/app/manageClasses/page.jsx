@@ -313,11 +313,6 @@ export default function ManageClasses() {
           </div>
         </div>
       )}
-
-      <Footer
-        links={professorFooterLinks}
-        footerColor="primary"
-      />
     </ProfessorRoute>
   );
 }

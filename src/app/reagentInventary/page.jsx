@@ -279,10 +279,6 @@ const SheetComponent = () => {
             />
           </div>
         </div>
-        <Footer
-          links={professorFooterLinks}
-          footerColor="primary"
-        />
       </ProfessorRoute>
     </>
   );

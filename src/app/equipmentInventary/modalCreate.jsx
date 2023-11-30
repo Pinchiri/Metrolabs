@@ -87,7 +87,6 @@ export const ModalCreateEquipment = ({
           typeColor: "error",
         });
         console.error("Error en el servidor al añadir fila");
-        console.log(response);
         handleClose();
       }
     } catch (error) {

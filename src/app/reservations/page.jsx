@@ -169,10 +169,6 @@ const Reservations = () => {
               ))
             )}
           </div>
-          <Footer
-            links={studentFooterLinks}
-            footerColor="blue"
-          />
         </div>
       </StudentRoute>
     </>

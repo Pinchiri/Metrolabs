@@ -1,7 +1,30 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from 'react';
 import Equipment from "../../assets/Equipos.PNG";
+import { fetchInformation } from "./FirebaseFetch";
+import Spinner from "@/components/Spinner/spinner";
 
 const LabEquipment = () => {
+  const [equipmentsInformation, setEquipmentsInformation] = useState([]);
+  const [reagentInformation, setReagentsInformation] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadEquipmentsAndReagents = async () => {
+      setIsLoading(true); // Iniciar la carga
+      const equipmentsData = await fetchInformation("equipments");
+      setEquipmentsInformation(equipmentsData);
+      const reagentsData = await fetchInformation("reagents");
+      setReagentsInformation(reagentsData);
+      setIsLoading(false); // Finalizar la carga
+    };
+    loadEquipmentsAndReagents();
+  }, []);
+
+  if (isLoading) {
+    return <Spinner />; 
+  }
+
   return (
     <div
       className="w-full flex flex-col mt-2 mb-10"
@@ -22,16 +45,9 @@ const LabEquipment = () => {
           </p>
           <div className="w-[max] pl-16 pr-10 animate-fade-right">
             <ul className="list-disc pt-5 ml-5 lg:ml-10">
-              <li className="pb-2">Refractómetro</li>
-              <li className="pb-2">Equipo de Destilación Continua.</li>
-              <li className="pb-2">Equipo de Destilación por Carga.</li>
-              <li className="pb-2">Equipo de Fluidización.</li>
-              <li className="pb-2">Equipo de Secado por Convección.</li>
-              <li className="pb-2">Equipo de Absorción.</li>
-              <li className="pb-2">
-                Equipo de Filtración a Presión Constante.
-              </li>
-              <li className="pb-2">Equipo de Extracción Líq-Líq.</li>
+              {equipmentsInformation.map((equipment, index) => (
+                <li key={index} className="pb-2">{equipment.name}</li>
+              ))}
             </ul>
           </div>
         </div>
@@ -41,36 +57,10 @@ const LabEquipment = () => {
             Reactivos
           </p>
           <div className="w-[max] pl-16 pr-10 animate-fade-right">
-            <ul className="list-disc pt-5 ml-5 lg:ml-10">
-              <li className="pb-2">
-                Tierra Diatomea (SiO2): 1 tambor, 150 litros.
-              </li>
-              <li className="pb-2">
-                Alcohol Isopropílico (C3H7OH): 1 tambor, 10-20 galones.
-              </li>
-              <li className="pb-2">
-                Alcohol Isopropílico (C3H7OH): 1 tambor, 15-50 galones.
-              </li>
-              <li className="pb-2">Alcohol Isopropílico (C3H7OH): 1 galón.</li>
-              <li className="pb-2">
-                N-Butanol (C4H10O): 2 tambores, 30-50 galones c/u.
-              </li>
-              <li className="pb-2">Hexano (C6H14): 1 tambor, 40-50 galones.</li>
-              <li className="pb-2">Hexano (C6H14): 1 tambor, 20-40 galones.</li>
-              <li className="pb-2">
-                Parafina Refinada (CnH2n+2): 16 sacos, 24 kilogramos en total.
-              </li>
-              <li className="pb-2">
-                Sal Industrial (NaCl): 1 saco, 20 kilogramos.
-              </li>
-              <li className="pb-2">
-                Aceite ISO 46: 1 tambor turbolub, 10-20 galones.
-              </li>
-              <li className="pb-2">Venotherm 32: 1 tambor, 10-30 galones.</li>
-              <li className="pb-2">
-                Carbonato de Calcio (CaCO3): 4 envaces de 5 kilogramos, 20
-                kilogramos total.
-              </li>
+          <ul className="list-disc pt-5 ml-5 lg:ml-10">
+              {reagentInformation.map((reagent, index) => (
+                <li key={index} className="pb-2">{reagent.name}</li>
+              ))}
             </ul>
           </div>
         </div>

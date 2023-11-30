@@ -3,17 +3,29 @@
 import React, { useState, useEffect } from "react";
 import GuideCard from "@/components/guideCard/guideCard";
 import Spinner from "@/components/Spinner/spinner";
+import { driveURL } from "../api/routesURLs";
+import GuidesView from "./GuidesView";
 
 function DrivePage() {
-  const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [manuals, setManuals] = useState([]);
 
   useEffect(() => {
     async function fetchFiles() {
       try {
-        const response = await fetch("/api/drive");
+        const response = await fetch(driveURL);
         const data = await response.json();
-        setFiles(data.files);
+
+        const manualsFormatted = data.files.map((file) => {
+          const fileUrl = `https://drive.google.com/file/d/${file.id}/view`;
+          return {
+            title: file.name,
+            subtitle: "Manual de laboratorio",
+            url: fileUrl,
+          };
+        });
+
+        setManuals(manualsFormatted);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching files:", error);
@@ -28,7 +40,7 @@ function DrivePage() {
     return (
       <>
         {" "}
-        <h1 className="font-['B612'] ml-10 mt-20 pt-12 font-bold pt-5 text-3xl">
+        <h1 className="font-['B612'] ml-10 mt-20 font-bold pt-5 text-3xl">
           {" "}
           Manuales de Laboratorio{" "}
         </h1>{" "}
@@ -37,25 +49,7 @@ function DrivePage() {
     );
   }
 
-  return (
-    <div className="h-screen pl-10 pt-28 text-2xl font-bold">
-      <h1 className="font-['B612'] pt-5 pb-10 text-3xl">
-        {" "}
-        Manuales de Laboratorio{" "}
-      </h1>
-      {files.map((file, index) => {
-        const fileUrl = `https://drive.google.com/file/d/${file.id}/view`;
-        return (
-          <GuideCard
-            key={index}
-            title={file.name}
-            subtitle="Manual de Laboratorio"
-            pdfUrl={fileUrl}
-          />
-        );
-      })}
-    </div>
-  );
+  return <GuidesView manuals={manuals} />;
 }
 
 export default DrivePage;
